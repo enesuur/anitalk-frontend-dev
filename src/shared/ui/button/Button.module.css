@@ -1,0 +1,43 @@
+.container {
+  padding: 8px;
+  color: var(--white);
+  opacity: var(--opacity);
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  background-color: var(--soft-dark);
+  cursor: pointer;
+  transition: border-color, opacity 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--spacing-base);
+  user-select: none;
+}
+
+.container:hover {
+  border-color: var(--white);
+  opacity: 1;
+}
+
+.container.disabled {
+  background-color: var(--dark);
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 3px solid var(--faded-white);
+  border-top: 3px solid var(--orange);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

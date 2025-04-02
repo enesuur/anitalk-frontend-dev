@@ -1,0 +1,23 @@
+.dividerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: var(--spacing-sm);
+  }
+  
+  .dividerContainer::before,
+  .dividerContainer::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--faded-white);
+  }
+  
+  .dividerText {
+    font-size: var(--font-size-base);
+    margin: 0 var(--spacing-sm);
+    color: var(--white);
+    opacity: 0.8;
+  }
+  

@@ -1,0 +1,63 @@
+.composerContainer {
+  width: 100%;
+}
+
+.tabControl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: max-content;
+  margin: auto;
+  color: var(--white);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-xxl);
+  user-select: none;
+}
+
+.tabControl li {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tabControl li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: var(--spacing-base);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: var(--border-radius);
+}
+
+.tabItem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 1;
+}
+
+.tabControl li.active {
+  color: var(--white);
+  opacity: 1;
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4xl);
+}

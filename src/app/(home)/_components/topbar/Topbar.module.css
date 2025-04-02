@@ -1,0 +1,48 @@
+.textHeader {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  letter-spacing: -0.01px;
+  color: var(--white);
+  user-select: none;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.topbarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  user-select: none;
+}
+
+.topbarList {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  column-gap: var(--spacing-xl);
+}
+
+.tabItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: var(--spacing-md);
+  padding: 8px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: var(--white);
+  font-size: var(--font-size-base);
+  width: max-content;
+  border: 1px solid var(--background-color);
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+.tabItem:hover {
+  transform: scale(1.05);
+  border-color: var(--faded-white);
+}
+
+.active {
+  border-bottom: 3px solid #333;
+}
