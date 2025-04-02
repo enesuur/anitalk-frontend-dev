@@ -1,0 +1,33 @@
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: var(--spacing-base);
+    user-select: none;
+  }
+  
+  .checkboxInput {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .checkboxBox {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--faded-white);
+    border-radius: 6px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: transparent;
+  }
+
+  .checkboxLabel {
+    font-size: 16px;
+    color: var(--white);
+    font-weight: 500;
+  }
+  

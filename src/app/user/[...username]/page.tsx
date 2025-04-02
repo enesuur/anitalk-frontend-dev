@@ -18,7 +18,11 @@ import {
   CheckCircle,
   MinusCircle,
   Calendar,
+  Book,
+  Globe,
 } from 'lucide-react';
+import AlertModal from '@/components/modals/alert/AlertModal';
+import ReportModal from '@/components/modals/report/ReportModal';
 
 type Tab = {
   label: string;
@@ -27,7 +31,9 @@ type Tab = {
 
 type TabChangerProps = {
   activeTab: number;
-  setActiveTab: (tab: number) => void;
+  setActiveTab: (param: number) => void;
+  setAlertModal: (state: boolean) => void;
+  setReportModal: (state: boolean) => void;
 };
 
 type State = {
@@ -50,7 +56,12 @@ const reducer = (state: State, action: Action): State => {
 
 const ICON_SIZE = 16;
 
-const TabChanger: React.FC<TabChangerProps> = ({ activeTab, setActiveTab }) => {
+const TabChanger: React.FC<TabChangerProps> = ({
+  activeTab,
+  setActiveTab,
+  setAlertModal,
+  setReportModal,
+}) => {
   const [state, dispatch] = useReducer(reducer, {
     isFollowing: false,
     isBlocked: false,
@@ -70,37 +81,98 @@ const TabChanger: React.FC<TabChangerProps> = ({ activeTab, setActiveTab }) => {
       icon: state.isBlocked ? <CheckCircle size={ICON_SIZE} /> : <Ban size={ICON_SIZE} />,
     },
   ];
+  const handleTabState = useCallback(
+    (param: number) => {
+      switch (param) {
+        case 5:
+          setAlertModal(true);
+          return;
+        case 4:
+          setReportModal(true);
+          return;
+        case 3:
+          dispatch({ type: 'TOGGLE_FOLLOW' });
+          return;
+        case 6:
+          dispatch({ type: 'TOGGLE_BLOCK' });
+          return;
+        default:
+          setActiveTab(param);
+          return;
+      }
+    },
+    [setAlertModal, setReportModal, setActiveTab, dispatch],
+  );
 
   return (
     <nav className={styles.tabContainer}>
       {tabs.map((tab, index) => (
         <Button
           key={index}
-          className={activeTab === index ? styles.activeTab : ''}
-          onClick={() => {
-            if (tab.label === 'Follow' || tab.label === 'Unfollow') {
-              dispatch({ type: 'TOGGLE_FOLLOW' });
-            } else if (tab.label === 'Block' || tab.label === 'Unblock') {
-              dispatch({ type: 'TOGGLE_BLOCK' });
-            } else {
-              setActiveTab(index);
-            }
-          }}
+          style={{ borderColor: activeTab === index ? '#FFFFFF' : '' }}
+          onClick={() => handleTabState(index)}
           text={tab.label}
           icon={tab.icon}
-        >
-        </Button>
+        />
       ))}
     </nav>
   );
 };
 
-React.memo(TabChanger);
+interface IBiographySectionProps {
+  description?: string;
+}
+
+const BiographySection: React.FC<IBiographySectionProps> = ({
+  description = 'Hey this guy has not completed his profile!',
+}) => {
+  return (
+    <article className={styles.biographyContainer}>
+      <p>{description}</p>
+    </article>
+  );
+};
+
+interface IAboutSectionProps {
+  countryCode: string;
+  generation: number;
+  joinDate: Date;
+}
+
+const AboutSection: React.FC<IAboutSectionProps> = ({ countryCode, generation, joinDate }) => {
+  const countryFlag = countryCode === 'DE' ? 'de' : '🌍';
+
+  return (
+    <article className={styles.aboutContainer}>
+      <p className={styles.leftBox}>
+        <span className={styles.labelContainer}>
+          <Book size={ICON_SIZE} />
+          <span>Generation:</span>
+          <span>{generation}</span>
+        </span>
+
+        <span className={styles.labelContainer}>
+          <Globe size={ICON_SIZE} />
+          <span>Country:</span>
+          <span>{countryFlag}</span>
+        </span>
+
+        <span className={styles.labelContainer}>
+          <Calendar size={ICON_SIZE} />
+          <span>Joined At:</span>
+          <span>{joinDate.toISOString()}</span>
+        </span>
+      </p>
+    </article>
+  );
+};
 
 const Page = () => {
   const [isFollowModalOpen, setFollowModalOpen] = useState<boolean>(false);
   const [modalType, setModalType] = useState<0 | 1>(0);
   const [tabState, setTabState] = useState<number>(0);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState<boolean>(false);
 
   const followers: PartialUser[] = [
     { _id: '1', username: 'Alice', avatar_url: 'https://picsum.photos/50/50' },
@@ -122,10 +194,6 @@ const Page = () => {
     [setModalType, setFollowModalOpen],
   );
 
-  const handleTabChange = useCallback((param: number) => {
-    setTabState(param);
-  }, []);
-
   const entries = [...Array(15)].map((_, index) => ({
     key: index,
     title: `Entry Title ${index + 1}`,
@@ -133,6 +201,10 @@ const Page = () => {
     date: `2025-03-3${index % 10}`,
     username: `User${index + 1}`,
   }));
+
+  console.log('aha burası', isAlertModalOpen);
+
+  const DUMMY_USER = 'Dummy';
 
   return (
     <>
@@ -193,10 +265,19 @@ const Page = () => {
           </div>
         </div>
 
-        <TabChanger activeTab={tabState} setActiveTab={handleTabChange} />
+        <TabChanger
+          activeTab={tabState}
+          setActiveTab={setTabState}
+          setAlertModal={setIsAlertModalOpen}
+          setReportModal={setIsReportModalOpen}
+        />
 
-        {tabState === 0 && (
-          <div className={styles.userBiography}>
+        {tabState === 0 && <BiographySection description={'Test'} />}
+
+        {tabState === 1 && <AboutSection generation={1} countryCode={'CN'} joinDate={new Date()} />}
+
+        {tabState === 2 && (
+          <div className={styles.favoritesContainer}>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, distinctio?
               Dolores, laboriosam numquam? Vel recusandae ipsum sint, reprehenderit maxime ipsa
@@ -204,20 +285,6 @@ const Page = () => {
             </p>
           </div>
         )}
-
-        <div className={styles.userOrigin}>
-          <div className={styles.originLeft}>
-            <span>Country:</span>
-            <span>DE</span>
-          </div>
-          <div className={styles.originRight}>
-            <span>Joined at</span>
-            <span className={styles.dateContainer}>
-              <Calendar width={16} height={16} color={'#FFFFFF'} />
-              <span>23.02.1071</span>
-            </span>
-          </div>
-        </div>
       </section>
 
       <section>
@@ -241,6 +308,25 @@ const Page = () => {
         followers={followers}
         following={following}
         type={modalType}
+      />
+
+      <AlertModal
+        isOpen={isAlertModalOpen}
+        title='Confirm Block Action'
+        text={`Are you sure you want to block ${DUMMY_USER}?`}
+        onClose={() => setIsAlertModalOpen(false)}
+        callBack={() => {
+          setIsAlertModalOpen(false);
+        }}
+      />
+
+      <ReportModal
+        type={1}
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        callBack={() => {
+          setIsAlertModalOpen(false);
+        }}
       />
     </>
   );

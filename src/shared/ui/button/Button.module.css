@@ -24,6 +24,30 @@
   cursor: not-allowed;
 }
 
+.danger {
+  background-color: var(--red);
+}
+
+.danger:hover {
+  background-color: #b02a37;
+}
+
+.warn {
+  background-color: var(--orange);
+}
+
+.warn:hover {
+  background-color: #e68900;
+}
+
+.proceed {
+  background-color: var(--green)
+}
+
+.proceed:hover {
+  background-color: #1e7e34;
+}
+
 .spinner {
   border: 3px solid var(--faded-white);
   border-top: 3px solid var(--orange);

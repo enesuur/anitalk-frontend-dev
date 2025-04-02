@@ -20,13 +20,14 @@
   --primary-color: #facc15;
   --secondary-color: #005eff21;
   --background-color: #171717;
-  --dark:#0a0a0a;
-  --orange: #ffa500;
-  --red:#7f1d1d;
   --font-primary-color: #09090b;
   --font-secondary-color: #3f3f46;
+  --red:#7f1d1d;
+  --orange: #ffa500;
   --white: #FFFFFF;
   --gray:#18181b;
+  --dark:#0a0a0a;
+  --green:#28a745;
   --opacity:0.8;
   --faded-white:rgba(255,255,255,0.2);
   --yellow:#facc15;
@@ -48,6 +49,7 @@
   --spacing-xl: 20px;
   --spacing-xxl: 32px;
   --spacing-4xl: 40px;
+  --letterSpacing:-0.01px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

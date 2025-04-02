@@ -7,16 +7,25 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
+  variant?: 'primary' | 'danger' | 'warn' | 'proceed';
 }
 
-const Button: React.FC<ButtonProps> = ({ text, isLoading, isDisabled, icon, style, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ 
+  text, 
+  isLoading, 
+  isDisabled, 
+  icon, 
+  style, 
+  variant = 'primary',
+  ...props 
+}) => {
+  const variantClass = styles[variant] || '';
+
   return (
     <button
       {...props}
       disabled={isDisabled || isLoading}
-      className={`${styles.container} ${isLoading || isDisabled ? styles.disabled : ''} ${
-        isLoading ? styles.loading : ''
-      }`}
+      className={`${styles.container} ${variantClass} ${isLoading || isDisabled ? styles.disabled : ''} ${isLoading ? styles.loading : ''}`}
       style={style}
     >
       {icon && <span className={styles.icon}>{icon}</span>}
