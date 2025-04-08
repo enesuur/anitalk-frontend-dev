@@ -130,8 +130,18 @@
   opacity: 1 !important;
 }
 
+.sectionTextHeader {
+  color: var(--white);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
+  margin: var(--spacing-md) 0;
+  font-weight: 500;
+}
+
 .biographyContainer,
-.aboutContainer {
+.aboutContainer,
+.favoritesContainer {
   min-height: 300px;
   box-shadow: var(--box-shadow);
   border: 1px solid var(--faded-white);
@@ -154,17 +164,36 @@
   gap: var(--spacing-md);
 }
 
-
-
 .aboutContainer .labelContainer {
   display: flex;
   align-items: center;
-  column-gap: var(--spacing-sm);
+  column-gap: var(--spacing-base);
+}
+
+.favoritesContainer {
+  color: var(--white);
+}
+
+.favoriteBox {
+  display: flex;
+  align-items: center;
+}
+
+.favoriteItem {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
 }
 
 .latestEntries h1 {
   font-size: var(--font-size-lg);
   color: var(--white);
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-base);
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,43 @@
+.dropZone {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  border: 2px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dragging {
+  background-color: var(--soft-dark);
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+.instruction {
+  font-size: var(--font-size-sm);
+  opacity: var(--opacity);
+}
+
+.clickText {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.success,
+.error {
+  margin: var(--spacing-md) 0;
+  color: var(--green);
+  font-size: var(--font-size-sm);
+}
+.error {
+  color: var(--red);
+}

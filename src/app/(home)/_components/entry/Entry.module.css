@@ -31,18 +31,23 @@
 .entryFooter {
   display: flex;
   align-items: flex-end;
-  flex-direction: column;
   justify-content: space-between;
   gap: var(--spacing-md);
   color: var(--faded-white);
-  margin-left: auto;
   font-size: var(--font-size-sm);
+  width: 100%;
 }
 
-.entryFooter .footerLeft {
+.entryFooter .footerLeft,
+.entryFooter .footerRight {
   display: flex;
   align-items: center;
   gap: var(--spacing-base);
+}
+
+.entryFooter .footerLeft {
+  font-size: var(--font-size-base);
+  color: var(--white);
 }
 
 .entryFooter picture {
@@ -63,7 +68,19 @@
   opacity: 0.8;
 }
 
-.entryFooter span:hover {
-  opacity: 1;
-  text-decoration: underline;
+.countBox {
+  border: 1px solid var(--faded-white);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
 }
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-lg);
+
+}
+
+
+
+

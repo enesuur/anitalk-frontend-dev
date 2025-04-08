@@ -97,7 +97,6 @@ const Page = () => {
             <span>Sign in with google</span>
           </a>
           <div className={styles.formFooter}>
-            <button></button>
             <div className={styles.footerWrapper}>
               <div className={styles.footerLeft}>
                 <Key width={16} height={16} color={'#FFFFFF'} opacity={0.8} />

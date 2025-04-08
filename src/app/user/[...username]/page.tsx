@@ -3,7 +3,7 @@ import React, { useCallback, useReducer, useState } from 'react';
 import Image from 'next/image';
 import styles from '../_styles/User.module.css';
 import Link from 'next/link';
-import { X, Mal, Reddit } from '@/assets/icons/index';
+import { X, Mal, Reddit, Bunny, English, Triangle } from '@/assets/icons/index';
 import Entry from '@/app/(home)/_components/entry/Entry';
 import FollowModal from '@/components/modals/follow/FollowModal';
 import { PartialUser } from '@/types/user';
@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import AlertModal from '@/components/modals/alert/AlertModal';
 import ReportModal from '@/components/modals/report/ReportModal';
+
 
 type Tab = {
   label: string;
@@ -127,9 +128,12 @@ const BiographySection: React.FC<IBiographySectionProps> = ({
   description = 'Hey this guy has not completed his profile!',
 }) => {
   return (
-    <article className={styles.biographyContainer}>
-      <p>{description}</p>
-    </article>
+    <>
+      <h2 className={styles.sectionTextHeader}>Biography</h2>
+      <article className={styles.biographyContainer}>
+        <p>{description}</p>
+      </article>
+    </>
   );
 };
 
@@ -143,27 +147,116 @@ const AboutSection: React.FC<IAboutSectionProps> = ({ countryCode, generation, j
   const countryFlag = countryCode === 'DE' ? 'de' : '🌍';
 
   return (
-    <article className={styles.aboutContainer}>
-      <p className={styles.leftBox}>
-        <span className={styles.labelContainer}>
-          <Book size={ICON_SIZE} />
-          <span>Generation:</span>
-          <span>{generation}</span>
-        </span>
+    <>
+      <h2 className={styles.sectionTextHeader}>About</h2>
+      <article className={styles.aboutContainer}>
+        <p className={styles.leftBox}>
+          <span className={styles.labelContainer}>
+            <Book size={ICON_SIZE} />
+            <span>Generation:</span>
+            <span>{generation}</span>
+          </span>
 
-        <span className={styles.labelContainer}>
-          <Globe size={ICON_SIZE} />
-          <span>Country:</span>
-          <span>{countryFlag}</span>
-        </span>
+          <span className={styles.labelContainer}>
+            <Globe size={ICON_SIZE} />
+            <span>Country:</span>
+            <span>{countryFlag}</span>
+          </span>
 
-        <span className={styles.labelContainer}>
-          <Calendar size={ICON_SIZE} />
-          <span>Joined At:</span>
-          <span>{joinDate.toISOString()}</span>
-        </span>
-      </p>
-    </article>
+          <span className={styles.labelContainer}>
+            <Calendar size={ICON_SIZE} />
+            <span>Joined At:</span>
+            <span>{joinDate.toISOString()}</span>
+          </span>
+        </p>
+      </article>
+    </>
+  );
+};
+
+/* TODO: 
+Animes are up to 3.
+Mangas are up to 3 also. 
+*/
+interface IFavoriItem {
+  japanese_name?: string;
+  english_name?: string;
+  release_date?: Date;
+}
+
+interface IFavoriteSectionProps {
+  animes: IFavoriItem[];
+  mangas: IFavoriItem[];
+}
+
+const FavoriteSection: React.FC<IFavoriteSectionProps> = ({ animes, mangas }) => {
+  return (
+    <>
+      <h2 className={styles.sectionTextHeader}>Favorites</h2>
+      <article className={styles.favoritesContainer}>
+        <h3>Animes</h3>
+        {animes.length > 0 ? (
+          <ul className={styles.favoriteItem}>
+            {animes.map((anime: IFavoriItem, index: number) => (
+              <li key={index}>
+                <h4 style={{ display: 'flex', alignItems: 'center', columnGap: '4px' }}>
+                  <Triangle width={16} height={16} opacity={0.9} />
+                  {index + 1}
+                </h4>
+                <span className={styles.itemRow}>
+                  <Bunny width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h5>Japanese Name:</h5>
+                  {anime?.japanese_name || 'No japanese name.'}
+                </span>
+                <span className={styles.itemRow}>
+                  <English width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h4>English Name:</h4>
+                  {anime?.english_name || 'No English name.'}
+                </span>
+                <span className={styles.itemRow}>
+                  <Calendar width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h5>Release Date:</h5>
+                  {anime?.release_date ? new Date(anime.release_date).toLocaleDateString() : 'N/A'}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No favorite animes added yet.</p>
+        )}
+
+        <h3>Mangas</h3>
+        {mangas.length > 0 ? (
+          <ul className={styles.favoriteItem}>
+            {mangas.map((manga: IFavoriItem, index: number) => (
+              <li key={index}>
+                <h4 style={{ display: 'flex', alignItems: 'center', columnGap: '4px' }}>
+                  <Triangle width={16} height={16} opacity={0.9} />
+                  {index + 1}
+                </h4>
+                <span className={styles.itemRow}>
+                  <Bunny width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h5>Japanese Name:</h5>
+                  {manga?.japanese_name || 'No japanese name.'}
+                </span>
+                <span className={styles.itemRow}>
+                  <English width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h4>English Name:</h4>
+                  {manga?.english_name || 'No English name.'}
+                </span>
+                <span className={styles.itemRow}>
+                  <Calendar width={16} height={16} color={'#FFFFFF'} opacity={0.9} />
+                  <h5>Release Date:</h5>
+                  {manga?.release_date ? new Date(manga.release_date).toLocaleDateString() : 'N/A'}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No favorite mangas added yet.</p>
+        )}
+      </article>
+    </>
   );
 };
 
@@ -202,10 +295,33 @@ const Page = () => {
     username: `User${index + 1}`,
   }));
 
-  console.log('aha burası', isAlertModalOpen);
-
+  // TODO: Mock DATAS.
   const DUMMY_USER = 'Dummy';
+  const mockAnimes: IFavoriItem[] = [
+    {
+      japanese_name: '進撃の巨人',
+      english_name: 'Attack on Titan',
+      release_date: new Date('2013-04-07'),
+    },
+    {
+      japanese_name: '鬼滅の刃',
+      english_name: 'Demon Slayer',
+      release_date: new Date('2019-04-06'),
+    },
+  ];
 
+  const mockMangas: IFavoriItem[] = [
+    {
+      japanese_name: 'ワンピース',
+      english_name: 'One Piece',
+      release_date: new Date('1997-07-22'),
+    },
+    {
+      japanese_name: '進撃の巨人',
+      english_name: 'Attack on Titan',
+      release_date: new Date('2009-09-09'),
+    },
+  ];
   return (
     <>
       <section className={'container'}>
@@ -272,19 +388,11 @@ const Page = () => {
           setReportModal={setIsReportModalOpen}
         />
 
-        {tabState === 0 && <BiographySection description={'Test'} />}
+        {tabState === 0 && <BiographySection/>}
 
         {tabState === 1 && <AboutSection generation={1} countryCode={'CN'} joinDate={new Date()} />}
 
-        {tabState === 2 && (
-          <div className={styles.favoritesContainer}>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, distinctio?
-              Dolores, laboriosam numquam? Vel recusandae ipsum sint, reprehenderit maxime ipsa
-              voluptatem laborum quia id quisquam aliquid qui provident mollitia at?
-            </p>
-          </div>
-        )}
+        {tabState === 2 && <FavoriteSection animes={mockAnimes} mangas={mockMangas} />}
       </section>
 
       <section>
@@ -302,6 +410,7 @@ const Page = () => {
         </div>
       </section>
 
+      {/* Modals */}
       <FollowModal
         isOpen={isFollowModalOpen}
         onClose={() => setFollowModalOpen(false)}

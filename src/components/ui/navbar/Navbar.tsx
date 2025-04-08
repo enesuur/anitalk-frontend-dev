@@ -7,6 +7,9 @@ import Logo from '@/assets/icons/Logo';
 import { SunMoon, Search } from 'lucide-react';
 import SearchModal from '@/components/modals/search/SearchModal';
 
+
+// TODO: Search cursor hover effect:
+
 const Navbar = () => {
   const [themeState, setThemeState] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

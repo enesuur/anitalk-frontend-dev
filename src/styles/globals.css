@@ -22,19 +22,19 @@
   --background-color: #171717;
   --font-primary-color: #09090b;
   --font-secondary-color: #3f3f46;
-  --red:#7f1d1d;
+  --red: #7f1d1d;
   --orange: #ffa500;
-  --white: #FFFFFF;
-  --gray:#18181b;
-  --dark:#0a0a0a;
-  --green:#28a745;
-  --opacity:0.8;
-  --faded-white:rgba(255,255,255,0.2);
-  --yellow:#facc15;
-  --soft-dark:#1e1e1e;
+  --white: #ffffff;
+  --gray: #18181b;
+  --dark: #0a0a0a;
+  --green: #28a745;
+  --opacity: 0.8;
+  --faded-white: rgba(255, 255, 255, 0.2);
+  --yellow: #facc15;
+  --soft-dark: #1e1e1e;
   --btn-border: rgba(255, 255, 255, 0.8);
   --box-shadow: 0 0 5px #171717, 0 0 10px #171717;
-  --border-radius:8px;
+  --border-radius: 8px;
   --font-size-base: 16px;
   --font-size-xs: calc(var(--font-size-base) / 1.75);
   --font-size-sm: calc(var(--font-size-base) / 1.25);
@@ -49,7 +49,7 @@
   --spacing-xl: 20px;
   --spacing-xxl: 32px;
   --spacing-4xl: 40px;
-  --letterSpacing:-0.01px;
+  --letterSpacing: -0.01px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -57,7 +57,8 @@
 }
 
 html {
-  font-family: 'Poppins', -apple-system, system-ui, BlinkMacSystemFont, SF Pro Text, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', -apple-system, system-ui, BlinkMacSystemFont, SF Pro Text, Segoe UI,
+    Roboto, Helvetica, Arial, sans-serif;
   font-size: var(--font-size-base);
   font-weight: 400;
   line-height: 1.5;
@@ -81,7 +82,7 @@ hr {
   position: fixed;
   top: 0;
   left: 0;
-  width: 20px; 
+  width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: var(--orange);
@@ -157,6 +158,21 @@ video {
 textarea {
   resize: vertical;
 }
+
+/*
+--- Custom Global CSS Start ---
+*/
+
+.setting-text-header {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
+  margin: var(--spacing-sm) 0;
+}
+
+/*
+--- Custom Global CSS End ---
+*/
 
 .container-fluid {
   width: 100vw;

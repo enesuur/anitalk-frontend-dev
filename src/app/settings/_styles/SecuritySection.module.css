@@ -1,0 +1,14 @@
+.formBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
+  background-color: var(--soft-dark);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-xxl) 0;
+  max-width: 576px;
+}
+
+.formBox button {
+  margin: var(--spacing-md) 0;
+}

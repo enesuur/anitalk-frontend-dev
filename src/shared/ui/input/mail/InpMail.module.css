@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-sm);
+}
+
+.container label {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: -0.01px;
+  color: var(--white);
+  opacity: 0.8;
+}
+
+.container input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding: 8px 8px 8px 40px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--dark);
+  background-color: var(--white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: var(--font-size-sm);
+}
+
+.container input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.container input::placeholder {
+  color: var(--font-primary-color);
+  opacity: 0.5;
+}
+
+.container .errorContainer {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  letter-spacing: -0.01px;
+  color: var(--red);
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: errorMessageIn 0.3s ease-in-out forwards;
+}
+
+.container .errorContainer.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: errorMessageOut 0.3s ease-in-out forwards;
+}
+
+.container .errorContainer svg {
+  color: var(--red);
+  opacity: 0.8;
+}
+
+.mailBox {
+  position: absolute;
+  top: 50%;
+  left: var(--spacing-md);
+  transform: translateY(-50%);
+  color: var(--dark);
+  background-color: transparent;
+  opacity: 0.5;
+}
+
+@keyframes errorMessageIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes errorMessageOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

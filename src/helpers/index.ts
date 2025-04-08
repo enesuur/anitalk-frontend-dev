@@ -35,3 +35,16 @@ export const filter_followers = (
   }));
 };
 
+export const dateConverter = (date?: string | Date) => {
+  if (!date) return 'N/A';
+
+  const validDate = date instanceof Date ? date : new Date(date);
+  if (isNaN(validDate.getTime())) return 'Invalid Date';
+
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(validDate);
+};
+
