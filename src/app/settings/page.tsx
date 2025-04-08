@@ -6,6 +6,8 @@ import ImageInput from '@/shared/ui/input/ImageInput';
 import Button from '@/shared/ui/button/Button';
 import SocialSection from './_components/SocialSection';
 import SecuritySection from './_components/SecuritySection';
+import AnalyticSection from './_components/AnalyticSection';
+import FavoriteSection from './_components/FavoriteSection';
 
 interface ITabBarProps {
   tabState: number;
@@ -136,8 +138,10 @@ const SettingsPage = () => {
         <TabBar tabState={tabState} setTabState={setTabState} />
 
         {tabState === 0 && <ProfileSection username={'balladriel'} />}
+        {tabState == 1 && <FavoriteSection />}
         {tabState === 2 && <SecuritySection />}
         {tabState === 3 && <SocialSection x_username='baladriel' reddit_username='baladriel' />}
+        {tabState === 4 && <AnalyticSection />}
       </div>
     </div>
   );

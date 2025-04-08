@@ -77,7 +77,7 @@ const ReportModal: React.FC<IReportModalProps> = ({ isOpen, onClose, callBack, t
     [onClose, handleSubmit, onSubmit, reset],
   );
 
-  const handleCloeModal = useCallback(() => {
+  const handleCloseModal = useCallback(() => {
     reset();
     onClose();
   }, [reset, onClose]);
@@ -92,7 +92,7 @@ const ReportModal: React.FC<IReportModalProps> = ({ isOpen, onClose, callBack, t
               size={24}
               color={'#FFFFFF'}
               opacity={0.9}
-              onClick={handleCloeModal}
+              onClick={handleCloseModal}
               className={styles.btnClose}
             />
           </div>
@@ -129,7 +129,7 @@ const ReportModal: React.FC<IReportModalProps> = ({ isOpen, onClose, callBack, t
                   isLoading={isLoading}
                   disabled={isSubmitting}
                 />
-                <Button text={'Cancel'} variant={'danger'} onClick={handleCloeModal} />
+                <Button text={'Cancel'} variant={'danger'} onClick={handleCloseModal} />
               </div>
             </form>
           </div>

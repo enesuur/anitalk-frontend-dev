@@ -1,0 +1,24 @@
+.analyticContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl);
+  color: var(--white);
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+  margin: auto;
+  width: max-content;
+  align-items: center;
+}
+
+.analyticContainer svg {
+  opacity: 0.5;
+  color: var(--white);
+  width: 64px;
+  height: 64px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.analyticContainer:hover,
+.analyticContainer svg:hover {
+  opacity: 1;
+}

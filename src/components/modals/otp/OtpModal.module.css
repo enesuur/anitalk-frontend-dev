@@ -1,0 +1,114 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background-color: var(--background-color);
+  padding: 24px 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 600px;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeIn 0.4s forwards;
+  color: var(--white);
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeader svg {
+  cursor: pointer;
+  transition: opacity 0.1s ease-in;
+}
+
+.modalHeader svg:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.modalHeader h2 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
+}
+
+.otpLabel {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  margin: var(--spacing-md) 0;
+  color: var(--white);
+  opacity: var(--opacity);
+}
+
+.otpContainer {
+  display: flex;
+  row-gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.otpBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+
+.otpInput {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-lg);
+  line-height: 24px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--soft-dark);
+  background-color: var(--white);
+  transition: border-color 0.3s ease;
+  margin-left: var(--spacing-md);
+}
+
+.otpInput:focus {
+  border-color: var(--orange);
+}
+
+.errorText {
+  color: var(--red);
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.btnContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin:var(--spacing-xl)
+}
+

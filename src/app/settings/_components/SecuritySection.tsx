@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { z } from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InpMail from '@/shared/ui/input/mail/InpMail';
 import Button from '@/shared/ui/button/Button';
+import OtpModal from "@/components/modals/otp/OtpModal";
 import styles from '../_styles/SecuritySection.module.css';
 
 const securitySchema = z.object({
@@ -18,6 +19,8 @@ const securitySchema = z.object({
 type SecurityFormData = z.infer<typeof securitySchema>;
 
 const SecuritySection: React.FC = () => {
+  const [otpState,setOtpState] = useState<boolean>(false);
+
   const {
     control,
     handleSubmit,
@@ -35,8 +38,19 @@ const SecuritySection: React.FC = () => {
     console.log('Security Info:', data);
   };
 
+
+
+  const openModal = useCallback(() => {
+    setOtpState(true);
+  }, []);
+
+  const handleCloseOtpModal = useCallback(() => {
+    setOtpState(false);
+  }, []);
+
   return (
-    <section>
+    <>
+        <section>
       <div className='container'>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.formBox}>
           <h2 className='setting-text-header'>Mail Verification</h2>
@@ -83,11 +97,18 @@ const SecuritySection: React.FC = () => {
             type={'submit'}
             isDisabled={isSubmitting}
             isLoading={isLoading}
+            onClick={()=> setOtpState(true)}
             text={'Save Pin'}
           />
         </form>
       </div>
     </section>
+
+    <OtpModal 
+        isOpen={otpState} 
+        onClose={handleCloseOtpModal}
+      />
+    </>
   );
 };
 
