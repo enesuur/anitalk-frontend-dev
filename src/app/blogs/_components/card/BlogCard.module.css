@@ -1,0 +1,87 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.cardContainer figure {
+  width: 100%;
+  position: relative;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.cardContainer picture,
+.cardContainer figure img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--white);
+  flex-grow: 1;
+}
+
+.title {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.title a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size 0.5s ease;
+}
+
+.title a:hover {
+  background-size: 100% 1px;
+}
+
+.snippet {
+  opacity: var(--opacity);
+  margin: var(--spacing-lg) 0;
+}
+
+.cardFooter {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.5;
+}
+
+.footerBox {
+  font-size: var(--font-size-sm);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  flex-direction: column;
+  opacity: var(--opacity);
+  margin-bottom: var(--spacing-base);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.left:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.footerBox svg {
+  width: 20px;
+  height: 20px;
+  opacity: var(--opacity);
+  color: var(--white);
+}
