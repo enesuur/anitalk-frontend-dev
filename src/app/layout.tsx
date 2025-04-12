@@ -1,6 +1,7 @@
 import { Poppins } from 'next/font/google';
 import Providers from '@/providers/Providers';
 import '@/styles/globals.css';
+import SlideLoader from '@/shared/ui/loaders/SlideLoading';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -18,6 +19,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' className={`${poppins.className}`}>
       <body suppressHydrationWarning>
+        <SlideLoader/>
         <Providers>{children}</Providers>
       </body>
     </html>

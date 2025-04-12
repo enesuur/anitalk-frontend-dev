@@ -48,3 +48,16 @@ export const dateConverter = (date?: string | Date) => {
   }).format(validDate);
 };
 
+/**
+ * Truncate a string and add a trailing character if it exceeds max length
+ *
+ * @param text - The input string
+ * @param maxLength - The maximum length before truncating
+ * @param trailChar - The character(s) to append (default: '...')
+ * @returns Truncated string with trailing character if needed
+ */
+export const truncateWithTrail = (text: string, maxLength: number = 25, trailChar = '...'): string => {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + trailChar;
+};
+

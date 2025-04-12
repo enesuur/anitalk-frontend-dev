@@ -20,6 +20,12 @@
   height: 100%;
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
+  transition: transform 0.3s ease-in-out;
+}
+
+.cardContainer figure img:hover {
+  transform: scale(1.01);
+  filter: brightness(1.1)
 }
 
 .cardContent {

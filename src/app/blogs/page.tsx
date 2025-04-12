@@ -4,7 +4,7 @@ import { Blog as BlogIcon } from '@/assets/icons/index';
 import Scroller from '@/shared/ui/scroller/Scroller';
 import PaginationWrapper from '@/components/pagination/PaginationWrapper';
 import { getBlogsByPage } from '@/libs/fakeBlog';
-import Carousel from '@/components/Carousel/Carousel';
+import Carousel from '@/components/carousel/Carousel';
 
 
 type Props = {

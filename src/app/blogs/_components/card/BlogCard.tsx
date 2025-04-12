@@ -5,7 +5,7 @@ import styles from './BlogCard.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Profile, Date as DateIcon } from '@/assets/icons';
-import { truncateWithTrail } from '../../_helpers/index';
+import { truncateWithTrail } from '@/helpers/index';
 
 interface IBlogCardProps {
   _id: string;

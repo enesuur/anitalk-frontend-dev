@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
   const currentPath = headersList.get('x-invoke-path') || headersList.get('referer') || '';
-  const isBlogRoot = currentPath.includes('');
-  
+  const isBlogRoot = /^\/blogs(?:\?[^/]*|\/?$)/.test(currentPath);
+
   return (
     <>
       <Navbar className={isBlogRoot ? styles.absoluteNavbar : ''} />

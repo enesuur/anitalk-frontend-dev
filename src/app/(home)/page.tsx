@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import Sidebar from './_components/sidebar/Sidebar';
 import Home from './_styles/Home.module.css';

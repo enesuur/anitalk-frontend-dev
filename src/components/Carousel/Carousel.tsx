@@ -1,38 +1,49 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, CircleDot } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './Carousel.module.css';
-import Button from '@/shared/ui/button/Button';
-import { Dot } from '@/assets/icons';
+import { Minus } from 'lucide-react';
+import Link from 'next/link';
+import { truncateWithTrail } from '@/helpers/index';
 
-const Carousel: React.FC = () => {
+// TODO: State management.
+interface ICarouselProps {
+  _id?: string;
+  title: string;
+  snippet: string;
+  slug: string;
+  img_url: string;
+}
+
+const Carousel: React.FC<ICarouselProps> = (props: ICarouselProps) => {
+  const { _id, title, snippet, slug, img_url } = props;
+
   const slides = Array.from({ length: 5 }, (_, i) => ({
     url: `https://picsum.photos/seed/slide-${i}/1920/1080`,
   }));
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // TODO: useCallBack
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
+  }, [slides.length]);
 
-  // TODO: useCallBack
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+  }, [slides.length]);
 
-  // TODO: useCallBack
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
-  };
-  // useRef ile tutabiliyorsan böyle yap.
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 3000);
-    
-    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(nextSlide, 3000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [nextSlide]);
 
   return (
     <div className={styles.carouselContainer}>
@@ -47,37 +58,51 @@ const Carousel: React.FC = () => {
             <Image
               src={slide.url}
               alt={`Slide ${index + 1}`}
-              layout="fill"
-              objectFit="cover"
+              layout='fill'
+              objectFit='cover'
+              priority={index === 0}
             />
           </div>
         ))}
       </div>
+      <ChevronLeft
+        role={'button'}
+        className={`${styles.carouselArrow} ${styles.left}`}
+        onClick={prevSlide}
+      />
+      <ChevronRight
+        role={'button'}
+        className={`${styles.carouselArrow} ${styles.right}`}
+        onClick={nextSlide}
+      />
 
-      <Button className={`${styles.carouselArrow} ${styles.left}`}
-      text='222'
-      onClick={prevSlide}>
-        <ChevronLeft />
-      </Button>
-      <Button className={`${styles.carouselArrow} ${styles.right}`} onClick={nextSlide}>
-        <ChevronRight />
-      </Button>
-
-      {/* Indicators */}
       <div className={styles.carouselIndicators}>
         {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goToSlide(i)}
-            className={`${styles.indicator} ${i === currentIndex ? 'selectedSlide' : ''}`}
-          >
-            <Dot width={20} height={20} color='red' />
-          </button>
+          <>
+            <Minus
+              width={24}
+              height={24}
+              color={i === currentIndex ? '#ffa500' : '#ffffff33'}
+              className={styles.indicator}
+              onClick={() => goToSlide(i)}
+            />
+          </>
         ))}
       </div>
-
-      {/* Title */}
-      <div className={styles.carouselTitle}>Carousel Title</div>
+      <Link href={'#'} className={styles.carouselContent}>
+        <div className={styles.carouselTitle}>
+          {truncateWithTrail(
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nobis aut voluptates dolore natus tempora corporis nam autem totam quae ipsam voluptas at molestiae, sed facere exercitationem voluptatum odio sit!',
+            150,
+          )}
+        </div>
+        <div className={styles.carouselSnippet}>
+          {truncateWithTrail(
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nobis aut voluptates dolore natus tempora corporis nam autem totam quae ipsam voluptas at molestiae, sed facere exercitationem voluptatum odio sit!',
+            200,
+          )}
+        </div>
+      </Link>
     </div>
   );
 };

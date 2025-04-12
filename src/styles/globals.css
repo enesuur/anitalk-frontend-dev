@@ -159,6 +159,16 @@ textarea {
   resize: vertical;
 }
 
+.figure {
+  width: 100%;
+  height: 100%;
+}
+
+picture{
+  width: 100%;
+  height: 100%;
+}
+
 /*
 --- Custom Global CSS Start ---
 */
