@@ -10,7 +10,12 @@ import SearchModal from '@/components/modals/search/SearchModal';
 
 // TODO: Search cursor hover effect:
 
-const Navbar = () => {
+interface NavbarProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const [themeState, setThemeState] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -23,7 +28,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className={`${styles.header} container-fluid`}>
+    <header
+      className={`${styles.header} container-fluid ${className}`}
+      style={style}
+    >
       <nav className={`${styles.navbar} container`}>
         <Link href='/' className={styles.logoContainer}>
           <Logo width={72} height={72} />

@@ -20,7 +20,7 @@
 }
 
 .container.disabled {
-  background-color: var(--dark);
+  background-color: var(--sof-dark);
   cursor: not-allowed;
 }
 

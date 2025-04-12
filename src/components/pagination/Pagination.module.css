@@ -1,0 +1,12 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin:var(--spacing-xxl) 0;
+}
+
+.currentPage,
+.pageLocator {
+  color: var(--white);
+}

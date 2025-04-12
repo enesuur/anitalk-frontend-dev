@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Navbar from '@/components/ui/navbar/Navbar';
 import Footer from '@/components/ui/footer/Footer';
 import styles from './_styles/BlogLayout.module.css';
@@ -22,13 +23,17 @@ export const metadata: Metadata = {
     description: 'Explore the latest updates and thoughts from our team.',
     creator: '@yourtwitterhandle',
     images: ['https://yourdomain.com/preview-image.jpg'],
-  }
+  },
 };
 
-export default function BlogLayout({ children }: { children: React.ReactNode }) {
+export default async function BlogLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const currentPath = headersList.get('x-invoke-path') || headersList.get('referer') || '';
+  const isBlogRoot = currentPath.includes('');
+  
   return (
     <>
-      <Navbar />
+      <Navbar className={isBlogRoot ? styles.absoluteNavbar : ''} />
       <main className={styles.blogLayout}>{children}</main>
       <Footer />
     </>

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Select.module.css';
 
 interface SelectInputProps {
-  label: string;
+  label?: string | number;
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -20,17 +20,18 @@ const SelectInput: React.FC<SelectInputProps> = ({
 }) => {
   return (
     <div className={styles.selectWrapper}>
-      <label htmlFor={name} className={styles.label}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={name} className={styles.label}>
+          {label}
+        </label>
+      )}
       <select
         id={name}
         name={name}
         value={value}
         onChange={onChange}
-        className={`${styles.select} ${error ? styles.error : ''}`}
+        className={`${styles.select} ${error ? styles.error : ''} ${options.length > 5 ? styles.scrollable : ''}`}
       >
-        <option value="">Select a {label}</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -42,4 +43,4 @@ const SelectInput: React.FC<SelectInputProps> = ({
   );
 };
 
-export default SelectInput;
+export default React.memo(SelectInput);

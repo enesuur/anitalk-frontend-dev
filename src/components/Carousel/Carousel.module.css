@@ -1,0 +1,107 @@
+.carouselContainer {
+  width: 100%;
+  height: 576px;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.carouselContainer .carouselWrapper {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carouselContainer .imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+}
+
+.carouselContainer .imageWrapper :global(img) {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+}
+
+.carouselContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 12;
+}
+
+.carouselContainer .imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carouselContainer .imageWrapper img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carouselContainer .carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-lg);
+  color: var(--white);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 7;
+  display: none;
+}
+
+.carouselArrow.left {
+  left: 48px;
+}
+
+.carouselArrow.right {
+  right: 48px;
+}
+
+.carouselContainer:hover .carouselArrow {
+  display: block;
+}
+
+.carouselContainer .carouselIndicators {
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+}
+
+.carouselContainer .carouselIndicators .indicator {
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.carouselContainer .carouselIndicators .indicator.selectedSlide {
+  color: var(--white);
+}
+
+.carouselContainer .carouselTitle {
+  position: absolute;
+  width: 50%;
+  bottom: 72px;
+  left: 36px;
+  z-index: 5;
+  font-size: var(--font-size-md);
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  display: block;
+}

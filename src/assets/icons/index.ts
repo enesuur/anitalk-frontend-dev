@@ -20,5 +20,8 @@ export * from './Chart';
 export * from './ImageFile';
 export * from './Mail';
 export * from './Maintenance';
+export * from "./Blog";
+export * from "./Dot";
+
 
 

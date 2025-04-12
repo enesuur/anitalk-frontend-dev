@@ -4,7 +4,7 @@ import styles from './Button.module.css';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
-  text: string;
+  text?: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
   variant?: 'primary' | 'danger' | 'warn' | 'proceed';
