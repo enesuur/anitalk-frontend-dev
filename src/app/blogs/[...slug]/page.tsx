@@ -10,6 +10,7 @@ import ScrollToTop from '@/shared/ui/scroller/Scroller';
 
 const mockBlogs = generateMockBlogs(5);
 
+// TODO: Figcaption.
 const Page: React.FC = () => {
   return (
     <>
