@@ -37,7 +37,8 @@
   object-position: center;
 }
 
-.commentBox a, .commentHeader figure {
+.commentBox a,
+.commentHeader figure {
   user-select: none;
 }
 
@@ -65,11 +66,19 @@
   gap: var(--spacing-sm);
   cursor: pointer;
   opacity: var(--opacity);
-  transition: color 0.2s;
+  transition: color 0.3s ease-in-out;
 }
 
 .voteBox:hover {
-  color: var(--white)
+  color: var(--orange);
+}
+
+.voteBox svg {
+  transition: color 0.3s ease-in-out;
+}
+
+.voteBox:hover svg {
+  color: var(--orange);
 }
 
 .dateContainer {
