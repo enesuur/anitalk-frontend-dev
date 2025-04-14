@@ -1,17 +1,26 @@
 import React from 'react';
 import styles from './Page.module.css';
-import { generateMockBlogs } from '../_helpers/index';
+import { generateMockBlogs, generateMockComments } from '../_helpers/index';
 import { IBlog } from '../_types';
 import RecommendCard from '../_components/card/RecommendCard';
 import Link from 'next/link';
 import Divider from '@/shared/ui/hr/Divider';
-import { Date } from '@/assets/icons';
+import { Date as DateIcon } from '@/assets/icons';
 import ScrollToTop from '@/shared/ui/scroller/Scroller';
+import Image from 'next/image';
+import getBlurDataURL from '@/libs/base64ph';
+import EmblaCarousel from '@/shared/ui/swiper/Swiper';
+import Comment from '@/components/comment/Comment';
 
 const mockBlogs = generateMockBlogs(5);
+const mockComments = generateMockComments(5);
 
-// TODO: Figcaption.
-const Page: React.FC = () => {
+// TODO: Figcaption
+// Fallback public img cover.
+// .
+
+const Page: React.FC = async () => {
+  const blurUrl = await getBlurDataURL('https://picsum.photos/1920/1080');
   return (
     <>
       <section style={{ margin: 0 }}>
@@ -19,7 +28,17 @@ const Page: React.FC = () => {
           <div className={styles.blogBox}>
             <figure>
               <picture>
-                <img src={'https://picsum.photos/1920/1080'} alt='Blog cover image' />
+                <Image
+                  src={'https://picsum.photos/1920/1080'}
+                  alt={'Awesome Blog Image'}
+                  fill={true}
+                  objectFit={'cover'}
+                  className={styles.img}
+                  objectPosition={'center'}
+                  quality={90}
+                  placeholder={'blur'}
+                  blurDataURL={blurUrl}
+                />
               </picture>
             </figure>
 
@@ -30,21 +49,30 @@ const Page: React.FC = () => {
             <div className={styles.infoBox}>
               <Link href={`user/${1}`} className={styles.userBox}>
                 <picture>
-                  <img src='https://picsum.photos/128/128' alt='Jason Derulo' />
+                  <Image
+                    src={'https://picsum.photos/128/128'}
+                    alt={'Awesome Blog Image'}
+                    fill={true}
+                    objectFit={'cover'}
+                    className={styles.img}
+                    objectPosition={'center'}
+                    quality={90}
+                    placeholder={'blur'}
+                    blurDataURL={blurUrl}
+                  />
                 </picture>
               </Link>
               <div className={styles.detailBox}>
-                <Link href={'#'}>@coolusername</Link>
+                <Link href={`/user/${99}`}>@coolusername</Link>
                 <div className={styles.innerBox}>
                   <span>{13} minutes read time</span>
                   <span>
-                    <Date width={20} height={20} color={'#FFFFFF'} opacity={0.8} />
+                    <DateIcon width={20} height={20} color={'#FFFFFF'} opacity={0.8} />
                     {'22 April 2024'}
                   </span>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -94,19 +122,67 @@ const Page: React.FC = () => {
           </article>
 
           <div className={styles.recommendContainer}>
+            <h3>You may interest</h3>
             {mockBlogs.map((blog: Partial<IBlog>, index: number) => (
               <RecommendCard
                 key={index}
                 title={blog.title || 'Default Title'}
                 date={blog.date || new Date()}
                 img_url={blog.img_url || 'default-image-url.jpg'}
+                slug={blog.slug || 'Test'}
+                _id={blog._id || 'Test'}
               />
             ))}
           </div>
         </div>
       </section>
 
-      <ScrollToTop/>
+      <section>
+        <div className='container'></div>
+      </section>
+
+      {/* Test */}
+      <div className='container'>
+        <EmblaCarousel count={5} options={{ loop: true }} />
+      </div>
+
+      <div className='container'>
+        <Divider text={'Comments'} />
+      </div>
+
+      <section>
+        <div className={`${styles.commentContainer} container`}>
+          <Comment
+            key={1333}
+            _id={'test'}
+            text={`
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa repellat voluptate reiciendis dignissimos nobis veritatis doloribus dolore provident, sequi quo unde dolorum culpa soluta minima vitae perferendis rem alias blanditiis eum assumenda molestias ipsum! Modi adipisci corrupti aperiam officia quisquam, soluta maiores esse quibusdam quas, nesciunt veritatis sed mollitia voluptatum, sapiente amet magnam necessitatibus illo odio minima! Dolorem harum aperiam, tenetur enim adipisci molestiae dolore fuga saepe. Libero et accusamus quod nulla ex ipsum aspernatur ut quos consectetur expedita ipsam fugiat, vero iste, quisquam maxime eligendi quas consequuntur vitae, tempore officia soluta vel nostrum? Aut commodi ea inventore suscipit ut dolore.
+                
+                Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.
+
+                  Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.  Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.
+              `}
+            date={new Date()}
+            username={'res'}
+            avatar_url={null}
+            upVote={32}
+            downVote={42}
+          />
+          {mockComments.map((item, index) => (
+            <Comment
+              key={index}
+              _id={item._id}
+              text={item.text}
+              date={item.date}
+              username={item.username}
+              avatar_url={item.avatar_url}
+              upVote={item.upVote}
+              downVote={item.downVote}
+            />
+          ))}
+        </div>
+      </section>
+      <ScrollToTop />
     </>
   );
 };

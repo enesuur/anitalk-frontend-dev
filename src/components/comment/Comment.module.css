@@ -1,0 +1,89 @@
+.commentCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--white);
+}
+
+.commentHeader {
+  display: flex;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+}
+
+.commentHeader figure {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--faded-white);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.commentHeader figure:hover {
+  border-color: var(--orange);
+}
+
+.commentHeader figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.commentBox a, .commentHeader figure {
+  user-select: none;
+}
+
+.commentText {
+  opacity: var(--opacity);
+}
+
+.commentFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--faded-white);
+  padding-top: var(--spacing-lg);
+}
+
+.voteContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.voteBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  opacity: var(--opacity);
+  transition: color 0.2s;
+}
+
+.voteBox:hover {
+  color: var(--white)
+}
+
+.dateContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.8rem;
+  opacity: var(--opacity);
+}
+
+.readMore {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--orange);
+  text-decoration-thickness: 0.1px;
+  cursor: pointer;
+}

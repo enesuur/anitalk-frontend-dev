@@ -169,6 +169,25 @@ picture{
   height: 100%;
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+  background-color: #333;
+  border-radius: var(--border-radius);
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--background-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius);
+  background-color: #333;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+}
+
 /*
 --- Custom Global CSS Start ---
 */

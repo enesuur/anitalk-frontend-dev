@@ -1,0 +1,30 @@
+/* BreadCrumb.module.css */
+.breadCrumbContainer {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  
+  .breadCrumbContainer ol {
+    display: flex;
+    align-items: center;
+  }
+  .breadCrumbContainer ol li:after {
+    content: "/";
+    font-weight: 400;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  
+  .breadCrumbContainer ol li:last-child:after {
+    content: "";
+  }
+  
+  .breadcrumb .active span {
+    font-weight: 500;
+  }

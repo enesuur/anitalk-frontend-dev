@@ -1,107 +1,116 @@
 .blogBox figure {
-    width: 100%;
-    height: 768px;
+  width: 100%;
+  height: 768px;
+  position: relative;
 }
 
 .userBox {
-    width: 92px;
-    height: 92px;
+  width: 92px;
+  height: 92px;
 }
 
-.detailBox 
-
-.blogBox img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+.detailBox .blogBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.blogBox .title{
-    font-size: var(--font-size-lg);
-    color: var(--white);
-    line-height: 1.5;
-    margin: var(--spacing-xxl) 0;
+.blogBox .title {
+  font-size: var(--font-size-lg);
+  color: var(--white);
+  line-height: 1.5;
+  margin: var(--spacing-xxl) 0;
 }
 
 .blogInfoContainer {
-    display: flex;
-    justify-content: space-between;
-    max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
 }
 
 .infoBox {
-    display: flex;
-    width: max-content;
-    gap: var(--spacing-xl);
-    color: var(--white);
+  display: flex;
+  width: max-content;
+  gap: var(--spacing-xl);
+  color: var(--white);
 }
 
 .userBox {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .userBox a {
-    display: inline-block;
-    font-size: var(--font-size-sm);
-    line-height: 2;
-    letter-spacing: var(--letter-spacing);
-    border-radius: 50%;
-    width: 128px;
-    height: 128px;
-    transition: color 0.3s ease-in-out;
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  line-height: 2;
+  letter-spacing: var(--letter-spacing);
+  border-radius: 50%;
+  width: 128px;
+  height: 128px;
+  transition: color 0.3s ease-in-out;
 }
 
 .userBox a:hover {
-    color: var(--orange);
+  color: var(--orange);
 }
 
 .userBox picture {
-    border-radius: 50%;
+  border-radius: 50%;
+  position: relative;
 }
 
 .userBox img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .detailBox {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--spacing-base);
-    opacity: var(--opacity);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
+  opacity: var(--opacity);
 }
 
 .detailBox span:nth-child(2) {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .innerBox {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .blogBody {
-    color: var(--white);
+  color: var(--white);
 }
 
 .contentWrapper {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: var(--spacing-xl);
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: var(--spacing-xl);
 }
 
-.recommendContainer{
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--spacing-xl);
-    max-height: max-content;
-    overflow-x: hidden;
-    overflow-y: auto;
+.recommendContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xxl);
+  max-height: max-content;
+  overflow: hidden;
+}
+
+.recommendContainer h3 {
+  color: var(--white);
+}
+
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl) ;
 }

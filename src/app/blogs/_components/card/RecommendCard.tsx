@@ -38,7 +38,7 @@ const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCar
       </figure>
 
       <div className={styles.cardContent}>
-        <h3>{truncateWithTrail(title, 50) || 'Title'}</h3>
+        <h3>{truncateWithTrail(title, 50) || 'Awesome Blog Title'}</h3>
         <span>{date ? date.toDateString() : new Date().toDateString()}</span>
       </div>
     </Link>
