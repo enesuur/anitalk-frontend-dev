@@ -17,7 +17,7 @@ export const iconStyles: IconStyles = {
 const recentNotifications = [
   {
     users: [
-      { username: 'Galadriel', avatarUrl: 'https://avatars.githubusercontent.com/u/1' }
+      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' }
     ],
     totalCount: 1,
     type: 0, // Follow
@@ -26,8 +26,8 @@ const recentNotifications = [
   },
   {
     users: [
-      { username: 'Galadriel', avatarUrl: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatarUrl: 'https://avatars.githubusercontent.com/u/2' }
+      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
+      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' }
     ],
     totalCount: 2,
     type: 0, // Follow
@@ -36,9 +36,9 @@ const recentNotifications = [
   },
   {
     users: [
-      { username: 'Galadriel', avatarUrl: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatarUrl: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatarUrl: 'https://avatars.githubusercontent.com/u/3' }
+      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
+      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
+      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' }
     ],
     totalCount: 3,
     type: 0, // Follow
@@ -47,10 +47,10 @@ const recentNotifications = [
   },
   {
     users: [
-      { username: 'Galadriel', avatarUrl: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatarUrl: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatarUrl: 'https://avatars.githubusercontent.com/u/3' },
-      { username: 'Legolas', avatarUrl: 'https://avatars.githubusercontent.com/u/4' }
+      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
+      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
+      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' },
+      { username: 'Legolas', avatar_url: 'https://avatars.githubusercontent.com/u/4' }
     ],
     totalCount: 4,
     type: 0, // Follow
@@ -59,11 +59,11 @@ const recentNotifications = [
   },
   {
     users: [
-      { username: 'Galadriel', avatarUrl: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatarUrl: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatarUrl: 'https://avatars.githubusercontent.com/u/3' },
-      { username: 'Legolas', avatarUrl: 'https://avatars.githubusercontent.com/u/4' },
-      { username: 'Gimli', avatarUrl: 'https://avatars.githubusercontent.com/u/5' }
+      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
+      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
+      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' },
+      { username: 'Legolas', avatar_url: 'https://avatars.githubusercontent.com/u/4' },
+      { username: 'Gimli', avatar_url: 'https://avatars.githubusercontent.com/u/5' }
     ],
     totalCount: 5,
     type: 0, // Follow
@@ -75,7 +75,7 @@ const recentNotifications = [
 const oldNotifications = [
   {
     users: [
-      { username: 'Frodo', avatarUrl: 'https://avatars.githubusercontent.com/u/6' }
+      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' }
     ],
     totalCount: 1,
     type: -1, // Upvote
@@ -84,8 +84,8 @@ const oldNotifications = [
   },
   {
     users: [
-      { username: 'Frodo', avatarUrl: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatarUrl: 'https://avatars.githubusercontent.com/u/7' }
+      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
+      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' }
     ],
     totalCount: 2,
     type: -1, // Upvote
@@ -94,9 +94,9 @@ const oldNotifications = [
   },
   {
     users: [
-      { username: 'Frodo', avatarUrl: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatarUrl: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatarUrl: 'https://avatars.githubusercontent.com/u/8' }
+      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
+      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
+      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' }
     ],
     totalCount: 3,
     type: -1, // Upvote
@@ -105,10 +105,10 @@ const oldNotifications = [
   },
   {
     users: [
-      { username: 'Frodo', avatarUrl: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatarUrl: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatarUrl: 'https://avatars.githubusercontent.com/u/8' },
-      { username: 'Pippin', avatarUrl: 'https://avatars.githubusercontent.com/u/9' }
+      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
+      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
+      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' },
+      { username: 'Pippin', avatar_url: 'https://avatars.githubusercontent.com/u/9' }
     ],
     totalCount: 4,
     type: -1, // Upvote
@@ -117,11 +117,11 @@ const oldNotifications = [
   },
   {
     users: [
-      { username: 'Frodo', avatarUrl: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatarUrl: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatarUrl: 'https://avatars.githubusercontent.com/u/8' },
-      { username: 'Pippin', avatarUrl: 'https://avatars.githubusercontent.com/u/9' },
-      { username: 'Gandalf', avatarUrl: 'https://avatars.githubusercontent.com/u/10' }
+      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
+      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
+      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' },
+      { username: 'Pippin', avatar_url: 'https://avatars.githubusercontent.com/u/9' },
+      { username: 'Gandalf', avatar_url: 'https://avatars.githubusercontent.com/u/10' }
     ],
     totalCount: 5,
     type: -1, // Upvote

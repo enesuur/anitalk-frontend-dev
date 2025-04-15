@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './NotificationCard.module.css';
 import Image from 'next/image';
-import { IUser } from '@/types/global';
+import { IUser } from '@/types/user';
 import { Bolt } from '@/assets/icons';
 import { iconStyles } from '../page';
 import Link from 'next/link';
@@ -14,16 +14,16 @@ NOTIFICATION TYPES DIVIDED INTO 3 PARTS
 */
 
 interface INotificationCardProps {
-  users: IUser[]; // Fully defined users array
+  users: Partial<IUser[]>;
   totalCount: number;
   type: -1 | 0 | 1;
   target: string;
-  date: string; // Keep the date as string (or Date if preferred, but use it consistently)
+  date: string | null;
 }
 
 const NotificationCard: React.FC<INotificationCardProps> = ({
   users,
-  totalCount,
+  totalCount = 0,
   type,
   target,
   date,
@@ -34,15 +34,15 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
     [1]: 'commented on',
   };
 
-  const mainVerb = verbMap[type] || 'interacted with';
+  const mainVerb = useMemo(() => verbMap[type] || 'interacted with', [type]);
 
   // usemMemo
   const visibleUsers = users.slice(0, 3);
-  const visibleNames = visibleUsers.map((user) => user.username);
+  const visibleNames = visibleUsers.map((user) => user?.username);
   const remainingCount = totalCount - visibleNames.length;
 
-  const getUserLink = (username: string) => (
-    <Link href={`/user/${username}`} className={styles.usernameLink}>
+  const getUserLink = (username: string | undefined) => (
+    <Link href={`/user/${username}`} className={styles.usernameLink} target={'_blank'}>
       {username}
     </Link>
   );
@@ -55,15 +55,15 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
         </span>
       );
     }
-  
+
     const namePart: React.ReactNode[] = [];
-  
+
     visibleNames.forEach((username, index) => {
       namePart.push(getUserLink(username));
-  
+
       const isSecondLast = index === visibleNames.length - 2;
       const isLast = index === visibleNames.length - 1;
-  
+
       if (visibleNames.length === 2 && isSecondLast) {
         namePart.push(<span key={`and-${index}`}> and </span>);
       } else if (visibleNames.length === 3) {
@@ -76,11 +76,11 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
         namePart.push(<span key={`comma-${index}`}>, </span>);
       }
     });
-  
+
     if (remainingCount > 0) {
-      namePart.push(<span key="more">{` and +${remainingCount} others`}</span>);
+      namePart.push(<span key='more'>{` and +${remainingCount} others`}</span>);
     }
-  
+
     return (
       <span>
         {namePart} {mainVerb} {target}!
@@ -95,8 +95,8 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
           {visibleUsers.map((user, idx) => (
             <picture key={idx} className={styles.avatarWrapper} style={{ zIndex: 5 - idx }}>
               <Image
-                src={user.avatarUrl || '/img/avatar.webp'}
-                alt={user.username}
+                src={user?.avatar_url || '/img/avatar.webp'}
+                alt={user?.username || 'User Avatar'}
                 width={32}
                 height={32}
                 className={styles.avatar}
@@ -116,4 +116,4 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
   );
 };
 
-export default NotificationCard;
+export default React.memo(NotificationCard);
