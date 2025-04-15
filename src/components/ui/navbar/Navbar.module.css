@@ -42,6 +42,78 @@
   column-gap: var(--spacing-lg);
 }
 
+/* -- USER BOX START --- */
+.userBox {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-xl);
+  position: relative;
+}
+
+.btnTalk {
+  column-gap: var(--spacing-sm) !important;
+}
+
+
+.avatarContainer {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 2px solid var(--faded-white);
+  border-radius: 50%;
+}
+
+.avatarContainer:hover {
+  border-color: var(--orange);
+}
+
+.avatarContainer img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.userDropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  color: var(--white);
+  background-color: var(--background-color);
+  border: 1px solid var(--solid-dark);
+  border-radius: var(--border-radius);
+  z-index: 24;
+  width: max-content;
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+  box-shadow: var(--box-shadow);
+}
+
+.userDropdown a,
+.userDropdown button {
+  padding: var(--spacing-base) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.userDropdown a:hover,
+.userDropdown button:hover {
+  background-color: var(--soft-dark);
+  opacity: 1;
+}
+
+.actionBox {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-md);
+}
+
+/* --- USER BOX END --- */
+
 .header nav .navItems:first-child li {
   border-radius: 4px;
   border: 1px solid var(--white);

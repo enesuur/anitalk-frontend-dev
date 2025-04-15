@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, ReactNode } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './Carousel.module.css';
@@ -9,15 +9,10 @@ import { truncateWithTrail } from '@/helpers/index';
 
 // TODO: State management.
 interface ICarouselProps {
-  _id?: string;
-  title: string;
-  snippet: string;
-  slug: string;
-  img_url: string;
+  slides: ReactNode[];
 }
 
-const Carousel: React.FC<ICarouselProps> = (props: ICarouselProps) => {
-  const { _id, title, snippet, slug, img_url } = props;
+const Carousel: React.FC<ICarouselProps> = () => {
 
   const slides = Array.from({ length: 5 }, (_, i) => ({
     url: `https://picsum.photos/seed/slide-${i}/1920/1080`,

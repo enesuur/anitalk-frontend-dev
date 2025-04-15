@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  color: var(--white);
+}
+.avatarGroup {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 72px;
+  max-width: max-content;
+}
+
+.usernameLink:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.1px;
+    text-underline-offset: 4px;
+    color: var(--orange);
+}
+.avatarWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--faded-white);
+  position: relative;
+  margin-left: -16px;
+}
+
+.avatarWrapper:first-child {
+  margin-left: 0;
+}
+
+.avatarWrapper img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: auto;
+}
+
+.message {
+  font-weight: 500;
+}
+
+.dateBox {
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  opacity: var(--opacity);
+}

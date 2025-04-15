@@ -28,12 +28,23 @@ export const metadata: Metadata = {
 
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
-  const currentPath = headersList.get('x-invoke-path') || headersList.get('referer') || '';
-  const isBlogRoot = /^\/blogs(?:\?[^/]*|\/?$)/.test(currentPath);
+  const rawPath = headersList.get('x-invoke-path') || headersList.get('referer') || '';
+  
+  // Eğer referer tam bir URL ise, pathname kısmını çekelim
+  let currentPath = rawPath;
+  
+  try {
+    const url = new URL(rawPath);
+    currentPath = url.pathname;
+  } catch {
+  
+    currentPath = rawPath;
+  }
+  
 
   return (
     <>
-      <Navbar className={isBlogRoot ? styles.absoluteNavbar : ''} />
+      <Navbar className={currentPath ? styles.absoluteNavbar : ''} />
       <main className={styles.blogLayout}>{children}</main>
       <Footer />
     </>

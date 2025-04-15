@@ -31,7 +31,7 @@ const BlogCard: React.FC<IBlogCardProps> = ({
 
   const handleNavigation = useCallback(
     (destination: string) => {
-      router.push(destination);
+      router.push(`/blogs/${destination}`);
     },
     [router],
   );
@@ -44,7 +44,7 @@ const BlogCard: React.FC<IBlogCardProps> = ({
 
       <div className={styles.cardContent}>
         <h3 className={styles.title}>
-          <Link href={slug}>{truncateWithTrail(title, 50)}</Link>
+          <Link href={`/blogs/${slug}`}>{truncateWithTrail(title, 50)}</Link>
         </h3>
 
         <p className={styles.snippet}>{truncateWithTrail(snippet, 250)}</p>

@@ -1,6 +1,6 @@
 .embla {
   position: relative;
-  height: 500px;
+  height: 475px;
   overflow: hidden;
   user-select: none;
 }
@@ -8,14 +8,14 @@
 .container {
   display: flex;
   align-items: center;
-  gap: 64px; /* Space between cards */
+  gap: 64px;
 }
 
 .slide {
   position: relative;
-  flex: 0 0 auto;  /* Prevent shrinking or expanding */
-  width: 100%;  /* Ensure that the slides take up the full width of the container */
-  height: 400px;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 375px;
   min-height: 100%;
 }
 

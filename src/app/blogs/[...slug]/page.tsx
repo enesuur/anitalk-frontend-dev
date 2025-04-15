@@ -11,6 +11,7 @@ import Image from 'next/image';
 import getBlurDataURL from '@/libs/base64ph';
 import EmblaCarousel from '@/shared/ui/swiper/Swiper';
 import Comment from '@/components/comment/Comment';
+import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
 
 const mockBlogs = generateMockBlogs(5);
 const mockComments = generateMockComments(5);
@@ -23,7 +24,8 @@ const Page: React.FC = async () => {
   const blurUrl = await getBlurDataURL('https://picsum.photos/1920/1080');
   return (
     <>
-      <section style={{ margin: 0 }}>
+      <ReadProgressBar />
+      <section style={{marginTop:144}}>
         <div className={`${styles.boxContainer} container`}>
           <div className={styles.blogBox}>
             <figure>
@@ -117,7 +119,42 @@ const Page: React.FC = async () => {
               debitis quae facilis nesciunt eaque voluptatem, voluptas nemo veritatis? Ipsum sed
               quaerat modi saepe, quos accusantium necessitatibus voluptas asperiores reprehenderit
               ipsam tenetur officia totam nulla dolorem iusto vero inventore in quae obcaecati porro
-              expedita laborum quis.
+              expedita laborum quis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Ducimus quae voluptatem similique modi quis expedita, repellendus voluptatibus
+              ratione, quia iure nobis dignissimos nulla fuga commodi voluptates nam a aliquid quasi
+              hic eveniet. Cum et, perspiciatis quaerat numquam ullam dolores fuga deleniti nisi
+              exercitationem doloribus rerum distinctio eum! Vero, fugiat officia, saepe fugit sunt
+              eligendi obcaecati optio minima nemo officiis quia error natus consequuntur iusto
+              iste. Vitae corrupti aut, fugit enim dolorem quibusdam ratione atque quas veritatis
+              voluptatibus nulla placeat in ipsam sint illo ut, vel ex tenetur ipsum fuga quis
+              tempora! Blanditiis fuga, quia adipisci, repellendus sequi ipsam laudantium
+              doloremque, error sint asperiores quae fugiat perferendis id ex nobis! Alias ullam
+              accusamus sint fuga dolorem impedit nostrum placeat quisquam vitae odio. Nam nihil est
+              cum distinctio vitae commodi optio natus laborum tenetur adipisci voluptatibus harum
+              asperiores atque impedit qui maiores, aut dolorem? Ducimus ea quod architecto aliquam
+              voluptatum. Possimus officia ab magni, aspernatur beatae repellendus aperiam cum nulla
+              iusto nobis quibusdam amet quaerat harum doloribus fugiat obcaecati ratione tempore
+              dicta cupiditate ad numquam molestiae quo facere eaque. Cupiditate, alias suscipit
+              sint sit accusantium repellat? Quae voluptatum delectus, est quia fugiat voluptatibus
+              quas alias ullam obcaecati at dolores repellat, neque dolor vitae numquam blanditiis
+              eum rem modi quod natus magnam deserunt. Autem cumque quis sequi, odit accusamus
+              dolores rerum quae laboriosam qui, eaque, dolor tempore eius nulla inventore iste
+              deleniti in suscipit vitae! Nihil quasi veritatis possimus blanditiis animi? Nobis
+              adipisci expedita, labore suscipit nulla praesentium ut distinctio vel necessitatibus.
+              Culpa assumenda neque, cumque vero rerum, velit sed eligendi harum numquam laborum
+              ducimus, animi nostrum fuga. Laborum rerum dolores ipsam labore magnam, fugit illum
+              aspernatur perspiciatis nulla temporibus dolorem eum ea aliquid totam assumenda
+              reiciendis! Commodi dolorem beatae necessitatibus totam consequuntur sunt repudiandae
+              aut quam eum corporis, sequi laudantium odio, natus perspiciatis ab repellendus,
+              soluta incidunt hic distinctio temporibus accusamus voluptatum impedit nostrum.
+              Soluta, dolorum eius facere atque tempore incidunt ab, fugit ex quisquam eaque non eos
+              nihil. Quia similique iste facere temporibus recusandae voluptates vel, hic dolorum
+              praesentium neque quidem maiores dolorem, alias sapiente? Aliquid quo a obcaecati
+              repellat dignissimos natus unde odit neque. Nesciunt quibusdam veniam modi delectus
+              aut tempora molestiae corporis molestias libero debitis, voluptas omnis officiis
+              fugiat obcaecati voluptate nulla illum rerum doloremque exercitationem consequuntur
+              tenetur, sint incidunt. Dolores ex, amet perspiciatis adipisci dolore et non neque
+              aliquid, delectus ducimus unde nisi dicta voluptas dolor. Harum, voluptatem?
             </p>
           </article>
 
@@ -141,33 +178,16 @@ const Page: React.FC = async () => {
         <div className='container'></div>
       </section>
 
-      {/* Test */}
+      {/* --- Blog Recommendation for web --- */}
       <div className='container'>
+        <h4 className={'h-1'}>People also read related blogs</h4>
         <EmblaCarousel count={5} options={{ loop: true }} />
       </div>
 
-      <div className='container'>
-        <Divider text={'Comments'} />
-      </div>
-
+      <Divider text={'Comments'} className={'container'} style={{ margin: '0 auto' }} />
+      {/* --- Comment Section --- */}
       <section>
         <div className={`${styles.commentContainer} container`}>
-          <Comment
-            key={1333}
-            _id={'test'}
-            text={`
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa repellat voluptate reiciendis dignissimos nobis veritatis doloribus dolore provident, sequi quo unde dolorum culpa soluta minima vitae perferendis rem alias blanditiis eum assumenda molestias ipsum! Modi adipisci corrupti aperiam officia quisquam, soluta maiores esse quibusdam quas, nesciunt veritatis sed mollitia voluptatum, sapiente amet magnam necessitatibus illo odio minima! Dolorem harum aperiam, tenetur enim adipisci molestiae dolore fuga saepe. Libero et accusamus quod nulla ex ipsum aspernatur ut quos consectetur expedita ipsam fugiat, vero iste, quisquam maxime eligendi quas consequuntur vitae, tempore officia soluta vel nostrum? Aut commodi ea inventore suscipit ut dolore.
-                
-                Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.
-
-                  Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.  Autem quibusdam praesentium illum? Illum ipsam molestiae perspiciatis aspernatur est non nisi delectus consectetur optio quidem eius rem vero tempora reprehenderit ducimus sapiente tempore, quod maxime sed eaque fugit. Animi eligendi deserunt adipisci ea est accusamus? Minus laboriosam quidem suscipit beatae illo doloremque labore tenetur harum voluptates? Explicabo quos ipsam autem nihil tempora inventore culpa iure, cum reprehenderit commodi, nulla perferendis eligendi laboriosam cupiditate fuga adipisci, debitis excepturi obcaecati maiores odio alias vel deserunt? Ex ad quae id.
-              `}
-            date={new Date()}
-            username={'res'}
-            avatar_url={null}
-            upVote={32}
-            downVote={42}
-          />
           {mockComments.map((item, index) => (
             <Comment
               key={index}

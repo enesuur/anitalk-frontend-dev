@@ -19,6 +19,8 @@ interface ITabBarProps {
   setTabState: (index: number) => void;
 }
 
+//  TODO: This might be used as a shared component.
+
 const ICON_SIZE = 20;
 const ICON_COLOR = '#FFFFFF';
 const ICON_OPACITY = 0.8;

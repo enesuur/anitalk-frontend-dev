@@ -17,7 +17,7 @@ const generateAllBlogs = (): Blog[] => {
     id: index + 1,
     title: faker.lorem.sentence(),
     content: faker.lorem.paragraphs(3),
-    author: faker.name.fullName(),
+    author: faker.person.fullName(),
     createdAt: faker.date.past(),
   }));
 };

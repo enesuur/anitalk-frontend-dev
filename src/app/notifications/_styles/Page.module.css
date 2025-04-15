@@ -1,0 +1,59 @@
+.tabContainer,
+.notificationContainer {
+  max-width: 1024px;
+  margin: var(--spacing-xxl) auto;
+}
+
+.tabContainer {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  column-gap: var(--spacing-xxl);
+  position: relative;
+}
+
+.btnTab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 50%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+  color: var(--white);
+  opacity: 0.5;
+  border: 1px solid var(--faded-white);
+  gap: var(--spacing-base);
+}
+
+.tabButton:hover {
+  background-color: var(--soft-dark);
+}
+
+.active {
+  background-color: var(--soft-dark);
+  opacity: 1;
+}
+
+.notificationContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+}
+
+/* Animated switch indicator */
+.tabIndicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: red;
+  transition: transform 0.3s ease;
+  z-index: 0;
+  border-radius: 8px;
+}

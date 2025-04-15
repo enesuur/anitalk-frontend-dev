@@ -20,8 +20,12 @@ export * from './Chart';
 export * from './ImageFile';
 export * from './Mail';
 export * from './Maintenance';
-export * from "./Blog";
-export * from "./Dot";
-
-
-
+export * from './Blog';
+export * from './Dot';
+export * from './Logout';
+export * from './Plus';
+export * from './Bell';
+export * from './Chat';
+export * from './Bolt';
+export * from './BellActive';
+export * from './BellOld';

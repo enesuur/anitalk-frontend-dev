@@ -95,7 +95,7 @@ const Swiper: React.FC<EmblaCarouselProps> = ({
               style={{ flex: `0 0 ${100 / slidesPerView}%` }}
             >
               <div className={styles.slideImgWrapper}>
-                <div className={styles.slideOverlay}></div> {/* Overlay */}
+                <div className={styles.slideOverlay}></div>
                 <Image
                   src={src}
                   alt={`Slide ${index + 1}`}
