@@ -3,7 +3,7 @@ import BlogCard from './_components/card/BlogCard';
 import { Blog as BlogIcon } from '@/assets/icons/index';
 import Scroller from '@/shared/ui/scroller/Scroller';
 import PaginationWrapper from '@/components/pagination/PaginationWrapper';
-import { getBlogsByPage } from '@/libs/fakeBlog';
+import { getBlogsByPage } from '@/lib/fakeBlog';
 import Carousel from '@/components/carousel/Carousel';
 
 

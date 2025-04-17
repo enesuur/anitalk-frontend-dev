@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from './_styles/Page.module.css';
 import { BellActive, BellOld, NotFound } from '@/assets/icons/';
 import NotificationCard from './_components/NotificationCard';
-import { formatRelativeDate } from '@/libs/dateUtils';
+import { formatRelativeDate } from '@/lib/dateUtils';
 import { iconStyles } from '@/helpers/index';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useInfiniteQuery } from '@tanstack/react-query';

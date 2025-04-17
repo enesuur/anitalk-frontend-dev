@@ -169,6 +169,15 @@ picture {
   height: 100%;
 }
 
+.tiptap em {
+  font-style: italic !important;
+}
+
+em,
+i {
+  font-style: italic !important;
+}
+
 *::-webkit-scrollbar {
   width: 8px;
   background-color: #333;

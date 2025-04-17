@@ -3,7 +3,7 @@ import styles from './RecommendCard.module.css';
 import { truncateWithTrail } from '@/helpers/index';
 import Link from 'next/link';
 import Image from 'next/image';
-import getBlurDataURL from '@/libs/base64ph';
+import getBlurDataURL from '@/lib/base64ph';
 
 interface IRecommendCardProps {
   _id: string;

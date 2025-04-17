@@ -1,19 +1,44 @@
 .container {
-    background-color: var(--soft-dark);
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: #fff;
-    min-height: 200px;
-  }
-  
-  .container :global(.ProseMirror) {
-    outline: none;        
-    font-family: inherit; 
-    line-height: 1.6;
-    min-height: 150px;
-  }
-  
-  .container :global(.ProseMirror) ::selection {
-    background-color: rgba(100, 149, 237, 0.3);
-  }
-  
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  color: var(--white);
+  background-color: none;
+  min-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl);
+}
+
+.container :global(.ProseMirror) {
+  font-family: inherit;
+  line-height: inherit;
+  min-height: 192px;
+}
+
+.container :global(.ProseMirror) ::selection {
+  background-color: rgba(100, 149, 237, 0.3);
+}
+
+.content em {
+  font-style: italic;
+}
+
+.content h1 {
+  font-size: var(--font-size-xl);
+}
+
+.content h2 {
+  font-size: var(--font-size-lg);
+}
+.content h3 {
+  font-size: var(--font-size-md);
+}
+.content h4 {
+  font-size: var(--font-size-base) * 1.18;
+}
+
+.content h5 {
+  font-size: var(--font-size-base) * 1.1;
+}

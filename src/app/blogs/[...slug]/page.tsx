@@ -8,7 +8,7 @@ import Divider from '@/shared/ui/hr/Divider';
 import { Date as DateIcon } from '@/assets/icons';
 import ScrollToTop from '@/shared/ui/scroller/Scroller';
 import Image from 'next/image';
-import getBlurDataURL from '@/libs/base64ph';
+import getBlurDataURL from '@/lib/base64ph';
 import EmblaCarousel from '@/shared/ui/swiper/Swiper';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';

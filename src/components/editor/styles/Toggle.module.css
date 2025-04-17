@@ -1,0 +1,28 @@
+.toggle {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--faded-white);
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: none;
+  transition: background-color 0.3s ease-in;
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+  color: var(--white);
+}
+
+.toggle:hover {
+  background-color: var(--orange);
+  opacity: 1;
+}
+
+.pressed {
+  background-color: var(--soft-dark);
+  border-color: var(--white);
+  opacity: 1;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,32 +1,59 @@
-'use client'
-import Bold from '@tiptap/extension-bold'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import styles from "./styles/Editor.module.css";
+'use client';
+import Bold from '@tiptap/extension-bold';
+import Document from '@tiptap/extension-document';
+import Paragraph from '@tiptap/extension-paragraph';
+import Text from '@tiptap/extension-text';
+import TextAlign from '@tiptap/extension-text-align';
+import Italic from '@tiptap/extension-italic';
+import { useEditor, EditorContent } from '@tiptap/react';
+import MenuBar from './components/MenuBar';
+import styles from './styles/Editor.module.css';
+import clsx from 'clsx';
+import React from 'react';
+import Highlight from '@tiptap/extension-highlight';
+import Heading from '@tiptap/extension-heading';
 
 interface IEditorProps {
-    content:string;
-    onChange: (content: string) => void;
+  content: string;
+  onChange: (content: string) => void;
+  style?: React.CSSProperties;
+  className?: string;
 }
-
-const Editor = (props:IEditorProps) => {
-    const {content,onChange} = props;
-
+// TODO: LINK IMAGE. YOUTUBE VIDEO ETC
+const Editor = ({ content, onChange, style, className }: IEditorProps) => {
   const editor = useEditor({
-   extensions: [StarterKit.configure()],
-    content: content ? content : 'Let the share your ideas.',
+    extensions: [
+      Document,
+      Paragraph,
+      Text,
+      Bold,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Heading.configure({
+        levels: [1, 2, 3, 4, 5],
+      }),
+      Highlight.configure({ multicolor: true }),
+      Italic,
+    ],
+    content: content || 'Excited to hear what you say!',
     editorProps: {
-        attributes:{
-            class:`${styles.container}`
-        }
-    }
-    
-  })
+      attributes: {
+        class: styles.content,
+      },
+    },
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    },
+    immediatelyRender: false,
+  });
 
-  return <EditorContent editor={editor} />
-}
+  return (
+    <div className={clsx(styles.container, className)} style={style}>
+      <MenuBar editor={editor} />
+      <EditorContent editor={editor} />
+    </div>
+  );
+};
 
-export default Editor;
+export default React.memo(Editor);
