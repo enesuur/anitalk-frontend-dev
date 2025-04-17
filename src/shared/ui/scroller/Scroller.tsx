@@ -5,8 +5,6 @@ import styles from './Scroller.module.css';
 
 const scrollDuration = 500;
 
-
-// TODO: Refactoring.
 const ScrollToTop = () => {
   const handleScrollToTop = useCallback(() => {
     const startingY = window.scrollY;
@@ -27,8 +25,8 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <button className={styles.container} onClick={handleScrollToTop} aria-label="Scroll to top">
-      <ArrowUpFromDot aria-hidden="true" />
+    <button className={styles.container} onClick={handleScrollToTop} aria-label={'Scroll to top'}>
+      <ArrowUpFromDot aria-hidden={'true'} />
     </button>
   );
 };

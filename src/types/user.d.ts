@@ -18,7 +18,7 @@ export interface IEntry {
   entry_url: string | null;
   entry_owner: PartialUser;
 }
-// TODO: Security issues, staging codes.
+// SHA-256 
 export interface IUser {
   _id: string;
   username: string;

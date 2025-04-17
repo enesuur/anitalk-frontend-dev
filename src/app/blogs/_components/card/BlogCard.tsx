@@ -26,7 +26,6 @@ const BlogCard: React.FC<IBlogCardProps> = ({
   author,
   slug = '#',
 }) => {
-  // TODO: Image thumb hash before loading.
   const router = useRouter();
 
   const handleNavigation = useCallback(
@@ -35,6 +34,8 @@ const BlogCard: React.FC<IBlogCardProps> = ({
     },
     [router],
   );
+
+  // TODO: Swipper fix.
 
   return (
     <div role={'link'} className={styles.cardContainer}>

@@ -45,12 +45,10 @@ const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
     changeFeed && changeFeed();
   };
 
-  // TODO: TextHeader typography component
-
   return (
     <section>
       <div className='container'>
-        <h1 className={styles.textHeader}>Quick Navigation</h1>
+        <h1 className='h-1'>Quick Navigation</h1>
         <nav className={styles.topbarContainer}>
           <ul className={styles.topbarList}>
             {tabs.slice(0, 10).map((tab) => (

@@ -7,10 +7,9 @@ import { formatRelativeDate } from '@/libs/dateUtils';
 import { iconStyles } from '@/helpers/index';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getNotifications } from "./_services/notification.service";
+import { getNotifications } from './_services/notification.service';
 
 const PAGE_SIZE = 50;
-
 
 // TODO : REFACTOR
 
@@ -42,7 +41,7 @@ const Page = () => {
     initialPageParam: 0,
   });
 
-  const items = data?.pages.flatMap(page => page.items) || [];
+  const items = data?.pages.flatMap((page) => page.items) || [];
 
   const rowVirtualizer = useVirtualizer({
     count: hasNextPage ? items.length + 1 : items.length, // Add a placeholder for loading
