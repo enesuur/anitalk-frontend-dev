@@ -3,20 +3,18 @@ import styles from './RecommendCard.module.css';
 import { truncateWithTrail } from '@/helpers/index';
 import Link from 'next/link';
 import Image from 'next/image';
-import getBlurDataURL from "@/libs/base64ph";
+import getBlurDataURL from '@/libs/base64ph';
 
 interface IRecommendCardProps {
-  _id:string;
+  _id: string;
   title: string;
   date: Date;
   img_url: string;
-  slug:string;
+  slug: string;
 }
 
-// TODO: Pass blog's data with navigation do not request once more.
-
-const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCardProps ) => {
-  const {_id,title,date,img_url,slug} = props;
+const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCardProps) => {
+  const { _id, title, date, img_url, slug } = props;
 
   const blurUrl = await getBlurDataURL(img_url);
   return (
@@ -28,7 +26,6 @@ const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCar
             alt={title}
             fill={true}
             objectFit={'cover'}
-            className={styles.img}
             objectPosition={'center'}
             quality={90}
             placeholder={'blur'}
