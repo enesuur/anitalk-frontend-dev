@@ -46,6 +46,16 @@
   row-gap: var(--spacing-lg);
 }
 
+.notFoundBox {
+  font-size: var(--font-size-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin: var(--spacing-xxl) auto;
+  color: var(--white);
+  opacity: var(--opacity);
+}
+
 /* Animated switch indicator */
 .tabIndicator {
   position: absolute;

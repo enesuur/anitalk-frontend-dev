@@ -10,19 +10,12 @@ import { RootState } from '@/redux/store/store';
 import { logout } from '@/redux/slices/user/userSlice';
 import Image from 'next/image';
 import { Plus, Profile, Maintenance, Logout, Bell, Chat } from '@/assets/icons/';
-import { IconStyles } from '@/types/global';
+import {iconStyles} from '@/helpers/index';
 
 interface NavbarProps {
   className?: string;
   style?: React.CSSProperties;
 }
-//  TODO: Refactor other components for direclty taking types from global.d.ts!!
-const iconStyles: IconStyles = {
-  width: 20,
-  height: 20,
-  opacity: 0.8,
-  color: '#FFFFFF',
-};
 
 const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const [themeState, setThemeState] = useState<boolean>(false);
@@ -45,7 +38,6 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
     dispatch(logout());
   };
 
-  console.log(user.user);
 
   // TODO: TEST
   const imageUrl = 'https://picsum.photos/64/64';

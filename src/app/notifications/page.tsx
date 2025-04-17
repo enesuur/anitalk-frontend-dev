@@ -1,182 +1,152 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './_styles/Page.module.css';
-import { IconStyles } from '@/types/global';
-import { BellActive, BellOld } from '@/assets/icons/';
+import { BellActive, BellOld, NotFound } from '@/assets/icons/';
 import NotificationCard from './_components/NotificationCard';
-import { formatDistanceToNow } from 'date-fns'; // date formatting
+import { formatRelativeDate } from '@/libs/dateUtils';
+import { iconStyles } from '@/helpers/index';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { getNotifications } from "./_services/notification.service";
 
-export const iconStyles: IconStyles = {
-  width: 20,
-  height: 20,
-  opacity: 0.8,
-  color: '#FFFFFF',
+const PAGE_SIZE = 50;
+
+
+// TODO : REFACTOR
+
+type User = {
+  username: string;
+  avatar_url: string;
 };
 
-// FAKE TAXI
-const recentNotifications = [
-  {
-    users: [
-      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' }
-    ],
-    totalCount: 1,
-    type: 0, // Follow
-    target: 'you',
-    date: new Date(),
-  },
-  {
-    users: [
-      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' }
-    ],
-    totalCount: 2,
-    type: 0, // Follow
-    target: 'you',
-    date: new Date(),
-  },
-  {
-    users: [
-      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' }
-    ],
-    totalCount: 3,
-    type: 0, // Follow
-    target: 'you',
-    date: new Date(),
-  },
-  {
-    users: [
-      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' },
-      { username: 'Legolas', avatar_url: 'https://avatars.githubusercontent.com/u/4' }
-    ],
-    totalCount: 4,
-    type: 0, // Follow
-    target: 'you',
-    date: new Date(),
-  },
-  {
-    users: [
-      { username: 'Galadriel', avatar_url: 'https://avatars.githubusercontent.com/u/1' },
-      { username: 'Guye', avatar_url: 'https://avatars.githubusercontent.com/u/2' },
-      { username: 'Aragorn', avatar_url: 'https://avatars.githubusercontent.com/u/3' },
-      { username: 'Legolas', avatar_url: 'https://avatars.githubusercontent.com/u/4' },
-      { username: 'Gimli', avatar_url: 'https://avatars.githubusercontent.com/u/5' }
-    ],
-    totalCount: 5,
-    type: 0, // Follow
-    target: 'you',
-    date: new Date(),
-  },
-];
+type Notification = {
+  users: User[];
+  totalCount: number;
+  type: number;
+  target: string;
+  date: string;
+};
 
-const oldNotifications = [
-  {
-    users: [
-      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' }
-    ],
-    totalCount: 1,
-    type: -1, // Upvote
-    target: 'your talk on the One Ring',
-    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-  },
-  {
-    users: [
-      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' }
-    ],
-    totalCount: 2,
-    type: -1, // Upvote
-    target: 'your talk on the One Ring',
-    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-  },
-  {
-    users: [
-      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' }
-    ],
-    totalCount: 3,
-    type: -1, // Upvote
-    target: 'your talk on the One Ring',
-    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-  },
-  {
-    users: [
-      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' },
-      { username: 'Pippin', avatar_url: 'https://avatars.githubusercontent.com/u/9' }
-    ],
-    totalCount: 4,
-    type: -1, // Upvote
-    target: 'your talk on the One Ring',
-    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-  },
-  {
-    users: [
-      { username: 'Frodo', avatar_url: 'https://avatars.githubusercontent.com/u/6' },
-      { username: 'Samwise', avatar_url: 'https://avatars.githubusercontent.com/u/7' },
-      { username: 'Merry', avatar_url: 'https://avatars.githubusercontent.com/u/8' },
-      { username: 'Pippin', avatar_url: 'https://avatars.githubusercontent.com/u/9' },
-      { username: 'Gandalf', avatar_url: 'https://avatars.githubusercontent.com/u/10' }
-    ],
-    totalCount: 5,
-    type: -1, // Upvote
-    target: 'your talk on the One Ring',
-    date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-  },
-];
-
+type NotificationsData = Notification[];
 
 const Page = () => {
   const [tabState, setTabState] = useState<boolean>(false);
-  const notifications = tabState ? oldNotifications : recentNotifications;
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ['notifications', tabState],
+    queryFn: ({ pageParam = 0 }) => getNotifications(PAGE_SIZE, pageParam, tabState),
+    getNextPageParam: (lastPage) => {
+      return lastPage.items.length < PAGE_SIZE ? undefined : lastPage.nextOffset;
+    },
+    initialPageParam: 0,
+  });
+
+  const items = data?.pages.flatMap(page => page.items) || [];
+
+  const rowVirtualizer = useVirtualizer({
+    count: hasNextPage ? items.length + 1 : items.length, // Add a placeholder for loading
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 100, // Estimating the size of each row for virtual rendering
+    overscan: 5, // Preload additional rows for smoother scrolling
+  });
+
+  useEffect(() => {
+    const virtualItems = rowVirtualizer.getVirtualItems();
+    if (!virtualItems.length) return;
+
+    const lastItem = virtualItems[virtualItems.length - 1];
+    // If the last item is reached and there's more data, fetch the next page
+    if (lastItem.index === items.length && hasNextPage) {
+      fetchNextPage(); // Fetch the next batch of notifications
+    }
+  }, [hasNextPage, items.length, rowVirtualizer, fetchNextPage]);
+
+  // Switch tabs (recent vs old notifications)
+  const handleTabSwitch = (tab: boolean) => {
+    setTabState(tab);
+  };
 
   return (
-    <section>
-      <div className='container'>
-        <h1 className='h-1' style={{maxWidth:'1024px',margin:'auto'}}>Notifications</h1>
+    <React.Fragment>
+      <section>
+        <div className='container'>
+          <h1 className='h-1' style={{ maxWidth: '1024px', margin: 'auto' }}>
+            Notifications
+          </h1>
 
-        <nav className={styles.tabContainer}>
-          <button
-            className={`${styles.btnTab} ${!tabState ? styles.active : ''}`}
-            onClick={() => setTabState(false)}
-          >
-            <BellActive {...iconStyles} />
-            Recents
-          </button>
-          <button
-            className={`${styles.btnTab} ${tabState ? styles.active : ''}`}
-            onClick={() => setTabState(true)}
-          >
-            <BellOld {...iconStyles} />
-            Olds
-          </button>
-        </nav>
+          <nav className={styles.tabContainer}>
+            <button
+              className={`${styles.btnTab} ${!tabState ? styles.active : ''}`}
+              onClick={() => handleTabSwitch(false)}
+            >
+              <BellActive {...iconStyles} />
+              Recents
+            </button>
+            <button
+              className={`${styles.btnTab} ${tabState ? styles.active : ''}`}
+              onClick={() => handleTabSwitch(true)}
+            >
+              <BellOld {...iconStyles} />
+              Olds
+            </button>
+          </nav>
 
-        <div className={styles.notificationContainer}>
-          {notifications.length === 0 ? (
-            <div className={styles.noNotification}>
-              <p>No {tabState ? 'old' : 'recent'} notifications to show.</p>
-            </div>
-          ) : (
-            notifications.map((item, index) => (
-              <NotificationCard
-                key={index}
-                users={item.users}
-                totalCount={item.totalCount}
-                type={item.type}
-                target={item.target}
-                date={formatDistanceToNow(item.date, { addSuffix: true })}
-              />
-            ))
-          )}
+          <div
+            ref={parentRef}
+            className={styles.notificationContainer}
+            style={{ height: '500px', overflow: 'auto' }}
+          >
+            {items.length === 0 ? (
+              <div className={styles.notFoundBox}>
+                <NotFound {...iconStyles} width={32} height={32} />
+                <span>No {tabState ? 'old' : 'recent'} notifications.</span>
+              </div>
+            ) : (
+              <div
+                style={{
+                  height: `${rowVirtualizer.getTotalSize()}px`,
+                  position: 'relative',
+                  width: '100%',
+                }}
+              >
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                  const isLoaderRow = virtualRow.index === items.length;
+                  const style = {
+                    position: 'absolute' as const,
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: `${virtualRow.size}px`,
+                    transform: `translateY(${virtualRow.start}px)`,
+                  };
+
+                  return (
+                    <div key={virtualRow.key} style={style}>
+                      {isLoaderRow ? (
+                        isFetchingNextPage ? (
+                          <div className={styles.loader}>Loading more…</div>
+                        ) : (
+                          <div className={styles.loader}>No more notifications</div>
+                        )
+                      ) : (
+                        <NotificationCard
+                          users={items[virtualRow.index].users}
+                          totalCount={items[virtualRow.index].totalCount}
+                          type={items[virtualRow.index].type}
+                          target={items[virtualRow.index].target}
+                          date={formatRelativeDate(items[virtualRow.index].date)}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </React.Fragment>
   );
 };
 

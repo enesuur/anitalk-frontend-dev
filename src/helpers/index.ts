@@ -1,4 +1,5 @@
-import { PartialUser } from "@/types/user";
+import { PartialUser } from '@/types/user';
+import { IconStyles } from '@/types/global';
 
 export const calculateAge = (birthDate: Date): number => {
   const currentDate = new Date();
@@ -22,10 +23,9 @@ export const calculateAge = (birthDate: Date): number => {
   return Math.max(age, 0);
 };
 
-
 export const filter_followers = (
   my_followers: PartialUser[],
-  other_followers: PartialUser[]
+  other_followers: PartialUser[],
 ): (PartialUser & { is_following: boolean })[] => {
   const my_followers_set = new Set(my_followers.map((follower) => follower._id));
 
@@ -56,8 +56,18 @@ export const dateConverter = (date?: string | Date) => {
  * @param trailChar - The character(s) to append (default: '...')
  * @returns Truncated string with trailing character if needed
  */
-export const truncateWithTrail = (text: string, maxLength: number = 25, trailChar = '...'): string => {
+export const truncateWithTrail = (
+  text: string,
+  maxLength: number = 25,
+  trailChar = '...',
+): string => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trim() + trailChar;
 };
 
+export const iconStyles: IconStyles = {
+  width: 20,
+  height: 20,
+  opacity: 0.8,
+  color: '#FFFFFF',
+};
