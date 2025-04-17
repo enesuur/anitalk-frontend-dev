@@ -1,0 +1,19 @@
+.container {
+    background-color: var(--soft-dark);
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+    min-height: 200px;
+  }
+  
+  .container :global(.ProseMirror) {
+    outline: none;        
+    font-family: inherit; 
+    line-height: 1.6;
+    min-height: 150px;
+  }
+  
+  .container :global(.ProseMirror) ::selection {
+    background-color: rgba(100, 149, 237, 0.3);
+  }
+  

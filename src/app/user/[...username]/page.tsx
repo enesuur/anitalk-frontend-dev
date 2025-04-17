@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import AlertModal from '@/components/modals/alert/AlertModal';
 import ReportModal from '@/components/modals/report/ReportModal';
-
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 type Tab = {
   label: string;
@@ -351,18 +351,27 @@ const Page = () => {
 
         <div className={styles.profileInfo}>
           <div className={styles.profileSocial}>
-            <a href={`https://x.com/test`} target='_blank' rel='noopener noreferrer'>
-              <X width={16} height={16} color={'#FFFFFF'} />
-              <span>--</span>
-            </a>
-            <a href={`https://snapchat.com/test`} target='_blank' rel='noopener noreferrer'>
-              <Mal width={16} height={16} color={'#FFFFFF'} />
-              <span>--</span>
-            </a>
-            <a href={`https://instagram.com/test`} target='_blank' rel='noopener noreferrer'>
-              <Reddit width={16} height={16} color={'#FFFFFF'} />
-              <span>--</span>
-            </a>
+            <Tooltip text={'X Profile'} position={'top'}>
+              <a href={`https://x.com/test`} target='_blank' rel='noopener noreferrer'>
+                <X width={16} height={16} color={'#FFFFFF'} />
+
+                <span>--</span>
+              </a>
+            </Tooltip>
+
+            <Tooltip text={'Mal Profile'} position={'top'}>
+              <a href={`https://snapchat.com/test`} target='_blank' rel='noopener noreferrer'>
+                <Mal width={16} height={16} color={'#FFFFFF'} />
+                <span>--</span>
+              </a>
+            </Tooltip>
+
+            <Tooltip text={'Reddit Profile'} position={'top'}>
+              <a href={`https://instagram.com/test`} target='_blank' rel='noopener noreferrer'>
+                <Reddit width={16} height={16} color={'#FFFFFF'} />
+                <span>--</span>
+              </a>
+            </Tooltip>
           </div>
 
           <div className={styles.profileStats}>
@@ -388,7 +397,7 @@ const Page = () => {
           setReportModal={setIsReportModalOpen}
         />
 
-        {tabState === 0 && <BiographySection/>}
+        {tabState === 0 && <BiographySection />}
 
         {tabState === 1 && <AboutSection generation={1} countryCode={'CN'} joinDate={new Date()} />}
 

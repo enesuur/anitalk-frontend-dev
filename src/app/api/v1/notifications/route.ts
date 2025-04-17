@@ -26,8 +26,7 @@ export async function GET(request: Request) {
   const limit = parseInt(searchParams.get('limit') || '10', 10);
 
   const key =
-    typeParam === 'old' ? 'oldNotifications' :
-    typeParam === 'recent' ? 'recentNotifications' : '';
+    typeParam === 'old' ? 'oldNotifications' : typeParam === 'recent' ? 'recentNotifications' : '';
 
   const typedNotifications = notifications as NotificationsData;
   const data = Array.isArray(typedNotifications[key]) ? typedNotifications[key] : [];
