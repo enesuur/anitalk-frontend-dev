@@ -12,6 +12,9 @@ import clsx from 'clsx';
 import React from 'react';
 import Highlight from '@tiptap/extension-highlight';
 import Heading from '@tiptap/extension-heading';
+import Underline from '@tiptap/extension-underline';
+import CharacterCount from '@tiptap/extension-character-count';
+import CharCount from './components/CharCount';
 
 interface IEditorProps {
   content: string;
@@ -20,6 +23,7 @@ interface IEditorProps {
   className?: string;
 }
 // TODO: LINK IMAGE. YOUTUBE VIDEO ETC
+const CHAR_LIMIT = 10;
 const Editor = ({ content, onChange, style, className }: IEditorProps) => {
   const editor = useEditor({
     extensions: [
@@ -35,6 +39,10 @@ const Editor = ({ content, onChange, style, className }: IEditorProps) => {
       }),
       Highlight.configure({ multicolor: true }),
       Italic,
+      Underline,
+      CharacterCount.configure({
+        limit: CHAR_LIMIT,
+      }),
     ],
     content: content || 'Excited to hear what you say!',
     editorProps: {
@@ -52,6 +60,7 @@ const Editor = ({ content, onChange, style, className }: IEditorProps) => {
     <div className={clsx(styles.container, className)} style={style}>
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
+      {editor && <CharCount editor={editor} limit={CHAR_LIMIT} />}
     </div>
   );
 };

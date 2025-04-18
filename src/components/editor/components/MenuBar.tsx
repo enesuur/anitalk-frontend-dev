@@ -15,6 +15,7 @@ import {
   List,
   ListOrdered,
   Strikethrough,
+  Underline,
 } from 'lucide-react';
 import { Editor } from '@tiptap/react';
 import { Toggle } from '../components/Toggle';
@@ -104,6 +105,11 @@ const MenuBar = ({ editor }: IMenuBarProps) => {
         icon: <Highlighter {...iconStyles} opacity={1} />,
         onClick: () => editor.chain().focus().toggleHighlight().run(),
         preesed: editor.isActive('highlight'),
+      },
+      {
+        icon: <Underline {...iconStyles} opacity={1} />,
+        onClick: () => editor.chain().focus().toggleUnderline().run(),
+        preesed: editor.isActive('underline'),
       },
     ],
     [editor],

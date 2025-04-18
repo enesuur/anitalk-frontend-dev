@@ -1116,6 +1116,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-character-count@npm:^2.11.7":
+  version: 2.11.7
+  resolution: "@tiptap/extension-character-count@npm:2.11.7"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+    "@tiptap/pm": ^2.7.0
+  checksum: 10c0/6498481e7bfed678d61d85d9906f45d3ce5146d2cf2d238504058d6780abf9319f296fa74d76ea35d5f14916838bd88c090d3e17e91a8d331ac2566a9493ed44
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-code-block@npm:^2.11.7":
   version: 2.11.7
   resolution: "@tiptap/extension-code-block@npm:2.11.7"
@@ -1292,6 +1302,15 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.7.0
   checksum: 10c0/91cd9ac3cba8478a1738edd7266d70089755494c1bf441daa0beaa26203113fa51ff913ec2b9e446eac11260667444ddb58ee146a90715ef75a7cf28c1fba34c
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-underline@npm:^2.11.7":
+  version: 2.11.7
+  resolution: "@tiptap/extension-underline@npm:2.11.7"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+  checksum: 10c0/ba72586d931003dd5aa573d6811b70176d8ba91761e312f613c27a4ce0e7929bdebd4e21a316d02b9494094ef2a04b994dc83be31c920563531796ee31e8113a
   languageName: node
   linkType: hard
 
@@ -1781,10 +1800,12 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.68.0"
     "@tanstack/react-query": "npm:^5.69.0"
     "@tanstack/react-virtual": "npm:^3.13.6"
+    "@tiptap/extension-character-count": "npm:^2.11.7"
     "@tiptap/extension-heading": "npm:^2.11.7"
     "@tiptap/extension-highlight": "npm:^2.11.7"
     "@tiptap/extension-italic": "npm:^2.11.7"
     "@tiptap/extension-text-align": "npm:^2.11.7"
+    "@tiptap/extension-underline": "npm:^2.11.7"
     "@tiptap/pm": "npm:^2.11.7"
     "@tiptap/react": "npm:^2.11.7"
     "@tiptap/starter-kit": "npm:^2.11.7"

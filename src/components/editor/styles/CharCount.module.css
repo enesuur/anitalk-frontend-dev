@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-sm);
+  color: var(--white);
+  opacity: 0.8;
+  margin-top: var(--spacing-base);
+}
+
+.warning {
+  color: var(--red);
+}
+
+.characterCountInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin-top: var(--spacing-sm);
+}
+
+.characterCountText {
+  font-weight: 500;
+}
+
+.wordCount {
+  color: var(--white) !important;
+  opacity: var(--opacity);
+}
