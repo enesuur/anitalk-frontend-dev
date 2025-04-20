@@ -4,7 +4,7 @@ import Editor from '@/components/editor/Editor';
 import React from 'react';
 
 export default function CreateTalk() {
-  const [editorContent, setEditorContent] = useState<string>('<p>Initial Content</p>');
+  const [editorContent, setEditorContent] = useState<string | null>(null);
   const handleEditorChange = (html: string) => {
     setEditorContent(html);
     return;
@@ -13,7 +13,9 @@ export default function CreateTalk() {
   return (
     <React.Fragment>
       <section>
-        <Editor content={editorContent} onChange={handleEditorChange} />
+        <div className='container'>
+          <Editor content={editorContent} onChange={handleEditorChange} />
+        </div>
       </section>
     </React.Fragment>
   );

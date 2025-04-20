@@ -2,6 +2,7 @@
 import React from 'react';
 import styles from './TextInput.module.css';
 import { AlertCircle } from 'lucide-react';
+import clsx from 'clsx';
 
 interface TextInputProps {
   label: string;
@@ -11,6 +12,9 @@ interface TextInputProps {
   value?: string;
   onChange?: (value: string) => void;
   error?: string;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -20,7 +24,10 @@ const TextInput: React.FC<TextInputProps> = ({
   placeholder = '',
   value = '',
   error = '',
+  style,
+  className,
   onChange,
+  onKeyDown,
 }) => {
   return (
     <div className={styles.container}>
@@ -29,7 +36,7 @@ const TextInput: React.FC<TextInputProps> = ({
       </label>
       {error && (
         <div className={styles.errorContainer}>
-          <AlertCircle width={16} height={16}  />
+          <AlertCircle width={16} height={16} />
           <span>{error}</span>
         </div>
       )}
@@ -39,7 +46,9 @@ const TextInput: React.FC<TextInputProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
-        className={`${styles.input} ${error ? styles.inputError : ''}`}
+        onKeyDown={onKeyDown}
+        style={style}
+        className={clsx(styles.input, { [styles.inputError]: error }, className)}
       />
     </div>
   );

@@ -1,0 +1,35 @@
+.bubbleMenu {
+  background-color: var(--soft-dark);
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
+  z-index: 999;
+  font-size: var(--font-size-sm);
+}
+
+.bubbleMenu button {
+  all: unset;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.bubbleMenu button:hover {
+  background-color: var(--orange);
+}
+
+.bubbleMenu button.isActive {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.bubbleMenu button.isActive:hover {
+  opacity: var(--opacity);
+}

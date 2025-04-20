@@ -1,10 +1,12 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  padding: var(--spacing-base) var(--spacing-md) ;
+  padding: var(--spacing-base) var(--spacing-md);
   border: 1px solid var(--faded-white);
   border-radius: var(--border-radius);
   gap: var(--spacing-xl);
   z-index: 50;
   background-color: none;
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
 }

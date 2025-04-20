@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import styles from '../styles/Toggle.module.css';
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 type ToggleProps = {
   onClick?: () => void;
@@ -8,6 +9,7 @@ type ToggleProps = {
   disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
+  name: string;
 };
 
 export function Toggle({
@@ -16,6 +18,7 @@ export function Toggle({
   disabled = false,
   className = '',
   children,
+  name,
 }: ToggleProps) {
   const combinedClassName = [
     styles.toggle,
@@ -27,14 +30,16 @@ export function Toggle({
     .join(' ');
 
   return (
-    <button
-      type='button'
-      aria-pressed={pressed}
-      onClick={onClick}
-      disabled={disabled}
-      className={combinedClassName}
-    >
-      {children}
-    </button>
+    <Tooltip text={name} styles={{ background: '#0a0a0a' }}>
+      <button
+        type='button'
+        aria-pressed={pressed}
+        onClick={onClick}
+        disabled={disabled}
+        className={combinedClassName}
+      >
+        {children}
+      </button>
+    </Tooltip>
   );
 }

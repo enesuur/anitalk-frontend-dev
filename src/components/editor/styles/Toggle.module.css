@@ -1,4 +1,5 @@
 .toggle {
+  position: relative;
   padding: var(--spacing-sm);
   border: 1px solid var(--faded-white);
   background-color: var(--soft-dark);

@@ -254,3 +254,9 @@ i {
     max-width: 480px;
   }
 }
+
+.link {
+  color: var(--orange);
+  text-decoration: underline;
+  cursor: pointer;
+}
