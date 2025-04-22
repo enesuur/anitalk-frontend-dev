@@ -19,8 +19,8 @@ export const metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' className={`${poppins.className}`}>
-      <body suppressHydrationWarning>
+    <html lang='en' className={`${poppins.className}`} suppressHydrationWarning>
+      <body>
         <SlideLoader />
         <Providers>{children}</Providers>
       </body>

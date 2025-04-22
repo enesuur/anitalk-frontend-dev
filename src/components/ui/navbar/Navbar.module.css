@@ -11,6 +11,7 @@
   color: var(--white);
   backdrop-filter: blur(10.7px);
   -webkit-backdrop-filter: blur(10.7px);
+  backdrop-filter: blur(10.7px);
   box-shadow: var(--box-shadow);
   user-select: none;
 }
@@ -31,7 +32,7 @@
   cursor: pointer;
 }
 
-.logoContainer span{
+.logoContainer span {
   font-weight: 700;
   letter-spacing: 0.1px;
 }
@@ -53,7 +54,6 @@
 .btnTalk {
   column-gap: var(--spacing-sm) !important;
 }
-
 
 .avatarContainer {
   width: 48px;

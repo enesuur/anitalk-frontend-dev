@@ -201,14 +201,6 @@ i {
 --- Custom Global CSS Start ---
 */
 
-.h-1 {
-  font-size: var(--font-size-lg);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing);
-  color: var(--white);
-  margin: var(--spacing-xl) 0;
-}
-
 .setting-text-header {
   font-size: var(--font-size-md);
   font-weight: 500;

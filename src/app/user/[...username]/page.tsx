@@ -404,6 +404,7 @@ const Page = () => {
         {tabState === 2 && <FavoriteSection animes={mockAnimes} mangas={mockMangas} />}
       </section>
 
+      {/* TabState changer && talk to comments. && needs to follow for seeing talks and comments. */}
       <section>
         <div className={`${styles.latestEntries} container`}>
           <h1>Latest Entries</h1>

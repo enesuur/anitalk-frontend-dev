@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import styles from './_styles/Settings.module.css';
 import { Security, Profile, Favorite, Chart, Social } from '@/assets/icons';
-import ImageInput from '@/shared/ui/input/ImageInput';
-import Button from '@/shared/ui/button/Button';
-import SocialSection from './_components/SocialSection';
-import SecuritySection from './_components/SecuritySection';
-import AnalyticSection from './_components/AnalyticSection';
-import FavoriteSection from './_components/FavoriteSection';
+import SocialSection from './_sections/SocialSection';
+import SecuritySection from './_sections/SecuritySection';
+import AnalyticSection from './_sections/AnalyticSection';
+import FavoriteSection from './_sections/FavoriteSection';
+import ProfileSection from './_sections/ProfileSection';
+import { iconStyles } from '@/helpers';
 
 interface ITabBarProps {
   tabState: number;
@@ -20,10 +20,6 @@ interface ITabBarProps {
 }
 
 //  TODO: This might be used as a shared component.
-
-const ICON_SIZE = 20;
-const ICON_COLOR = '#FFFFFF';
-const ICON_OPACITY = 0.8;
 
 const tabs = [
   { label: 'Profile', icon: Profile },
@@ -45,12 +41,7 @@ const TabBar: React.FC<ITabBarProps> = ({ tabState, setTabState }) => {
               className={`${styles.tabItem} ${tabState === index ? styles.active : ''}`}
               onClick={() => setTabState(index)}
             >
-              <Icon
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                color={ICON_COLOR}
-                style={{ opacity: ICON_OPACITY, marginRight: 8 }}
-              />
+              <Icon {...iconStyles} style={{ marginRight: 8 }} />
               <span>{tab.label}</span>
             </li>
           );
@@ -65,69 +56,6 @@ const TabBar: React.FC<ITabBarProps> = ({ tabState, setTabState }) => {
         }}
       />
     </nav>
-  );
-};
-
-interface IProfileSectionProps {
-  username: string;
-  cover_img_url?: string;
-  profile_img_url?: string;
-}
-
-const ProfileSection: React.FC<IProfileSectionProps> = (
-  username,
-  cover_img_url,
-  profile_img_url,
-) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleImageSelect = (file: File, previewUrl: string) => {
-    setSelectedImage(previewUrl);
-  };
-
-  return (
-    <>
-      <section>
-        <h2 className={styles.settingTextHeader}>Profile Image</h2>
-        <div className={styles.avatarWrapper}>
-          <div className={styles.avatarContainer}>
-            <div className={styles.avatarHeader}>
-              <picture>
-                <img
-                  src={selectedImage || profile_img_url || '/img/avatar.webp'}
-                  alt='Profile Picture'
-                  className={styles.avatar}
-                />
-              </picture>
-              <span>Must be JPEG, PNG, or GIF and cannot exceed 10MB.</span>
-            </div>
-            <Button text={'Upload'} isLoading={isLoading} isDisabled={false} />
-          </div>
-          <ImageInput onImageSelect={handleImageSelect} />
-        </div>
-      </section>
-
-      <section>
-        <h2 className={styles.settingTextHeader}>Cover Image</h2>
-        <div className={styles.coverWrapper}>
-          <div className={styles.coverContainer}>
-            <div className={styles.coverHeader}>
-              <picture>
-                <img
-                  src={selectedImage || cover_img_url || '/img/bg-cover.webp'}
-                  alt='Cover Image'
-                  className={styles.cover}
-                />
-              </picture>
-              <span>Must be JPEG, PNG, or GIF and cannot exceed 10MB.</span>
-            </div>
-            <Button text={'Upload'} isLoading={isLoading} isDisabled={false} />
-          </div>
-          <ImageInput onImageSelect={handleImageSelect} />
-        </div>
-      </section>
-    </>
   );
 };
 
