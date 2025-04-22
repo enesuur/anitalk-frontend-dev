@@ -187,9 +187,9 @@ const MenuBar = ({ editor, setLink, addVideo, addImage }: IMenuBarProps) => {
         disabled: false,
       },
       {
-        name: 'Upload Image',
+        name: 'Image Upload',
         icon: <ImageUp {...iconStyles} opacity={1} />,
-        onClick: () => addImage(),
+        onClick: () => editor.chain().focus().setImageUploadNode().run(),
         pressed: false,
         disabled: false,
       },

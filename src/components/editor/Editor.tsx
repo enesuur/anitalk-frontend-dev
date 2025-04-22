@@ -35,6 +35,8 @@ import History from '@tiptap/extension-history';
 import { Color } from '@tiptap/extension-color';
 import Mention from '@tiptap/extension-mention';
 import BubbleMenu from './components/BubbleMenu';
+import { ImageUploadNode } from '@/components/tiptap-node/image-upload-node';
+import { handleImageUpload, MAX_FILE_SIZE, IMAGE_FILE_LIMIT } from './helpers';
 
 interface IEditorProps {
   content: string | null;
@@ -128,6 +130,13 @@ const Editor = ({ content, onChange, style, className, shouldOptimizeRendering }
         HTMLAttributes: {
           class: 'mention',
         },
+      }),
+      ImageUploadNode.configure({
+        accept: 'image/*',
+        maxSize: MAX_FILE_SIZE,
+        limit: IMAGE_FILE_LIMIT,
+        upload: handleImageUpload,
+        onError: (error) => console.error('Upload failed:', error),
       }),
     ],
     content: content,

@@ -3,13 +3,11 @@ import { BubbleMenu as Menu, Editor } from '@tiptap/react';
 import styles from '../styles/BubbleMenu.module.css';
 import React from 'react';
 
-interface BubbleMenuProps {
+interface IBubbleMenuProps {
   editor: Editor;
 }
 
-const BubbleMenu = ({ editor }: BubbleMenuProps) => {
-  if (!editor) return null;
-
+const BubbleMenu = ({ editor }: IBubbleMenuProps) => {
   return (
     <React.Fragment>
       {editor ? (
@@ -34,7 +32,7 @@ const BubbleMenu = ({ editor }: BubbleMenuProps) => {
           </button>
         </Menu>
       ) : (
-        <span>Bubble exploited</span>
+        <React.Fragment></React.Fragment>
       )}
     </React.Fragment>
   );
