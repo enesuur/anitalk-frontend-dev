@@ -67,7 +67,17 @@ const SettingsPage = () => {
         <h1 className={styles.sectionTextHeader}>Settings</h1>
         <TabBar tabState={tabState} setTabState={setTabState} />
 
-        {tabState === 0 && <ProfileSection username={'balladriel'} />}
+        {tabState === 0 && (
+          <ProfileSection
+            username={'baladriel'}
+            cover_img_url={null}
+            profile_img_url={null}
+            display_name={'test'}
+            generation={1}
+            country={'Turkey'}
+            biography={'Cool Stuff'}
+          />
+        )}
         {tabState == 1 && <FavoriteSection />}
         {tabState === 2 && <SecuritySection />}
         {tabState === 3 && <SocialSection x_username='baladriel' reddit_username='baladriel' />}

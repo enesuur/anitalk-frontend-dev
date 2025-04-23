@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styles from './Topbar.module.css';
 import { Circle } from 'lucide-react';
+import { H1 } from '@/shared/ui/headings/index';
 
 interface ITopbarProps {
   changeFeed?: () => void;
@@ -48,7 +49,7 @@ const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
   return (
     <section>
       <div className='container'>
-        <h1 className='h-1'>Quick Navigation</h1>
+        <H1>Quick Navigation</H1>
         <nav className={styles.topbarContainer}>
           <ul className={styles.topbarList}>
             {tabs.slice(0, 10).map((tab) => (

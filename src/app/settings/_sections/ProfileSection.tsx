@@ -287,47 +287,57 @@ const BiographyForm = ({ biography }: IBiographyProps) => {
 
 interface IProfileImageForm {
   profile_img_url: string | null;
-  setProfileImage: () => void;
+  setProfileImage: (url: string) => void;
 }
 
-const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageForm) => {
-  const profileImageSchema = z.object({
-    profile_img_url: z.string().nullable().optional(),
-  });
-  type ProfileImageSchema = z.infer<typeof profileImageSchema>;
+const profileImageSchema = z.object({
+  profile_img_url: z.string().nullable().optional(),
+});
+type ProfileImageSchema = z.infer<typeof profileImageSchema>;
 
-  const { control, handleSubmit } = useForm({
+const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageForm) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting, isLoading },
+  } = useForm<ProfileImageSchema>({
     resolver: zodResolver(profileImageSchema),
-    defaultValues: { profile_img_url: profile_img_url },
+    defaultValues: {
+      profile_img_url: profile_img_url,
+    },
   });
 
   const onSubmit = (data: ProfileImageSchema) => {
     console.log('Profile image updated:', data);
   };
 
-  const handleImageSelect = (_, previewUrl: string) => {
+  const handleImageSelect = (_: File, previewUrl: string) => {
     setProfileImage(previewUrl);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.verticalBox}>
       <div className={styles.horizontalBox}>
-        <div className={styles.leftBox}>
+        <div className={`${styles.leftBox} ${styles.verticalBox}`}>
           <picture>
             <Image
-              src={'/img/avatar.webp'}
+              src={profile_img_url || '/img/avatar.webp'}
               alt='Profile Picture'
               className={styles.avatarBox}
-              fill={true}
-              priority={false}
-              loading={'lazy'}
+              fill
+              loading='lazy'
               quality={1}
             />
           </picture>
-          <span>Must be JPEG, PNG, or GIF and cannot exceed 10MB.</span>
+          <span className={styles.imageGuideline}>
+            Must be JPEG, PNG, or GIF and cannot exceed 10MB.
+          </span>
         </div>
+
         <ImageInput onImageSelect={handleImageSelect} />
       </div>
+
+      <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
     </form>
   );
 };
@@ -377,6 +387,7 @@ interface IProfileSectionProps {
   username: string;
   cover_img_url: string | null;
   profile_img_url: string | null;
+  display_name: string | null;
   generation: number;
   country: string;
   biography: string | null;
@@ -405,14 +416,8 @@ const ProfileSection = ({
           <DisplayNameForm display_name={display_name} />
           <CountryForm country={country} />
           <BiographyForm biography={biography} />
-          <ProfileImageForm
-            profile_img_url={profileImage || 'img/avatar.webp'}
-            setProfileImage={() => setProfileImage}
-          />
-          <CoverImageForm
-            cover_img_url={coverImage || '/img/bg-cover.webp'}
-            setCoverImage={() => setCoverImage()}
-          />
+          <ProfileImageForm profile_img_url={profileImage} setProfileImage={setProfileImage} />
+          <CoverImageForm cover_img_url={coverImage} setCoverImage={() => setCoverImage()} />
         </div>
       </div>
     </section>
