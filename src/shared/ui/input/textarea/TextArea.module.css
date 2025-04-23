@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: var(--spacing-sm);
+}
+
+/* Label style */
+.container .label {
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing);
+  color: var(--white);
+  opacity: var(--opacity);
+}
+
+/* Textarea style */
+.container .textarea {
+  display: inline-block;
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--dark);
+  background-color: var(--white);
+  transition: border-color 0.3s ease-in-out;
+  font-size: var(--font-size-sm);
+  resize: vertical;
+  min-height: 256px;
+  max-height: 512px;
+}
+
+.container .textarea:focus {
+  border-color: var(--orange);
+}
+
+.container .textarea::placeholder {
+  color: var(--font-primary-color);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Error container for validation messages */
+.container .errorContainer {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing);
+  color: var(--red);
+  opacity: var(--opacity);
+}
+
+.errorContainer svg {
+  color: var(--red);
+  opacity: var(--opacity);
+}
+
+/* Styling for error state of the textarea */
+.container .textareaError {
+  border-color: var(--red);
+}

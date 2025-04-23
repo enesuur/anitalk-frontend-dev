@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import styles from './Button.module.css';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,29 +9,33 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   style?: React.CSSProperties;
   icon?: React.ReactNode;
   variant?: 'primary' | 'danger' | 'warn' | 'proceed';
+  containerClassname?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
-  text, 
-  isLoading, 
-  isDisabled, 
-  icon, 
-  style, 
+const Button: React.FC<ButtonProps> = ({
+  text,
+  isLoading = false,
+  isDisabled = false,
+  icon,
+  style,
   variant = 'primary',
-  ...props 
+  containerClassname = '',
+  ...props
 }) => {
-  const variantClass = styles[variant] || '';
+  const buttonClass = clsx(styles.container, styles[variant], containerClassname, {
+    [styles.disabled]: isDisabled || isLoading,
+  });
 
   return (
-    <button
-      {...props}
-      disabled={isDisabled || isLoading}
-      className={`${styles.container} ${variantClass} ${isLoading || isDisabled ? styles.disabled : ''} ${isLoading ? styles.loading : ''}`}
-      style={style}
-    >
-      {icon && <span className={styles.icon}>{icon}</span>}
-      {text}
-      {isLoading && <span className={styles.spinner}></span>}
+    <button {...props} disabled={isDisabled || isLoading} className={buttonClass} style={style}>
+      {isLoading ? (
+        <span className={styles.spinner}></span>
+      ) : (
+        <>
+          {icon && <span className={styles.icon}>{icon}</span>}
+          {text}
+        </>
+      )}
     </button>
   );
 };
