@@ -8,6 +8,7 @@ import { iconStyles } from '@/helpers/index';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getNotifications } from './_services/notification.service';
+import { H1 } from '@/shared/ui/headings';
 
 const PAGE_SIZE = 50;
 
@@ -69,11 +70,8 @@ const Page = () => {
   return (
     <React.Fragment>
       <section>
-        <div className='container'>
-          <h1 className='h-1' style={{ maxWidth: '1024px', margin: 'auto' }}>
-            Notifications
-          </h1>
-
+        <div className='container' style={{ maxWidth: '1024px' }}>
+          <H1>Notifications</H1>
           <nav className={styles.tabContainer}>
             <button
               className={`${styles.btnTab} ${!tabState ? styles.active : ''}`}
