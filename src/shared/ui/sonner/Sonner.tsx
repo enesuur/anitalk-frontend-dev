@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './Sonner.module.css';
-import { iconStyles } from '@/helpers/index';
-import { Info } from 'lucide-react';
 import { truncateWithTrail } from '@/helpers/index';
 
 interface ISonnerProps {
@@ -9,9 +7,24 @@ interface ISonnerProps {
   message: string;
   title: string;
   onClose: () => void;
+  type?: 'sucess' | 'alert' | 'danger' | 'warn';
+  position?:
+    | 'bottom-center'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'top-center'
+    | 'top-left'
+    | 'top-right';
 }
 
-const Sonner: React.FC<ISonnerProps> = ({ isOpen, message, onClose, title }) => {
+const Sonner: React.FC<ISonnerProps> = ({
+  isOpen,
+  message,
+  onClose,
+  title,
+  position,
+  type,
+}: ISonnerProps) => {
   const [visible, setVisible] = useState<boolean>(isOpen);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 

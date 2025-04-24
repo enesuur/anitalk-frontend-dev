@@ -1,5 +1,6 @@
 import { PartialUser } from '@/types/user';
 import { IconStyles } from '@/types/global';
+import swears from '@/data/swears.json';
 
 // TODO: Move this constant into seperated constants folder.
 
@@ -99,4 +100,30 @@ export const iconStyles: IconStyles = {
   height: 20,
   opacity: 0.8,
   color: '#FFFFFF',
+};
+
+/**
+ * Filter a text for swearing words based on Turkish and English swear words
+ * from the swears.json file.
+ *
+ * @param {string} text - The text to check for swearing.
+ * @param {string} locale - The language to check for (either 'tr' or 'en').
+ * @returns {boolean} - Returns true if a swear word is found, otherwise false.
+ */
+export const filterSwears = (text: string, locale: 'tr' | 'en'): boolean => {
+  const localSwearWords = swears[locale];
+  const localRegex = new RegExp(`\\b(${localSwearWords.join('|')})\\b`, 'i');
+
+  if (locale === 'en') {
+    return localRegex.test(text);
+  }
+
+  if (localRegex.test(text)) {
+    return true;
+  }
+
+  const englishSwearWords = swears['en'];
+  const englishRegex = new RegExp(`\\b(${englishSwearWords.join('|')})\\b`, 'i');
+
+  return englishRegex.test(text);
 };
