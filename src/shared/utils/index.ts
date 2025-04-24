@@ -5,7 +5,7 @@ export interface ImageUploadConfig {
 }
 
 const IMAGE_UPLOAD: ImageUploadConfig = Object.freeze({
-  MAX_FILE_SIZE_MB: 1,
+  MAX_FILE_SIZE_MB: 5,
   MIN_FILE_SIZE_KB: 10,
   ACCEPTED_TYPES: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'],
 });

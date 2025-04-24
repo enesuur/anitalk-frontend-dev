@@ -2,6 +2,7 @@
 import React, { useReducer, useCallback } from 'react';
 import { AlertCircle, Eye, EyeOff } from 'lucide-react';
 import styles from './InpPassword.module.css';
+import { iconStyles } from '@/helpers';
 
 interface InpPasswordProps {
   label: string;
@@ -27,9 +28,14 @@ const passwordReducer = (state: State, action: Action): State => {
   }
 };
 
-const REGEX_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-const InpPassword: React.FC<InpPasswordProps> = ({ label, name, placeholder, error, value, onChange }) => {
+const InpPassword: React.FC<InpPasswordProps> = ({
+  label,
+  name,
+  placeholder,
+  error,
+  value,
+  onChange,
+}) => {
   const [state, dispatch] = useReducer(passwordReducer, { isVisible: false });
 
   const toggleVisibility = useCallback(() => {
@@ -38,10 +44,12 @@ const InpPassword: React.FC<InpPasswordProps> = ({ label, name, placeholder, err
 
   return (
     <div className={styles.inputWrapper}>
-      <label htmlFor={name} className={styles.label}>{label}</label>
+      <label htmlFor={name} className={styles.label}>
+        {label}
+      </label>
       {error && (
         <div className={styles.errorContainer}>
-          <AlertCircle width={16} height={16} opacity={0.8} color={'#FFFFFF'} />
+          <AlertCircle {...iconStyles} width={14} height={14} color={'#7f1d1d'} />
           <span>{error}</span>
         </div>
       )}
@@ -54,15 +62,14 @@ const InpPassword: React.FC<InpPasswordProps> = ({ label, name, placeholder, err
           onChange={onChange}
           placeholder={placeholder}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
-          pattern={REGEX_PATTERN.source}
           required
         />
-        <span  className={styles.eyeBtn} onClick={toggleVisibility}>
+        <span className={styles.eyeBtn} onClick={toggleVisibility}>
           {state.isVisible ? <EyeOff /> : <Eye />}
-      </span>
-    </div>
+        </span>
+      </div>
     </div>
   );
 };
 
-export default React.memo(InpPassword);
+export default InpPassword;

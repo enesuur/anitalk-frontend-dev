@@ -6,25 +6,29 @@
   font-weight: 500;
   letter-spacing: var(--letter-spacing);
   color: var(--white);
-  margin: var(--spacing-xl) 0;
 }
 
 .h-1 {
   font-size: var(--font-size-lg);
+  margin: var(--spacing-xl) 0;
 }
 
 .h-2 {
   font-size: var(--font-size-md);
+  margin: var(--spacing-lg) 0;
 }
 
 .h-3 {
   font-size: var(--font-size-base);
+  margin: var(--spacing-md) 0;
 }
 
 .h-4 {
   font-size: var(--font-size-sm);
+  margin: var(--spacing-base) 0;
 }
 
 .h-5 {
   font-size: var(--font-size-xs);
+  margin: var(--spacing-sm) 0;
 }

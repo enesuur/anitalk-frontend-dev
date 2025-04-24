@@ -8,10 +8,10 @@ import TextInput from '@/shared/ui/input/TextInput';
 import TextArea from '@/shared/ui/input/textarea/TextArea';
 import ImageInput from '@/shared/ui/input/ImageInput';
 import styles from '../_styles/ProfileSection.module.css';
-import { H2 } from '@/shared/ui/headings';
+import { H2, H3 } from '@/shared/ui/headings';
 import { remoteInstance } from '@/http/axios';
 import { Profile as ProfileIcon, Date as DateIcon, Profile, Info } from '@/assets/icons';
-import { Eye, Flag, Baby, PencilLine, AlertCircle, icons } from 'lucide-react';
+import { Eye, Flag, Baby, PencilLine, AlertCircle } from 'lucide-react';
 import { iconStyles } from '@/helpers';
 import ReactFlagsSelect from 'react-flags-select';
 import Image from 'next/image';
@@ -287,7 +287,7 @@ const BiographyForm = ({ biography }: IBiographyProps) => {
 
 interface IProfileImageForm {
   profile_img_url: string | null;
-  setProfileImage: (url: string) => void;
+  setProfileImage: (url: string | null) => void;
 }
 
 const profileImageSchema = z.object({
@@ -297,9 +297,8 @@ type ProfileImageSchema = z.infer<typeof profileImageSchema>;
 
 const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageForm) => {
   const {
-    control,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { isSubmitting, isLoading },
   } = useForm<ProfileImageSchema>({
     resolver: zodResolver(profileImageSchema),
     defaultValues: {
@@ -316,35 +315,38 @@ const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageFor
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.verticalBox}>
-      <div className={styles.horizontalBox}>
-        <div className={`${styles.leftBox} ${styles.verticalBox}`}>
-          <picture>
-            <Image
-              src={profile_img_url || '/img/avatar.webp'}
-              alt='Profile Picture'
-              className={styles.avatarBox}
-              fill
-              loading='lazy'
-              quality={1}
-            />
-          </picture>
-          <span className={styles.imageGuideline}>
-            Must be JPEG, PNG, or GIF and cannot exceed 10MB.
-          </span>
+    <div>
+      <H3>Profile Image</H3>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.verticalBox}>
+        <div className={styles.horizontalBox}>
+          <div className={`${styles.leftBox} ${styles.verticalBox}`}>
+            <picture className={styles.avatarPicture}>
+              <Image
+                src={profile_img_url || '/img/avatar.webp'}
+                alt='Profile Picture'
+                className={styles.avatarBox}
+                fill
+                loading='lazy'
+                quality={1}
+              />
+            </picture>
+            <span className={styles.imageGuideline}>
+              Must be JPEG, PNG, or GIF and cannot exceed 10MB.
+            </span>
+          </div>
+
+          <ImageInput onImageSelect={handleImageSelect} />
         </div>
 
-        <ImageInput onImageSelect={handleImageSelect} />
-      </div>
-
-      <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
-    </form>
+        <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
+      </form>
+    </div>
   );
 };
 
 interface ICoverImageProps {
   cover_img_url: string | null;
-  setCoverImage: () => void;
+  setCoverImage: (url: string | null) => void;
 }
 
 const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
@@ -353,7 +355,7 @@ const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
   });
 
   type CoverImageSchema = z.infer<typeof coverImageSchema>;
-  const { control, handleSubmit } = useForm({
+  const { handleSubmit } = useForm({
     resolver: zodResolver(coverImageSchema),
     defaultValues: { cover_img_url: cover_img_url },
   });
@@ -362,24 +364,51 @@ const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
     console.log('Cover image updated:', data);
   };
 
-  const handleImageSelect = (_, previewUrl: string) => {
+  const handleImageSelect = (_: File | null, previewUrl: string | null) => {
     setCoverImage(previewUrl);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Cover Image</h2>
-      <div>
+    <div>
+      <H3>Cover Image</H3>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.verticalBox}>
         <div>
-          <picture>
-            <img src={cover_img_url || '/img/bg-cover.webp'} alt='Cover Image' className='cover' />
-          </picture>
-          <span>Must be JPEG, PNG, or GIF and cannot exceed 10MB.</span>
+          <div>
+            <picture className={styles.coverPicture}>
+              <Image
+                src={cover_img_url || '/img/bg-cover.webp'}
+                alt='Profile Picture'
+                className={styles.coverBox}
+                fill
+                loading='lazy'
+                quality={1}
+              />
+            </picture>
+            <p style={{ textAlign: 'center', margin: '12px 0' }}>
+              Must be JPEG, PNG, or GIF and cannot exceed 5MB.
+            </p>
+          </div>
+          <ImageInput onImageSelect={handleImageSelect} />
         </div>
-        <ImageInput onImageSelect={handleImageSelect} />
+        <Button text='Update Cover Image' />
+      </form>
+    </div>
+  );
+};
+
+interface IGenerationProps {
+  generation: number;
+}
+
+const GenerationSection: React.FC<IGenerationProps> = ({ generation }: IGenerationProps) => {
+  return (
+    <div className={styles.generationBox}>
+      <div className={styles.labelBox}>
+        <Baby {...iconStyles} />
+        <span>Your Generation</span>
       </div>
-      <Button text='Update Cover Image' />
-    </form>
+      <span>{generation}</span>
+    </div>
   );
 };
 
@@ -404,8 +433,8 @@ const ProfileSection = ({
   country = 'Turkey',
   biography = null,
 }: IProfileSectionProps) => {
-  const [profileImage, setProfileImage] = useState(profile_img_url ?? null);
-  const [coverImage, setCoverImage] = useState(cover_img_url ?? null);
+  const [profileImage, setProfileImage] = useState<string | null>(profile_img_url || null);
+  const [coverImage, setCoverImage] = useState<string | null>(cover_img_url || null);
 
   return (
     <section>
@@ -413,11 +442,12 @@ const ProfileSection = ({
         <H2>Profile Settings</H2>
         <div className={styles.profileBox}>
           <UsernameForm username={username} />
+          <GenerationSection generation={generation} />
           <DisplayNameForm display_name={display_name} />
           <CountryForm country={country} />
           <BiographyForm biography={biography} />
           <ProfileImageForm profile_img_url={profileImage} setProfileImage={setProfileImage} />
-          <CoverImageForm cover_img_url={coverImage} setCoverImage={() => setCoverImage()} />
+          <CoverImageForm cover_img_url={coverImage} setCoverImage={setCoverImage} />
         </div>
       </div>
     </section>

@@ -8,6 +8,7 @@ import AnalyticSection from './_sections/AnalyticSection';
 import FavoriteSection from './_sections/FavoriteSection';
 import ProfileSection from './_sections/ProfileSection';
 import { iconStyles } from '@/helpers';
+import { H1 } from '@/shared/ui/headings';
 
 interface ITabBarProps {
   tabState: number;
@@ -59,14 +60,15 @@ const TabBar: React.FC<ITabBarProps> = ({ tabState, setTabState }) => {
   );
 };
 
+// TODO:  Analytics ui shake probably margin.
+
 const SettingsPage = () => {
   const [tabState, setTabState] = useState<number>(0);
   return (
-    <div>
+    <section>
       <div className={`${styles.settingsContainer} container`}>
-        <h1 className={styles.sectionTextHeader}>Settings</h1>
+        <H1>Settings</H1>
         <TabBar tabState={tabState} setTabState={setTabState} />
-
         {tabState === 0 && (
           <ProfileSection
             username={'baladriel'}
@@ -83,7 +85,7 @@ const SettingsPage = () => {
         {tabState === 3 && <SocialSection x_username='baladriel' reddit_username='baladriel' />}
         {tabState === 4 && <AnalyticSection />}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,6 +1,8 @@
 import { PartialUser } from '@/types/user';
 import { IconStyles } from '@/types/global';
 
+// TODO: Move this constant into seperated constants folder.
+
 /**
  * Calculate the age based on the provided birthdate.
  *

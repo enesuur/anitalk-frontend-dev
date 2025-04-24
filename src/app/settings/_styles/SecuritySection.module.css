@@ -1,7 +1,13 @@
+/* ---General Styles --- */
+
+.highlightText {
+  color: var(--orange);
+}
+
 .formBox {
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-base);
+  row-gap: var(--spacing-sm);
   background-color: var(--soft-dark);
   padding: var(--spacing-md) var(--spacing-xl);
   border-radius: var(--border-radius);
@@ -11,4 +17,16 @@
 
 .formBox button {
   margin: var(--spacing-md) 0;
+}
+
+.warningBox {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  gap: var(--spacing-sm);
+}
+
+.warningBox svg {
+  width: 14px;
+  height: 14px;
 }
