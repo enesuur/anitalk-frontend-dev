@@ -6,7 +6,7 @@ import styles from './Comment.module.css';
 import Link from 'next/link';
 
 interface ICommentProps {
-  _id: string;
+  _id?: string;
   text: string;
   date: Date;
   username: string;

@@ -1,9 +1,13 @@
-.socialFormContainer {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--spacing-md);
-    max-width: 768px;
-    background-color: var(--soft-dark);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-md) var(--spacing-xl);
+.formBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+  max-width: 768px;
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.iconBox {
+  margin-bottom: var(--spacing-md);
 }

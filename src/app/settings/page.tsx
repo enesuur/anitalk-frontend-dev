@@ -22,6 +22,8 @@ interface ITabBarProps {
 
 //  TODO: This might be used as a shared component.
 
+//TODO: Tabde 2px aşağı alıp ortalaa
+
 const tabs = [
   { label: 'Profile', icon: Profile },
   { label: 'Favorites', icon: Favorite },

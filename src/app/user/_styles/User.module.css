@@ -1,3 +1,18 @@
+/*  --- General Styles Start --- */
+.verticalBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+
+.horizontalBox {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-base);
+}
+
+/*  --- General Styles End --- */
+
 .profileShowcase {
   width: 100%;
   border-top-left-radius: var(--border-radius);
@@ -130,41 +145,35 @@
   opacity: 1 !important;
 }
 
-.sectionTextHeader {
-  color: var(--white);
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing);
-  margin: var(--spacing-md) 0;
-  font-weight: 500;
-}
-
-.biographyContainer,
-.aboutContainer,
-.favoritesContainer {
+.biographyBox,
+.aboutBox,
+.favoriteBox {
   min-height: 300px;
   box-shadow: var(--box-shadow);
   border: 1px solid var(--faded-white);
   border-radius: var(--border-radius);
   color: var(--white);
-  opacity: 0.8;
-  padding: 12px 16px;
+  opacity: var(--opacity);
+  padding: var(--spacing-md) var(--spacing-lg);
   background-color: var(--soft-dark);
 }
 
-.aboutContainer {
+.contentBox {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-xl);
 }
 
-.aboutContainer .leftBox,
-.aboutContainer .rightBox {
+.aboutBox .leftBox,
+.aboutBox .rightBox {
+  flex-basis: 50%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  max-width: max-content;
+  max-height: max-content;
 }
 
-.aboutContainer .labelContainer {
+.aboutBox .labelContainer {
   display: flex;
   align-items: center;
   column-gap: var(--spacing-base);
@@ -172,17 +181,6 @@
 
 .favoritesContainer {
   color: var(--white);
-}
-
-.favoriteBox {
-  display: flex;
-  align-items: center;
-}
-
-.favoriteItem {
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--spacing-base);
 }
 
 .latestEntries h1 {
@@ -190,11 +188,19 @@
   color: var(--white);
 }
 
-.itemRow {
+/*  -- About Section Start -- */
+
+.labelBox {
   display: flex;
   align-items: center;
-  column-gap: var(--spacing-base);
+  column-gap: var(--spacing-sm);
 }
+
+.countryCodeText {
+  margin-left: 4px;
+}
+
+/* -- About Section End -- */
 
 @media (max-width: 768px) {
   .profileAvatar {

@@ -1725,6 +1725,7 @@ __metadata:
     next-redux-wrapper: "npm:^8.1.0"
     plaiceholder: "npm:^3.0.0"
     react: "npm:^19.0.0"
+    react-country-flag: "npm:^3.1.0"
     react-dom: "npm:^19.0.0"
     react-easy-crop: "npm:^5.4.1"
     react-flags-select: "npm:^2.4.0"
@@ -4842,6 +4843,15 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 10c0/900a93d3cdae3acd7d16f642c29a642aea32c2026446151f0778c62ac089d4b8e6c986811076e1ae180a694cedf077d453a11b58ff0a865629a4f82ab558e102
+  languageName: node
+  linkType: hard
+
+"react-country-flag@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "react-country-flag@npm:3.1.0"
+  peerDependencies:
+    react: ">=16"
+  checksum: 10c0/6271cde6cf355c66e2b669c74e98596d771534154210bbb84cd84788f46710c7ee14671229cb92203d09aeb4c30206bb882b73d63d95a73f96cdaca09ed2bd0d
   languageName: node
   linkType: hard
 

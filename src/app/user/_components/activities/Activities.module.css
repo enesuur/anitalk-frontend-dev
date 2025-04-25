@@ -1,0 +1,43 @@
+.tabBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid var(--faded-white);
+  color: var(--white);
+  font-weight: 500;
+  opacity: var(--opacity);
+}
+
+.itemBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  flex-basis: 50%;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+  font-size: var(--font-size-md);
+}
+
+.itemBox:hover,
+.active {
+  opacity: 1;
+}
+
+.itemBox svg {
+  width: 24px;
+  height: 24px;
+  opacity: var(--opacity);
+}
+
+.tabIndicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-color: var(--white);
+  border-radius: 2px;
+}

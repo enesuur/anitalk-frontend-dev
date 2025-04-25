@@ -29,3 +29,4 @@ export * from './Chat';
 export * from './Bolt';
 export * from './BellActive';
 export * from './BellOld';
+export * from './XVariant';
