@@ -40,4 +40,30 @@
   height: 2px;
   background-color: var(--white);
   border-radius: 2px;
+  transition: left 0.3s ease;
+}
+
+.emptyBox {
+  border: 2px dashed var(--faded-white);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  font-size: var(--font-size-md);
+  color: var(--white);
+  padding: var(--spacing-xl);
+  justify-content: center;
+  border-radius: var(--border-radius);
+  margin: var(--spacing-xxl) 0;
+  min-height: 256px;
+}
+
+.contentWrapper {
+  margin-top: 108px;
+  margin-bottom: 108px;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: 72px;
 }

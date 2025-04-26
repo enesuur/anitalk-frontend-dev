@@ -8,9 +8,16 @@ interface IPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  style?: React.CSSProperties;
+  containerClassName?: string;
 }
 
-const Pagination: React.FC<IPaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination: React.FC<IPaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  containerClassName,
+}: IPaginationProps) => {
   const handlePageChange = useCallback(
     (action: 'first' | 'prev' | 'next' | 'last' | 'select', value?: number) => {
       switch (action) {
@@ -40,10 +47,8 @@ const Pagination: React.FC<IPaginationProps> = ({ currentPage, totalPages, onPag
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  console.log(pages);
-
   return (
-    <div className={styles.pagination}>
+    <div className={`${styles.pagination} ${containerClassName || ''}`}>
       <Button
         onClick={() => handlePageChange('first')}
         isDisabled={currentPage === 1}
@@ -59,18 +64,15 @@ const Pagination: React.FC<IPaginationProps> = ({ currentPage, totalPages, onPag
           value: p.toString(),
         }))}
       />
-
       <div className={styles.pageLocator}>
         <span style={{ opacity: 1 }}>{currentPage}</span>
         <span style={{ opacity: 0.5 }}> / {totalPages}</span>
       </div>
-
       <Button
         onClick={() => handlePageChange('next')}
         isDisabled={currentPage === totalPages}
         text={'>'}
       />
-
       <Button
         onClick={() => handlePageChange('last')}
         isDisabled={currentPage === totalPages}

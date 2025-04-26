@@ -1,0 +1,17 @@
+.badgeBox {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border: 1px solid var(--faded-white);
+}
+
+.badgeBox svg {
+  width: 14px;
+  height: 14px;
+  margin-right: 3px;
+  vertical-align: center;
+}

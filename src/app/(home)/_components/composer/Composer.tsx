@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './Composer.module.css';
 import { Compass, Flame, Shell } from 'lucide-react';
-import Entry from '../entry/Entry';
+import Talk from '@/components/talk/Talk';
 import { faker } from '@faker-js/faker';
 
 interface IComposerProps {
@@ -17,8 +17,8 @@ const Composer: React.FC<IComposerProps> = () => {
     setTabState(newTabState);
   };
 
-  const generateRandomEntries = () => {
-    return new Array(3).fill(null).map(() => ({
+  const generateRandomTalk = () => {
+    return new Array(10).fill(null).map(() => ({
       title: faker.lorem.sentence(),
       snippet: faker.lorem.paragraph(),
       date: faker.date.past(),
@@ -26,9 +26,9 @@ const Composer: React.FC<IComposerProps> = () => {
     }));
   };
 
-  const tab1Entries = generateRandomEntries();
-  const tab2Entries = generateRandomEntries();
-  const tab3Entries = generateRandomEntries();
+  const tab1Entries = generateRandomTalk();
+  const tab2Entries = generateRandomTalk();
+  const tab3Entries = generateRandomTalk();
 
   return (
     <div className={styles.composerContainer}>
@@ -66,12 +66,15 @@ const Composer: React.FC<IComposerProps> = () => {
         {tabState === 0 && (
           <div className={styles.contentWrapper}>
             {tab1Entries.map((entry, index) => (
-              <Entry
+              <Talk
                 key={index}
                 title={entry.title}
                 snippet={entry.snippet}
                 date={entry.date}
                 username={entry.username}
+                content={'test'}
+                upvote={2}
+                downvote={3}
               />
             ))}
           </div>
@@ -79,12 +82,15 @@ const Composer: React.FC<IComposerProps> = () => {
         {tabState === 1 && (
           <div className={styles.contentWrapper}>
             {tab2Entries.map((entry, index) => (
-              <Entry
+              <Talk
                 key={index}
                 title={entry.title}
                 snippet={entry.snippet}
                 date={entry.date}
                 username={entry.username}
+                content={'test'}
+                upvote={2}
+                downvote={3}
               />
             ))}
           </div>
@@ -92,12 +98,15 @@ const Composer: React.FC<IComposerProps> = () => {
         {tabState === 2 && (
           <div className={styles.contentWrapper}>
             {tab3Entries.map((entry, index) => (
-              <Entry
+              <Talk
                 key={index}
                 title={entry.title}
                 snippet={entry.snippet}
                 date={entry.date}
                 username={entry.username}
+                content={'test'}
+                upvote={2}
+                downvote={3}
               />
             ))}
           </div>

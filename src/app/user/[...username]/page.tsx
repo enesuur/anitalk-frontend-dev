@@ -4,7 +4,6 @@ import Image from 'next/image';
 import styles from '../_styles/User.module.css';
 import Link from 'next/link';
 import { X, Mal, Reddit, Bunny } from '@/assets/icons/index';
-import Entry from '@/app/(home)/_components/entry/Entry';
 import FollowModal from '@/components/modals/follow/FollowModal';
 import { PartialUser } from '@/types/user';
 import Button from '@/shared/ui/button/Button';
@@ -28,8 +27,9 @@ import { H2, H3 } from '@/shared/ui/headings';
 import CountryFlag from '@/shared/ui/country-flags/Flag';
 import { iconStyles } from '@/helpers';
 import Activities from '../_components/activities/Activities';
-import Comment from '@/components/comment/Comment';
-import { generateMockComments } from '@/app/blogs/_helpers';
+import { generateMockComments, generateMockTalks } from '@/data/index';
+import Badge from '@/shared/ui/member-badges/Badge';
+import { PLACE_HOLDERS } from '@/helpers/constants';
 
 type Tab = {
   label: string;
@@ -62,6 +62,7 @@ const reducer = (state: State, action: Action): State => {
 };
 
 const comments = generateMockComments(5);
+const talks = generateMockTalks(4);
 
 const ICON_SIZE = 16;
 
@@ -253,16 +254,12 @@ const Page = () => {
     [setModalType, setFollowModalOpen],
   );
 
-  const entries = [...Array(15)].map((_, index) => ({
-    key: index,
-    title: `Entry Title ${index + 1}`,
-    snippet: `This is a short snippet for entry ${index + 1}.`,
-    date: `2025-03-3${index % 10}`,
-    username: `User${index + 1}`,
-  }));
-
   // TODO: Mock DATAS.
+
+  // TODO: PlaceHolder'ı kullan
   const DUMMY_USER = 'Dummy';
+
+  const imgUrl = 'https://picsum.photos/200/300' || PLACE_HOLDERS.avatar_url;
 
   return (
     <>
@@ -270,7 +267,7 @@ const Page = () => {
         <div className={styles.profileShowcase}>
           <div className={styles.profileBanner}>
             <Image
-              src={'https://picsum.photos/200/300'}
+              src={'https://picsum.photos/1920/1080'}
               alt='profile banner'
               layout='fill'
               objectFit='cover'
@@ -278,15 +275,15 @@ const Page = () => {
           </div>
           <div className={styles.profileAvatar}>
             <Image
-              src={'https://picsum.photos/200/300'}
+              src={'https://picsum.photos/1920/1080'}
               alt='avatar'
               width={128}
               height={128}
               className={styles.avatarImg}
             />
-            <div className={styles.profileUsername}>
-              <span>@0x0101</span>
-              <Link href={`/profile/test`}>test</Link>
+            <div className={styles.userBox}>
+              <Link href={`/user/baladriel`}>@baladriel</Link>
+              <Badge type={-3} />
             </div>
           </div>
         </div>
@@ -353,27 +350,7 @@ const Page = () => {
       {/* TabState changer && talk to comments. && needs to follow for seeing talks and comments. */}
       <section>
         <div className={`${styles.latestEntries} container`}>
-          <Activities />
-          {entries.map((entry) => (
-            <Entry
-              key={entry.key}
-              title={entry.title}
-              snippet={entry.snippet}
-              date={new Date()}
-              username={entry.username}
-            />
-          ))}
-          {comments.map((comment) => (
-            <Comment
-              key={comment._id}
-              text={comment.text}
-              date={new Date(comment.date)}
-              username={comment.username}
-              avatar_url={comment.avatar_url}
-              upVote={comment.upVote}
-              downVote={comment.downVote}
-            />
-          ))}
+          <Activities talks={talks} comments={comments} />
         </div>
       </section>
 

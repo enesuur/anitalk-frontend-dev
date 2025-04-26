@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Page.module.css';
-import { generateMockBlogs, generateMockComments } from '../_helpers/index';
+import { generateMockBlogs, generateMockComments } from '@/data/index';
 import { IBlog } from '../_types';
 import RecommendCard from '../_components/card/RecommendCard';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ const Page: React.FC = async () => {
   return (
     <>
       <ReadProgressBar />
-      <section style={{marginTop:144}}>
+      <section style={{ marginTop: 144 }}>
         <div className={`${styles.boxContainer} container`}>
           <div className={styles.blogBox}>
             <figure>
@@ -196,8 +196,8 @@ const Page: React.FC = async () => {
               date={item.date}
               username={item.username}
               avatar_url={item.avatar_url}
-              upVote={item.upVote}
-              downVote={item.downVote}
+              upVote={item.upvote}
+              downVote={item.downvote}
             />
           ))}
         </div>

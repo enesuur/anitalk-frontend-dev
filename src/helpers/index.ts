@@ -1,8 +1,8 @@
 import { PartialUser } from '@/types/user';
 import { IconStyles } from '@/types/global';
 import swears from '@/data/swears.json';
-
-// TODO: Move this constant into seperated constants folder.
+import { Crown, Shield, Megaphone, CheckCircle, User, Sparkles } from 'lucide-react';
+import { IBadge } from '@/types/global';
 
 /**
  * Calculate the age based on the provided birthdate.
@@ -11,7 +11,7 @@ import swears from '@/data/swears.json';
  * @returns {number} The age calculated based on the current date.
  * If the birth date is in the future, it returns 0.
  */
-export const calculateAge = (birthDate: Date): number => {
+const calculateAge = (birthDate: Date): number => {
   const currentDate = new Date();
 
   if (birthDate > currentDate) return 0;
@@ -41,7 +41,7 @@ export const calculateAge = (birthDate: Date): number => {
  * @returns {(PartialUser & { is_following: boolean })[]} A new array of users with an additional `is_following` property
  * indicating whether the current user is following them.
  */
-export const filter_followers = (
+const filter_followers = (
   my_followers: PartialUser[],
   other_followers: PartialUser[],
 ): (PartialUser & { is_following: boolean })[] => {
@@ -61,7 +61,7 @@ export const filter_followers = (
  * If the date is invalid, it returns 'Invalid Date'.
  */
 
-export const dateConverter = (date?: string | Date) => {
+const dateConverter = (date?: string | Date) => {
   if (!date) return 'N/A';
 
   const validDate = date instanceof Date ? date : new Date(date);
@@ -82,11 +82,7 @@ export const dateConverter = (date?: string | Date) => {
  * @param {string} [trailChar='...'] - The character(s) to append if the string is truncated.
  * @returns {string} The truncated string with the trailing character if necessary.
  */
-export const truncateWithTrail = (
-  text: string,
-  maxLength: number = 25,
-  trailChar = '...',
-): string => {
+const truncateWithTrail = (text: string, maxLength: number = 25, trailChar = '...'): string => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength).trim() + trailChar;
 };
@@ -96,7 +92,7 @@ export const truncateWithTrail = (
  *
  * @type {IconStyles}
  */
-export const iconStyles: IconStyles = {
+const iconStyles: IconStyles = {
   width: 20,
   height: 20,
   opacity: 0.8,
@@ -111,7 +107,7 @@ export const iconStyles: IconStyles = {
  * @param {string} locale - The language to check for (either 'tr' or 'en').
  * @returns {boolean} - Returns true if a swear word is found, otherwise false.
  */
-export const filterSwears = (text: string, locale: 'tr' | 'en'): boolean => {
+const filterSwears = (text: string, locale: 'tr' | 'en'): boolean => {
   const localSwearWords = swears[locale];
   const localRegex = new RegExp(`\\b(${localSwearWords.join('|')})\\b`, 'i');
 
@@ -127,4 +123,41 @@ export const filterSwears = (text: string, locale: 'tr' | 'en'): boolean => {
   const englishRegex = new RegExp(`\\b(${englishSwearWords.join('|')})\\b`, 'i');
 
   return englishRegex.test(text);
+};
+
+/**
+ * Badge map that defines user levels and special roles.
+ *
+ * @type {Record<number, { title: string;icon?: React.ElementType }>}
+ */
+/**
+ * Badge map that defines user levels and special roles.
+ */
+const BADGE_MAP = Object.freeze({
+  0: { title: 'Admin', icon: Crown },
+  [-1]: { title: 'Moderator', icon: Shield },
+  [-2]: { title: 'Collaborator', icon: Megaphone },
+  [-3]: { title: 'Verified', icon: CheckCircle },
+  1: { title: 'Rookie', icon: User },
+  2: { title: 'Bunny', icon: User },
+  3: { title: 'Fan', icon: User },
+  4: { title: 'Otaku', icon: Sparkles },
+  5: { title: 'Veteran', icon: Sparkles },
+  6: { title: 'Expert', icon: Sparkles },
+  7: { title: 'Sensei', icon: Sparkles },
+  8: { title: 'Yuusha', icon: Sparkles },
+  9: { title: 'Sparkle', icon: Sparkles },
+  10: { title: 'Shinigami', icon: Crown },
+});
+
+export type BadgeMap = typeof BADGE_MAP;
+
+export {
+  calculateAge,
+  filter_followers,
+  dateConverter,
+  truncateWithTrail,
+  iconStyles,
+  filterSwears,
+  BADGE_MAP,
 };
