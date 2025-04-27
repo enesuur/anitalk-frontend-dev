@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import Navbar from '@/components/ui/navbar/Navbar';
 import Footer from '@/components/ui/footer/Footer';
 import styles from './_styles/BlogLayout.module.css';
-
+import React from 'react';
+import NavbarWithPath from '@/components/client/NavbarWithPath';
 export const metadata: Metadata = {
   title: 'Blog | Anitalks',
   description: 'Learn news from ',
@@ -25,28 +25,12 @@ export const metadata: Metadata = {
     images: ['https://yourdomain.com/preview-image.jpg'],
   },
 };
-
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
-  const headersList = await headers();
-  const rawPath = headersList.get('x-invoke-path') || headersList.get('referer') || '';
-  
-  // Eğer referer tam bir URL ise, pathname kısmını çekelim
-  let currentPath = rawPath;
-  
-  try {
-    const url = new URL(rawPath);
-    currentPath = url.pathname;
-  } catch {
-  
-    currentPath = rawPath;
-  }
-  
-
   return (
-    <>
-      <Navbar className={currentPath ? styles.absoluteNavbar : ''} />
+    <React.Fragment>
+      <NavbarWithPath />
       <main className={styles.blogLayout}>{children}</main>
       <Footer />
-    </>
+    </React.Fragment>
   );
 }

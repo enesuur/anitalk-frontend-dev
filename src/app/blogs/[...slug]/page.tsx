@@ -25,8 +25,8 @@ const Page: React.FC = async () => {
   return (
     <>
       <ReadProgressBar />
-      <section style={{ marginTop: 144 }}>
-        <div className={`${styles.boxContainer} container`}>
+      <section>
+        <div className='container'>
           <div className={styles.blogBox}>
             <figure>
               <picture>
@@ -66,13 +66,13 @@ const Page: React.FC = async () => {
               </Link>
               <div className={styles.detailBox}>
                 <Link href={`/user/${99}`}>@coolusername</Link>
-                <div className={styles.innerBox}>
+                <p className={styles.innerBox}>
                   <span>{13} minutes read time</span>
                   <span>
                     <DateIcon width={20} height={20} color={'#FFFFFF'} opacity={0.8} />
                     {'22 April 2024'}
                   </span>
-                </div>
+                </p>
               </div>
             </div>
           </div>

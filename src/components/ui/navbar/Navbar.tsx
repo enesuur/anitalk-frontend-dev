@@ -3,14 +3,14 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 import Logo from '@/assets/icons/Logo';
-import { SunMoon, Search, Compass } from 'lucide-react';
+import { Search, Compass } from 'lucide-react';
 import SearchModal from '@/components/modals/search/SearchModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { logout } from '@/redux/slices/user/userSlice';
 import Image from 'next/image';
 import { Plus, Profile, Maintenance, Logout, Bell, Chat } from '@/assets/icons/';
-import {iconStyles} from '@/helpers/index';
+import { iconStyles } from '@/helpers/index';
 
 interface NavbarProps {
   className?: string;
@@ -18,17 +18,12 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
-  const [themeState, setThemeState] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
-
-  const toggleThemeChange = useCallback(() => {
-    setThemeState((prevState) => !prevState);
-  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -37,7 +32,6 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const handleLogout = () => {
     dispatch(logout());
   };
-
 
   // TODO: TEST
   const imageUrl = 'https://picsum.photos/64/64';
