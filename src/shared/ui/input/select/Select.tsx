@@ -30,11 +30,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        className={`${styles.select} ${error ? styles.error : ''} ${options.length > 5 ? styles.scrollable : ''}`}
+        className={`${styles.select} ${error ? styles.error : ''} ${
+          options.length > 5 ? styles.scrollable : ''
+        }`}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
-            {option.label}
+            <span>{option.label}</span>
           </option>
         ))}
       </select>

@@ -3,7 +3,13 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-md);
-  margin:var(--spacing-xxl) 0;
+  margin: var(--spacing-xxl) 0;
+}
+
+.pagination button,
+.pagination option,
+.pagination select {
+  padding: 4px 8px;
 }
 
 .currentPage,

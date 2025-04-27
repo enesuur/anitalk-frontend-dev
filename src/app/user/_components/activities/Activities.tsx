@@ -115,12 +115,13 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
                 </p>
               ) : (
                 <>
-                  {/* Pagination Üst */}
+                  {/* Pagination Upper*/}
                   {ITEMS_PER_PAGE >= 10 && (
                     <Pagination
                       currentPage={commentPage}
                       totalPages={commentTotalPages}
                       onPageChange={setCommentPage}
+                      containerClassName={styles.paginationWrapper}
                     />
                   )}
 
@@ -135,11 +136,12 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
                       downVote={comment.downvote}
                     />
                   ))}
-
+                  {/* Pagination Bottom */}
                   <Pagination
                     currentPage={commentPage}
                     totalPages={commentTotalPages}
                     onPageChange={setCommentPage}
+                    containerClassName={styles.paginationWrapper}
                   />
                 </>
               )}

@@ -30,6 +30,7 @@ import Activities from '../_components/activities/Activities';
 import { generateMockComments, generateMockTalks } from '@/data/index';
 import Badge from '@/shared/ui/member-badges/Badge';
 import { PLACE_HOLDERS } from '@/helpers/constants';
+import ScrollToTop from '@/shared/ui/scroller/Scroller';
 
 type Tab = {
   label: string;
@@ -262,7 +263,7 @@ const Page = () => {
   const imgUrl = 'https://picsum.photos/200/300' || PLACE_HOLDERS.avatar_url;
 
   return (
-    <>
+    <React.Fragment>
       <section className={'container'}>
         <div className={styles.profileShowcase}>
           <div className={styles.profileBanner}>
@@ -381,7 +382,8 @@ const Page = () => {
           setIsAlertModalOpen(false);
         }}
       />
-    </>
+      <ScrollToTop />
+    </React.Fragment>
   );
 };
 

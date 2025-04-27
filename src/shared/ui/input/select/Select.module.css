@@ -1,43 +1,44 @@
 .selectWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-base);
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-  }
-  
-  .label, .select {
-    color: var(--dark);
-    opacity: var(--opacity);
-  }
-  
-  .select {
-    font-size: var(--font-size-base);
-    padding: var(--spacing-base);
-    border: 1px solid var(--faded-white);
-    border-radius: var(--border-radius);
-    appearance: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease-in-out;
-    text-align: center;
-    vertical-align: middle;
-  }
-  
-  .select:focus {
-    border-color: var(--orange);
-    outline: none;
-  }
-  
-  .select.error, .errorMessage {
-    border-color: var(--red);
-  }
-  
-  .errorMessage {
-    font-size: var(--font-size-sm);
-    margin-top: var(--spacing-sm);
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+}
 
-  .scrollable option {
-    max-height: 1rem;
-    overflow-y: auto;
-  }
+.label,
+.select {
+  color: var(--dark);
+  opacity: var(--opacity);
+}
+
+.select {
+  font-size: var(--font-size-base);
+  padding: var(--spacing-base);
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+  vertical-align: middle;
+}
+
+.select:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+.select.error,
+.errorMessage {
+  border-color: var(--red);
+}
+
+.errorMessage {
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.scrollable option {
+  max-height: 1rem;
+  overflow-y: auto;
+}
