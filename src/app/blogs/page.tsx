@@ -5,7 +5,7 @@ import Scroller from '@/shared/ui/scroller/Scroller';
 import PaginationWrapper from '@/components/pagination/PaginationWrapper';
 import { getBlogsByPage } from '@/lib/fakeBlog';
 import Carousel from '@/components/carousel/Carousel';
-
+import { H1 } from '@/shared/ui/headings';
 
 type Props = {
   searchParams: { page?: string };
@@ -14,7 +14,6 @@ type Props = {
 const BlogsPage = async ({ searchParams }: Props) => {
   const page = parseInt(searchParams.page || '1', 10);
   const limit = 10;
-
 
   const { blogs, total } = getBlogsByPage(page, limit);
   const totalPages = Math.ceil(total / limit);
@@ -35,10 +34,10 @@ const BlogsPage = async ({ searchParams }: Props) => {
       <Carousel slides={slides} />
       <section>
         <div className={`${styles.heroSection} container`}>
-          <h1 className={`${styles.heroHeader} h-1`}>
+          <H1 className={styles.heroHeader}>
             <BlogIcon />
             Blogs
-          </h1>
+          </H1>
           <div className={styles.gridContainer}>
             {blogs.map((blog) => (
               <BlogCard key={blog._id} {...blog} />

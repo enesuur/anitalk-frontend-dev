@@ -12,6 +12,7 @@ import getBlurDataURL from '@/lib/base64ph';
 import EmblaCarousel from '@/shared/ui/swiper/Swiper';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
+import { H1, H2, H3 } from '@/shared/ui/headings';
 
 const mockBlogs = generateMockBlogs(5);
 const mockComments = generateMockComments(5);
@@ -44,9 +45,9 @@ const Page: React.FC = async () => {
               </picture>
             </figure>
 
-            <h1 className={styles.title}>
+            <H1 className={styles.title}>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, esse.
-            </h1>
+            </H1>
 
             <div className={styles.infoBox}>
               <Link href={`user/${1}`} className={styles.userBox}>
@@ -159,7 +160,7 @@ const Page: React.FC = async () => {
           </article>
 
           <div className={styles.recommendContainer}>
-            <h3>You may interest</h3>
+            <H3>You may interest</H3>
             {mockBlogs.map((blog: Partial<IBlog>, index: number) => (
               <RecommendCard
                 key={index}
@@ -180,7 +181,7 @@ const Page: React.FC = async () => {
 
       {/* --- Blog Recommendation for web --- */}
       <div className='container'>
-        <h4 className={'h-1'}>People also read related blogs</h4>
+        <H2>People also read related blogs</H2>
         <EmblaCarousel count={5} options={{ loop: true }} />
       </div>
 
