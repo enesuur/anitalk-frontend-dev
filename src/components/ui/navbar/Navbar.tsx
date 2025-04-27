@@ -11,6 +11,7 @@ import { logout } from '@/redux/slices/user/userSlice';
 import Image from 'next/image';
 import { Plus, Profile, Maintenance, Logout, Bell, Chat } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 interface NavbarProps {
   className?: string;
@@ -70,7 +71,9 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                 <div className={styles.actionBox}>
                   <Link href={'/create-talk'} className={`${styles.actionBox} ${styles.btnTalk}`}>
                     <Plus {...iconStyles} />
-                    Talk
+                    <Tooltip text={'Talk'} position={'bottom'}>
+                      <span>Talk</span>
+                    </Tooltip>
                   </Link>
                 </div>
 

@@ -14,15 +14,22 @@
   border-radius: var(--border-radius);
   padding: var(--spacing-base) var(--spacing-md);
   position: absolute;
-  z-index: 999;
+  z-index: 9999;
   white-space: nowrap;
   font-size: var(--font-size-sm);
-  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
 }
 
 .tooltipWrapper:hover .tooltipText {
   visibility: visible;
   opacity: 1;
+}
+
+.tooltipWrapper .tooltipText.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .top .tooltipText {
