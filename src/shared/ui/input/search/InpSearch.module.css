@@ -4,9 +4,10 @@
   width: 100%;
   padding: 8px;
   border-radius: var(--border-radius);
-  border: 2px solid var(--dark);
-  background-color: var(--white);
+  border: 2px solid var(--faded-white);
+  background-color: var(--soft-dark);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: var(--white);
 }
 
 .searchWrapper:focus-within {
@@ -15,8 +16,9 @@
 
 .searchIcon {
   color: var(--font-primary-color);
-  opacity: 0.7;
+  opacity: var(--opacity);
   flex-shrink: 0;
+  color: var(--white);
 }
 
 .searchInput {
@@ -26,11 +28,12 @@
   background: transparent;
   font-size: var(--font-size-sm);
   color: var(--font-primary-color);
-  padding: 0 8px;
+  padding: 0 var(--spacing-base);
 }
 
 .searchInput::placeholder {
   color: var(--font-primary-color);
-  opacity: 0.7;
+  opacity: var(--opacity);
   font-style: italic;
+  color: var(--white);
 }

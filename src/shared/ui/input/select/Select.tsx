@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import styles from './Select.module.css';
 import { iconStyles } from '@/helpers';
 import { Check } from 'lucide-react';
+import clsx from '@/lib/cn';
 
 interface SelectInputProps {
   id?: number | string;
@@ -47,7 +48,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-        if (isOpen) toggleIsOpen(); // Only close if open
+        if (isOpen) toggleIsOpen();
       }
     };
 
@@ -60,21 +61,22 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <div
       ref={selectRef}
-      className={`${styles.selectWrapper} ${containerClassname ? containerClassname : ''}`}
+      className={clsx(styles.selectWrapper, containerClassname)}
       style={containerStyle}
     >
       {label && (
-        <label
-          htmlFor={name}
-          className={`${styles.labelText} ${labelClassname ? labelClassname : ''}`}
-          style={labelStyle}
-        >
+        <label htmlFor={name} className={clsx(styles.labelText, labelClassname)} style={labelStyle}>
           {label}
         </label>
       )}
 
       <div
-        className={`${styles.select} ${error ? styles.error : ''} ${isOpen ? styles.open : ''}`}
+        className={clsx(
+          styles.select,
+          error && styles.error,
+          isOpen && styles.open,
+          contentClassName,
+        )}
         onClick={toggleIsOpen}
         style={contentStyle}
       >
@@ -82,10 +84,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           <span>{selectedOption ? selectedOption.label : options[0].label}</span>
         </div>
 
-        <ChevronDown
-          {...iconStyles}
-          className={`${styles.iconBox} ${isOpen ? styles.rotate : ''}`}
-        />
+        <ChevronDown {...iconStyles} className={clsx(styles.iconBox, isOpen && styles.rotate)} />
       </div>
 
       {isOpen && (
@@ -93,17 +92,18 @@ const SelectInput: React.FC<SelectInputProps> = ({
           {options.map((option, index) => (
             <li
               key={option.value}
-              className={`${styles.optionItem} ${
-                option.value === value && index !== 0 ? styles.selected : ''
-              }`}
+              className={clsx(
+                styles.optionItem,
+                option.value === value && index !== 0 && styles.selected,
+              )}
               onClick={() => {
-                if (index === 0) return; // Do nothing for the first option
+                if (index === 0) return;
                 onChange(option.value);
                 toggleIsOpen();
               }}
               style={{
-                cursor: index === 0 ? 'not-allowed' : 'pointer', // Disable cursor for the first item
-                color: index === 0 ? 'gray' : 'inherit', // Gray color for the first item
+                cursor: index === 0 ? 'not-allowed' : 'pointer',
+                color: index === 0 ? 'gray' : 'inherit',
               }}
             >
               <div className={styles.optionLabel}>
