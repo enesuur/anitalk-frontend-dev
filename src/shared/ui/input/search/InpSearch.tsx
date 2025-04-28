@@ -13,8 +13,8 @@ interface ISearchComponentProps {
   contentStyle?: React.CSSProperties;
   containerClassName?: string;
   contentClassName?: string;
-  iconClassName: string;
-  iconStyle: React.CSSProperties;
+  iconClassName?: string;
+  iconStyle?: React.CSSProperties;
   disabled?: boolean;
 }
 
