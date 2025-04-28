@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import styles from './Select.module.css';
 import { iconStyles } from '@/helpers';
 import { Check } from 'lucide-react';
-import clsx from '@/lib/cn';
+import clsx from 'clsx';
 
 interface SelectInputProps {
   id?: number | string;
@@ -42,7 +42,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   const selectRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = useMemo(() => {
-    return options.find((opt) => opt.value === value && opt.value !== options[0].value);
+    return options.find((opt) => opt.value === value) || options[0];
   }, [options, value]);
 
   useEffect(() => {
@@ -71,17 +71,12 @@ const SelectInput: React.FC<SelectInputProps> = ({
       )}
 
       <div
-        className={clsx(
-          styles.select,
-          error && styles.error,
-          isOpen && styles.open,
-          contentClassName,
-        )}
+        className={clsx(styles.select, error && styles.error, isOpen && styles.open)}
         onClick={toggleIsOpen}
         style={contentStyle}
       >
         <div className={styles.selectContent}>
-          <span>{selectedOption ? selectedOption.label : options[0].label}</span>
+          <span>{selectedOption?.label}</span>
         </div>
 
         <ChevronDown {...iconStyles} className={clsx(styles.iconBox, isOpen && styles.rotate)} />

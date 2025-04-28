@@ -20,8 +20,10 @@ const fakeBlogs = generateMockBlogs(50);
 const Page = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [categorySearchTerm, setCategorySearchTerm] = useState<string>(''); // Separate state for category search
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedCategorySearchTerm = useDebounce(categorySearchTerm, 500); // Debounced value for category search
   const [selectedSeason, setSelectedSeason] = useState<string>('');
 
   const handleSeasonChange = (season: string) => {
@@ -30,6 +32,11 @@ const Page = () => {
 
   const handleQueryChange = useCallback((value: string) => {
     setSearchTerm(value);
+    setCurrentPage(1);
+  }, []);
+
+  const handleCategoryQueryChange = useCallback((value: string) => {
+    setCategorySearchTerm(value);
     setCurrentPage(1);
   }, []);
 
@@ -49,9 +56,12 @@ const Page = () => {
 
   const filteredBlogs = fakeBlogs.filter((blog) => {
     const matchesSearchTerm = blog.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+    const matchesCategorySearchTerm =
+      categorySearchTerm === '' ||
+      blog.category.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase());
     const matchesCategory =
-      selectedCategories.length === 0 || selectedCategories.includes(blog.categoryId); // Assuming each blog has a categoryId
-    return matchesSearchTerm && matchesCategory;
+      selectedCategories.length === 0 || selectedCategories.includes(blog.categoryId);
+    return matchesSearchTerm && matchesCategorySearchTerm && matchesCategory;
   });
 
   const blogsPerPage = 10;
@@ -66,7 +76,7 @@ const Page = () => {
         <div className={styles.heroBox}>
           <H1>Filter blogs</H1>
           <InpSearch
-            placeholder='Search blogs...'
+            placeholder='Search blogs by title...'
             value={searchTerm}
             onChange={handleQueryChange}
           />
@@ -77,12 +87,12 @@ const Page = () => {
             <div className={styles.verticalBox}>
               <div className={styles.titleBox}>
                 <Funnel />
-                <p>Search Category</p>
+                <p>Search by Category</p>
               </div>
               <InpSearch
-                placeholder='eg:anime,manga'
-                value={searchTerm}
-                onChange={handleQueryChange}
+                placeholder='Search by category...'
+                value={categorySearchTerm}
+                onChange={handleCategoryQueryChange}
               />
             </div>
             <div className={styles.checkboxContainer}>
