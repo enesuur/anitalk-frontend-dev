@@ -60,50 +60,60 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
         </Link>
 
         <ul className={styles.navItems}>
-          <li onClick={toggleModal}>
-            <Search />
-          </li>
-
+          <Tooltip text={'Search on the site'} position={'bottom'}>
+            <li onClick={toggleModal}>
+              <Search />
+            </li>
+          </Tooltip>
           {user.isLoggedIn ? (
             <>
               <div className={`${styles.userBox} ${styles.userMenuWrapper}`} ref={userMenuRef}>
                 {/* --- Entry Action Button --- */}
                 <div className={styles.actionBox}>
-                  <Link href={'/create-talk'} className={`${styles.actionBox} ${styles.btnTalk}`}>
-                    <Plus {...iconStyles} />
-                    <Tooltip text={'Talk'} position={'bottom'}>
+                  <Tooltip text={'Create a Talk'} position={'bottom'}>
+                    <Link href={'/create-talk'} className={`${styles.actionBox} ${styles.btnTalk}`}>
+                      <Plus {...iconStyles} />
                       <span>Talk</span>
-                    </Tooltip>
-                  </Link>
+                    </Link>
+                  </Tooltip>
                 </div>
 
                 <div className={styles.actionBox}>
-                  <Link href={'/chats'} className={`${styles.actionBox} ${styles.btnTalk}`}>
-                    <Chat {...iconStyles} />
-                  </Link>
+                  <Tooltip text={'Open chats'} position={'bottom'}>
+                    <Link href={'/chats'} className={`${styles.actionBox} ${styles.btnTalk}`}>
+                      <Chat {...iconStyles} />
+                    </Link>
+                  </Tooltip>
                 </div>
 
                 <div className={styles.actionBox}>
-                  <Link href={'/notifications'} className={`${styles.actionBox} ${styles.btnTalk}`}>
-                    <Bell {...iconStyles} />
-                  </Link>
+                  <Tooltip text={'Open notifications'} position={'bottom'}>
+                    <Link
+                      href={'/notifications'}
+                      className={`${styles.actionBox} ${styles.btnTalk}`}
+                    >
+                      <Bell {...iconStyles} />
+                    </Link>
+                  </Tooltip>
                 </div>
-                <figure
-                  className={styles.avatarContainer}
-                  onClick={() => setIsUserMenuOpen((prev) => !prev)}
-                >
-                  <picture>
-                    <Image
-                      src={user.user?.avatar_url || '/img/avatar.webp'}
-                      alt={'User Avatar'}
-                      fill
-                      objectFit='cover'
-                      objectPosition='center'
-                      quality={90}
-                      className={styles.img}
-                    />
-                  </picture>
-                </figure>
+                <Tooltip text={'Open profile settings'} position={'bottom'}>
+                  <figure
+                    className={styles.avatarContainer}
+                    onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                  >
+                    <picture>
+                      <Image
+                        src={user.user?.avatar_url || '/img/avatar.webp'}
+                        alt={'User Avatar'}
+                        fill
+                        objectFit='cover'
+                        objectPosition='center'
+                        quality={90}
+                        className={styles.img}
+                      />
+                    </picture>
+                  </figure>
+                </Tooltip>
 
                 {isUserMenuOpen && (
                   <div className={styles.userDropdown}>

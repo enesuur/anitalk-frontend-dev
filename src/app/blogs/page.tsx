@@ -21,7 +21,6 @@ const BlogsPage = async ({ searchParams }: Props) => {
     <div
       key={i}
       style={{
-        backgroundColor: 'red',
         width: '100vw',
         height: '576px',
       }}

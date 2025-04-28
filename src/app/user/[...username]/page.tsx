@@ -25,7 +25,7 @@ import ReportModal from '@/components/modals/report/ReportModal';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import { H2, H3 } from '@/shared/ui/headings';
 import CountryFlag from '@/shared/ui/country-flags/Flag';
-import { iconStyles } from '@/helpers';
+import { iconStyles, truncateWithTrail } from '@/helpers';
 import Activities from '../_components/activities/Activities';
 import { generateMockComments, generateMockTalks } from '@/data/index';
 import Badge from '@/shared/ui/member-badges/Badge';
@@ -264,93 +264,94 @@ const Page = () => {
 
   return (
     <React.Fragment>
-      <section className={'container'}>
-        <div className={styles.profileShowcase}>
-          <div className={styles.profileBanner}>
-            <Image
-              src={'https://picsum.photos/1920/1080'}
-              alt='profile banner'
-              layout='fill'
-              objectFit='cover'
-            />
-          </div>
-          <div className={styles.profileAvatar}>
-            <Image
-              src={'https://picsum.photos/1920/1080'}
-              alt='avatar'
-              width={128}
-              height={128}
-              className={styles.avatarImg}
-            />
-            <div className={styles.userBox}>
-              <Link href={`/user/baladriel`}>@baladriel</Link>
-              <Badge type={-3} />
+      <section>
+        <div className='container'>
+          <div className={styles.showcaseBox}>
+            <div className={styles.bannerBox}>
+              <Image
+                src={'https://picsum.photos/1920/1080'}
+                alt='profile banner'
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
+            <div className={styles.profileAvatar}>
+              <Image
+                src={'https://picsum.photos/1920/1080'}
+                alt='avatar'
+                width={128}
+                height={128}
+                className={styles.avatarImg}
+              />
+              <div className={styles.userBox}>
+                <Link href={`/user/baladriel`}>@baladriel</Link>
+                <Badge type={-1} />
+              </div>
             </div>
           </div>
+
+          <div className={styles.profileInfoBox}>
+            <div className={styles.profileSocialBox}>
+              <Tooltip text={'X Profile'} position={'top'}>
+                <a href={`https://x.com/test`} target='_blank' rel='noopener noreferrer'>
+                  <X {...iconStyles} />
+                  <span>{truncateWithTrail('baladriel')}</span>
+                </a>
+              </Tooltip>
+
+              <Tooltip text={'Mal Profile'} position={'top'}>
+                <a href={`https://snapchat.com/test`} target='_blank' rel='noopener noreferrer'>
+                  <Mal {...iconStyles} />
+                  <span>{truncateWithTrail('baladriel')}</span>
+                </a>
+              </Tooltip>
+
+              <Tooltip text={'Reddit Profile'} position={'top'}>
+                <a href={`https://instagram.com/test`} target='_blank' rel='noopener noreferrer'>
+                  <Reddit {...iconStyles} />
+                  <span>{truncateWithTrail('baladriel')}</span>
+                </a>
+              </Tooltip>
+            </div>
+
+            <div className={styles.profileStatBox}>
+              <div>
+                <span>Talks</span>
+                <span>1</span>
+              </div>
+              <div onClick={() => openModal(1)}>
+                <span>Following</span>
+                <span>{following.length}</span>
+              </div>
+              <div onClick={() => openModal(0)}>
+                <span>Followers</span>
+                <span>{followers.length}</span>
+              </div>
+            </div>
+          </div>
+
+          <TabChanger
+            activeTab={tabState}
+            setActiveTab={setTabState}
+            setAlertModal={setIsAlertModalOpen}
+            setReportModal={setIsReportModalOpen}
+          />
+
+          {tabState === 0 && <BiographySection biography={null} />}
+
+          {tabState === 1 && (
+            <AboutSection generation={1} country_code={'FR'} join_date={new Date()} />
+          )}
+
+          {tabState === 2 && (
+            <FavoriteSection favorite_anime={'Attack on Titan'} favorite_manga={'One Punch Man'} />
+          )}
         </div>
-
-        <div className={styles.profileInfo}>
-          <div className={styles.profileSocial}>
-            <Tooltip text={'X Profile'} position={'top'}>
-              <a href={`https://x.com/test`} target='_blank' rel='noopener noreferrer'>
-                <X width={16} height={16} color={'#FFFFFF'} />
-
-                <span>--</span>
-              </a>
-            </Tooltip>
-
-            <Tooltip text={'Mal Profile'} position={'top'}>
-              <a href={`https://snapchat.com/test`} target='_blank' rel='noopener noreferrer'>
-                <Mal width={16} height={16} color={'#FFFFFF'} />
-                <span>--</span>
-              </a>
-            </Tooltip>
-
-            <Tooltip text={'Reddit Profile'} position={'top'}>
-              <a href={`https://instagram.com/test`} target='_blank' rel='noopener noreferrer'>
-                <Reddit width={16} height={16} color={'#FFFFFF'} />
-                <span>--</span>
-              </a>
-            </Tooltip>
-          </div>
-
-          <div className={styles.profileStats}>
-            <div>
-              <span>Entries</span>
-              <span>1</span>
-            </div>
-            <div onClick={() => openModal(1)}>
-              <span>Following</span>
-              <span>{following.length}</span>
-            </div>
-            <div onClick={() => openModal(0)}>
-              <span>Followers</span>
-              <span>{followers.length}</span>
-            </div>
-          </div>
-        </div>
-
-        <TabChanger
-          activeTab={tabState}
-          setActiveTab={setTabState}
-          setAlertModal={setIsAlertModalOpen}
-          setReportModal={setIsReportModalOpen}
-        />
-
-        {tabState === 0 && <BiographySection biography={null} />}
-
-        {tabState === 1 && (
-          <AboutSection generation={1} country_code={'FR'} join_date={new Date()} />
-        )}
-
-        {tabState === 2 && (
-          <FavoriteSection favorite_anime={'Attack on Titan'} favorite_manga={'One Punch Man'} />
-        )}
       </section>
 
       {/* TabState changer && talk to comments. && needs to follow for seeing talks and comments. */}
       <section>
-        <div className={`${styles.latestEntries} container`}>
+        <div className={`${styles.activityBox} container`}>
           <Activities talks={talks} comments={comments} />
         </div>
       </section>

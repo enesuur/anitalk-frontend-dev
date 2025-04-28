@@ -2,43 +2,97 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-base);
-  background-color: var(--white);
+  background: var(--soft-dark);
   border-radius: var(--border-radius);
-}
-
-.label,
-.select {
-  color: var(--dark);
-  opacity: var(--opacity);
+  position: relative;
+  user-select: none;
 }
 
 .select {
   font-size: var(--font-size-base);
-  padding: var(--spacing-base);
-  border: 1px solid var(--faded-white);
+  padding: 6px;
   border-radius: var(--border-radius);
+  border: 1px solid var(--faded-white);
   appearance: none;
   cursor: pointer;
-  transition: border-color 0.2s ease-in-out;
-  vertical-align: middle;
+  transition: border-color 0.3s ease-in-out;
+  background: transparent;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.select:focus {
+.select:hover {
   border-color: var(--orange);
-  outline: none;
 }
 
-.select.error,
-.errorMessage {
+.selectBox.error .select {
   border-color: var(--red);
+}
+
+.optionBox {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--faded-white);
+  margin-top: var(--spacing-xxs);
+  z-index: 10;
+}
+
+.optionItem {
+  padding: var(--spacing-base);
+  border-radius: var(--border-radius);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.optionItem:hover,
+.optionItem.selected {
+  background-color: var(--orange);
 }
 
 .errorMessage {
   font-size: var(--font-size-sm);
   margin-top: var(--spacing-sm);
+  color: var(--red);
 }
 
-.scrollable option {
-  max-height: 1rem;
+.iconBox {
+  transition: transform 0.2s ease-in-out;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.scrollable {
+  max-height: 200px;
   overflow-y: auto;
+}
+
+.selectedContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+}
+
+.optionLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--white);
+  opacity: var(--opacity);
 }

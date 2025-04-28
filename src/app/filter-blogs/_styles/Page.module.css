@@ -1,0 +1,52 @@
+.pageBox {
+  display: flex;
+  color: var(--white);
+  gap: 72px;
+  margin: var(--spacing-4xl) 0;
+}
+
+.pageBox aside {
+  width: 275px;
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  background-color: var(--soft-dark);
+  padding: var(--spacing-xl);
+  max-height: max-content;
+}
+
+.blogsBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4xl);
+  flex: 1;
+}
+
+.verticalBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
+  margin-bottom: var(--spacing-xl);
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.titleBox svg {
+  width: 14px;
+  height: 14px;
+  color: var(--white);
+  opacity: var(--opacity);
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+
+.seasonBox {
+  margin: var(--spacing-xl) 0;
+}

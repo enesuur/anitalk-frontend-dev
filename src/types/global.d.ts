@@ -52,4 +52,16 @@ interface CustomEditor extends TiptapEditor {
   isEditable: boolean;
 }
 
-export { IconStyles, IBlog, ITalk, IComment, IBadge, CustomEditor };
+type Category = {
+  id: number;
+  path: string;
+  label: string;
+  color: string;
+};
+
+type Season = {
+  label: string;
+  value: string;
+};
+
+export { IconStyles, IBlog, ITalk, IComment, IBadge, CustomEditor, Category, Season };
