@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './InpSearch.module.css';
 import clsx from '@/lib/cn';
 import { Search } from 'lucide-react';
+import { iconStyles } from '@/helpers';
 
 interface ISearchComponentProps {
   placeholder?: string;
@@ -12,6 +13,8 @@ interface ISearchComponentProps {
   contentStyle?: React.CSSProperties;
   containerClassName?: string;
   contentClassName?: string;
+  iconClassName: string;
+  iconStyle: React.CSSProperties;
   disabled?: boolean;
 }
 
@@ -24,10 +27,16 @@ const InpSearch: React.FC<ISearchComponentProps> = ({
   containerClassName,
   contentClassName,
   disabled = false,
+  iconClassName,
+  iconStyle,
 }) => {
   return (
     <div className={clsx(styles.searchWrapper, containerClassName)} style={containerStyle}>
-      <Search size={18} className={styles.searchIcon} />
+      <Search
+        {...iconStyles}
+        className={clsx(styles.searchIcon, iconClassName)}
+        style={iconStyle ? iconStyle : {}}
+      />
       <input
         type='text'
         placeholder={placeholder}
@@ -41,4 +50,4 @@ const InpSearch: React.FC<ISearchComponentProps> = ({
   );
 };
 
-export default React.memo(InpSearch);
+export default InpSearch;
