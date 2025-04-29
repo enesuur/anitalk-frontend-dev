@@ -1,0 +1,24 @@
+.sliderWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-lg);
+  width: 100%;
+  color: var(--white);
+  opacity: var(--opacity);
+  margin: var(--spacing-xl) 0;
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+
+.labelBox {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-base);
+  width: 100%;
+}

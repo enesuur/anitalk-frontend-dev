@@ -252,3 +252,66 @@ i {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/********** Range Input Styles **********/
+
+/* Base Range Reset */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  height: 8px;
+}
+
+/* Remove default focus border */
+input[type='range']:focus {
+  outline: none;
+}
+
+/* Chrome, Safari, Opera, Edge Chromium - Track */
+input[type='range']::-webkit-slider-runnable-track {
+  background-color: var(--faded-white);
+  border-radius: var(--border-radius);
+  height: 8px;
+}
+
+/* Chrome, Safari, Opera, Edge Chromium - Thumb */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--orange);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  margin-top: -4px; /* Ortalamak için track içinde */
+  transition: 0.2s ease-in-out;
+}
+
+/* Chrome, Safari, Opera, Edge Chromium - Thumb Focus */
+
+/* Firefox - Track */
+input[type='range']::-moz-range-track {
+  background-color: var(--faded-white);
+  border-radius: var(--border-radius);
+  height: 8px;
+}
+
+/* Firefox - Thumb */
+input[type='range']::-moz-range-thumb {
+  background-color: var(--orange);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Firefox - Thumb Focus */
+input[type='range']:focus::-moz-range-thumb {
+  border: 2px solid var(--white);
+  outline: 3px solid var(--white);
+}

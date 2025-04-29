@@ -1,0 +1,28 @@
+.notFoundWrapper {
+  width: 100%;
+  border: 2px dashed var(--faded-white);
+  padding: var(--spacing-4xl);
+  border-radius: var(--border-radius);
+  background-color: var(--soft-dark);
+}
+
+.notFoundBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-base);
+  background: var(--soft-dark);
+  border-radius: var(--border-radius);
+}
+
+.notFoundBox span {
+  font-size: var(--font-size-md);
+  opacity: var(--opacity);
+}
+
+.notFoundBox .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--white);
+  opacity: var(--opacity);
+}

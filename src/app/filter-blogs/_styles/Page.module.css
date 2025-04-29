@@ -21,11 +21,20 @@
   flex: 1;
 }
 
+.notFound {
+  flex: 1;
+}
+
+.searchBlogBox {
+  margin-bottom: var(--spacing-4xl);
+}
+
 .verticalBox {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-base);
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-4xl);
+  flex: 1;
 }
 
 .titleBox {

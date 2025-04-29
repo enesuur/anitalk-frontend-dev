@@ -7,24 +7,27 @@ import { generateMockBlogs } from '@/data';
 import styles from './_styles/Page.module.css';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
 import useDebounce from '@/hooks/useDebounce';
-import { H1, H2, H3 } from '@/shared/ui/headings';
-import { Funnel } from 'lucide-react';
+import { H1 } from '@/shared/ui/headings';
+import { Funnel, Timer, FunnelX } from 'lucide-react';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import { CATEGORIES } from '@/helpers/constants';
 import { iconStyles } from '@/helpers';
 import Select from '@/shared/ui/input/select/Select';
-import { FunnelX } from 'lucide-react';
+import NotFoundComponent from '@/shared/ui/not-found/NotFound';
+import BreadCrumb from '@/shared/ui/breadcrumb/BreadCrumb';
+import SliderInput from '@/shared/ui/input/slider/InpSlider';
 
 const fakeBlogs = generateMockBlogs(50);
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [categorySearchTerm, setCategorySearchTerm] = useState<string>(''); // Separate state for category search
+  const [categorySearchTerm, setCategorySearchTerm] = useState<string>('');
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const debouncedCategorySearchTerm = useDebounce(categorySearchTerm, 500); // Debounced value for category search
+  const debouncedCategorySearchTerm = useDebounce(categorySearchTerm, 500);
   const [selectedSeason, setSelectedSeason] = useState<string>('');
+  const [readTime, setReadTime] = useState<number>(30);
 
   const handleSeasonChange = (season: string) => {
     setSelectedSeason(season);
@@ -58,7 +61,7 @@ const Page = () => {
     const matchesSearchTerm = blog.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
     const matchesCategorySearchTerm =
       categorySearchTerm === '' ||
-      blog.category.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase());
+      blog?.category.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase());
     const matchesCategory =
       selectedCategories.length === 0 || selectedCategories.includes(blog.categoryId);
     return matchesSearchTerm && matchesCategorySearchTerm && matchesCategory;
@@ -73,14 +76,9 @@ const Page = () => {
   return (
     <section>
       <div className='container'>
-        <div className={styles.heroBox}>
-          <H1>Filter blogs</H1>
-          <InpSearch
-            placeholder='Search blogs by title...'
-            value={searchTerm}
-            onChange={handleQueryChange}
-          />
-        </div>
+        <H1>Filter Blogs</H1>
+        <BreadCrumb />
+        <div className={styles.heroBox}></div>
 
         <div className={styles.pageBox}>
           <aside className={styles.filterBox}>
@@ -121,22 +119,40 @@ const Page = () => {
                 ]}
               />
             </div>
+
+            <SliderInput
+              min={0}
+              max={100}
+              label='Read time'
+              step={1}
+              value={readTime}
+              icon={<Timer width={16} height={16} opacity={1} color={'#FFFFFF'} />}
+              onChange={(val) => setReadTime(val)}
+            />
             <Button text='Reset filters' icon={<FunnelX {...iconStyles} />} />
           </aside>
 
           <div className={styles.verticalBox}>
-            <div className={styles.blogsBox}>
+            <InpSearch
+              placeholder='Search blogs by title...'
+              value={searchTerm}
+              onChange={handleQueryChange}
+              containerClassName={styles.searchBlogBox}
+            />
+            <div className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}>
               {paginatedBlogs.length > 0 ? (
                 paginatedBlogs.map((item, idx) => <BlogCard key={idx} {...item} />)
               ) : (
-                <p>No blogs found.</p>
+                <NotFoundComponent text={'Blogs'} />
               )}
             </div>
-            <Pagination
-              totalPages={Math.ceil(filteredBlogs.length / blogsPerPage)}
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-            />
+            {paginatedBlogs.length > 0 && (
+              <Pagination
+                totalPages={Math.ceil(filteredBlogs.length / blogsPerPage)}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         </div>
       </div>

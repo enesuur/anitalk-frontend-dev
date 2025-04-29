@@ -285,7 +285,7 @@ const Page = () => {
               />
               <div className={styles.userBox}>
                 <Link href={`/user/baladriel`}>@baladriel</Link>
-                <Badge type={-1} />
+                <Badge type={-3} />
               </div>
             </div>
           </div>
