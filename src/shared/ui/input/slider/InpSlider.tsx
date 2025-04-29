@@ -31,11 +31,9 @@ const SliderInput: React.FC<ISliderInputProps> = ({
   icon,
 }) => {
   const id = useId();
-  const [internalValue, setInternalValue] = useState(value);
+  const [internalValue, setInternalValue] = useState<number>(value);
 
-  useEffect(() => {
-    setInternalValue(value);
-  }, [value]);
+  useEffect(() => setInternalValue(value), [value]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,4 +74,4 @@ const SliderInput: React.FC<ISliderInputProps> = ({
   );
 };
 
-export default React.memo(SliderInput);
+export default SliderInput;
