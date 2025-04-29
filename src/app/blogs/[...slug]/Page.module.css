@@ -111,8 +111,19 @@
   color: var(--white);
 }
 
+.latestBlogContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-4xl);
+  margin: var(--spacing-4xl) 0;
+}
+
 .commentContainer {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-xl);
+}
+
+.highlightText {
+  color: var(--orange);
 }

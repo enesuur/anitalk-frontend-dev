@@ -1,0 +1,86 @@
+.cardBox {
+  display: flex;
+  height: 250px;
+  gap: var(--spacing-4xl);
+  color: var(--white);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--faded-white);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.cardBox:hover {
+  background-color: var(--dark-theme-hover-color);
+}
+
+.imageBox {
+  width: 275px;
+  height: 100%;
+}
+.imageBox picture {
+  position: relative;
+  display: inline-block;
+}
+
+.imageBox img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.title {
+  margin: 0;
+}
+
+.contentBox {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-base);
+  padding: var(--spacing-base) var(--spacing-xl);
+}
+
+.cardFooter {
+  margin-top: auto;
+  display: flex;
+}
+
+.horizontalBox {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+}
+
+.infoBox {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: var(--spacing-xl);
+  font-size: var(--font-size-sm);
+}
+
+.infoBox svg {
+  width: 14px;
+  height: 14px;
+  color: var(--white);
+  opacity: var(--opacity);
+}
+
+.readmoreBox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for color and transform */
+}
+
+.readmoreBox:hover {
+  color: var(--orange);
+}
+
+.readmoreBox svg {
+  transition: transform 0.1s ease-in-out;
+}
+
+.readmoreBox:hover svg {
+  transform: translateX(8px);
+}

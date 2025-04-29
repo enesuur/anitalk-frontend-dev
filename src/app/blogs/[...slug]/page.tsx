@@ -1,5 +1,5 @@
+'use server';
 import React from 'react';
-import styles from './Page.module.css';
 import { generateMockBlogs, generateMockComments } from '@/data/index';
 import { IBlog } from '../_types';
 import RecommendCard from '../_components/card/RecommendCard';
@@ -9,10 +9,11 @@ import { Date as DateIcon } from '@/assets/icons';
 import ScrollToTop from '@/shared/ui/scroller/Scroller';
 import Image from 'next/image';
 import getBlurDataURL from '@/lib/base64ph';
-import EmblaCarousel from '@/shared/ui/swiper/Swiper';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
 import { H1, H2, H3 } from '@/shared/ui/headings';
+import LatestBlogCard from '@/shared/ui/cards/latest-blog/LatestBlogCard';
+import styles from './Page.module.css';
 
 const mockBlogs = generateMockBlogs(5);
 const mockComments = generateMockComments(5);
@@ -160,7 +161,7 @@ const Page: React.FC = async () => {
           </article>
 
           <div className={styles.recommendContainer}>
-            <H3>You may interest</H3>
+            <H3 style={{ margin: 0 }}>You may interest</H3>
             {mockBlogs.map((blog: Partial<IBlog>, index: number) => (
               <RecommendCard
                 key={index}
@@ -181,8 +182,24 @@ const Page: React.FC = async () => {
 
       {/* --- Blog Recommendation for web --- */}
       <div className='container'>
-        <H2>People also read related blogs</H2>
-        <EmblaCarousel count={5} options={{ loop: true }} />
+        <div className={styles.latestBlogContainer}>
+          <H2>
+            People also <span className={styles.highlightText}>read </span>
+            related blogs
+          </H2>
+          {mockBlogs.map((item: Partial<IBlog>, index: number) => (
+            <LatestBlogCard
+              key={item._id || index}
+              _id={item._id ?? ''}
+              title={item.title ?? ''}
+              snippet={item.snippet ?? ''}
+              date={item.date ?? new Date()}
+              img_url={item.img_url ?? ''}
+              author={item.author ?? ''}
+              slug={item.slug ?? ''}
+            />
+          ))}
+        </div>
       </div>
 
       <Divider text={'Comments'} className={'container'} style={{ margin: '0 auto' }} />
