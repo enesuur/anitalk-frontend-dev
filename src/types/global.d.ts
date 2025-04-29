@@ -64,4 +64,32 @@ type Season = {
   value: string;
 };
 
-export { IconStyles, IBlog, ITalk, IComment, IBadge, CustomEditor, Category, Season };
+type SwiperOptions = {
+  loop?: boolean;
+  autoplay?: boolean;
+  autoplayDelay?: number;
+  transitionDuration?: number;
+  slidesPerView?: number;
+  spacing?: number;
+  showDots?: boolean;
+  showArrows?: boolean;
+  pauseOnHover?: boolean;
+  responsive?: {
+    [breakpoint: number]: {
+      slidesPerView?: number;
+      spacing?: number;
+    };
+  };
+};
+
+export {
+  IconStyles,
+  IBlog,
+  ITalk,
+  IComment,
+  IBadge,
+  CustomEditor,
+  Category,
+  Season,
+  SwiperOptions,
+};

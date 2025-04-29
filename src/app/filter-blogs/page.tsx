@@ -16,6 +16,7 @@ import Select from '@/shared/ui/input/select/Select';
 import NotFoundComponent from '@/shared/ui/not-found/NotFound';
 import BreadCrumb from '@/shared/ui/breadcrumb/BreadCrumb';
 import SliderInput from '@/shared/ui/input/slider/InpSlider';
+import Swiper from '@/shared/ui/swiper/Swiper';
 
 const fakeBlogs = generateMockBlogs(50);
 
@@ -74,89 +75,97 @@ const Page = () => {
   );
 
   return (
-    <section>
-      <div className='container'>
-        <H1>Filter Blogs</H1>
-        <BreadCrumb />
-        <div className={styles.heroBox}></div>
+    <React.Fragment>
+      <section>
+        <div className='container'>
+          <Swiper />
+        </div>
+      </section>
 
-        <div className={styles.pageBox}>
-          <aside className={styles.filterBox}>
-            <div className={styles.verticalBox}>
-              <div className={styles.titleBox}>
-                <Funnel />
-                <p>Search by Category</p>
-              </div>
-              <InpSearch
-                placeholder='Search by category...'
-                value={categorySearchTerm}
-                onChange={handleCategoryQueryChange}
-              />
-            </div>
-            <div className={styles.checkboxContainer}>
-              {CATEGORIES.map((category) => (
-                <Checkbox
-                  key={category.id}
-                  label={category.label}
-                  checked={selectedCategories.includes(category.id)}
-                  onChange={() => handleCategoryChange(category.id)}
+      <section>
+        <div className='container'>
+          <H1>Filter Blogs</H1>
+          <BreadCrumb />
+          <div className={styles.heroBox}></div>
+
+          <div className={styles.pageBox}>
+            <aside className={styles.filterBox}>
+              <div className={styles.verticalBox}>
+                <div className={styles.titleBox}>
+                  <Funnel />
+                  <p>Search by Category</p>
+                </div>
+                <InpSearch
+                  placeholder='Search by category...'
+                  value={categorySearchTerm}
+                  onChange={handleCategoryQueryChange}
                 />
-              ))}
-            </div>
+              </div>
+              <div className={styles.checkboxContainer}>
+                {CATEGORIES.map((category) => (
+                  <Checkbox
+                    key={category.id}
+                    label={category.label}
+                    checked={selectedCategories.includes(category.id)}
+                    onChange={() => handleCategoryChange(category.id)}
+                  />
+                ))}
+              </div>
 
-            <div className={styles.seasonBox}>
-              <Select
-                name='season'
-                label='Season'
-                value={selectedSeason}
-                onChange={handleSeasonChange}
-                options={[
-                  { label: 'Select a season', value: 'Select a season' },
-                  ...['Summer', 'Winter', 'Fall', 'Spring'].map((season) => ({
-                    label: season,
-                    value: season.toLowerCase(),
-                  })),
-                ]}
+              <div className={styles.seasonBox}>
+                <Select
+                  name='season'
+                  label='Season'
+                  value={selectedSeason}
+                  onChange={handleSeasonChange}
+                  options={[
+                    { label: 'Select a season', value: 'Select a season' },
+                    ...['Summer', 'Winter', 'Fall', 'Spring'].map((season) => ({
+                      label: season,
+                      value: season.toLowerCase(),
+                    })),
+                  ]}
+                />
+              </div>
+
+              <SliderInput
+                min={0}
+                max={100}
+                label='Read time'
+                step={1}
+                value={readTime}
+                icon={<Timer width={16} height={16} opacity={1} color={'#FFFFFF'} />}
+                onChange={(val) => setReadTime(val)}
               />
-            </div>
+              <Button text='Reset filters' icon={<FunnelX {...iconStyles} />} />
+            </aside>
 
-            <SliderInput
-              min={0}
-              max={100}
-              label='Read time'
-              step={1}
-              value={readTime}
-              icon={<Timer width={16} height={16} opacity={1} color={'#FFFFFF'} />}
-              onChange={(val) => setReadTime(val)}
-            />
-            <Button text='Reset filters' icon={<FunnelX {...iconStyles} />} />
-          </aside>
-
-          <div className={styles.verticalBox}>
-            <InpSearch
-              placeholder='Search blogs by title...'
-              value={searchTerm}
-              onChange={handleQueryChange}
-              containerClassName={styles.searchBlogBox}
-            />
-            <div className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}>
-              {paginatedBlogs.length > 0 ? (
-                paginatedBlogs.map((item, idx) => <BlogCard key={idx} {...item} />)
-              ) : (
-                <NotFoundComponent text={'Blogs'} />
+            <div className={styles.verticalBox}>
+              <InpSearch
+                placeholder='Search blogs by title...'
+                value={searchTerm}
+                onChange={handleQueryChange}
+                containerClassName={styles.searchBlogBox}
+              />
+              <div className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}>
+                {paginatedBlogs.length > 0 ? (
+                  paginatedBlogs.map((item, idx) => <BlogCard key={idx} {...item} />)
+                ) : (
+                  <NotFoundComponent text={'Blogs'} />
+                )}
+              </div>
+              {paginatedBlogs.length > 0 && (
+                <Pagination
+                  totalPages={Math.ceil(filteredBlogs.length / blogsPerPage)}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               )}
             </div>
-            {paginatedBlogs.length > 0 && (
-              <Pagination
-                totalPages={Math.ceil(filteredBlogs.length / blogsPerPage)}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-              />
-            )}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </React.Fragment>
   );
 };
 

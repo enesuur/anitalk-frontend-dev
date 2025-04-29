@@ -13,7 +13,6 @@ interface ICarouselProps {
 }
 
 const Carousel: React.FC<ICarouselProps> = () => {
-
   const slides = Array.from({ length: 5 }, (_, i) => ({
     url: `https://picsum.photos/seed/slide-${i}/1920/1080`,
   }));

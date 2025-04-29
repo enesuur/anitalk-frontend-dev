@@ -1,129 +1,184 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import styles from './Swiper.module.css';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import clsx from '@/lib/cn';
+import styles from './Swiper.module.css';
+import { iconStyles } from '@/helpers';
 
-// TODO: Swiper left and right corner side transition.
+interface ISwiperOptions {
+  loop?: boolean;
+  autoplay?: boolean;
+  autoplayDelay?: number;
+  transitionDuration?: number;
+  slidesPerView?: number;
+  spacing?: number;
+  showDots?: boolean;
+  showArrows?: boolean;
+  pauseOnHover?: boolean;
+  responsive?: {
+    [breakpoint: number]: {
+      slidesPerView?: number;
+      spacing?: number;
+    };
+  };
+}
 
-interface EmblaCarouselProps {
+interface SwiperProps {
   count?: number;
   width?: number;
   height?: number;
-  options?: Parameters<typeof useEmblaCarousel>[0];
+  containerClassname?: string;
+  containerStyle?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
+  options?: ISwiperOptions;
 }
 
 const getSlidesPerView = (width: number): number => {
-  switch (true) {
-    case width >= 1600:
-      return 5;
-    case width >= 1200:
-      return 5;
-    case width >= 992:
-      return 4;
-    case width >= 768:
-      return 4;
-    case width >= 576:
-      return 3;
-    case width >= 480:
-      return 2;
-    default:
-      return 1;
-  }
+  if (width >= 1600) return 5;
+  if (width >= 1200) return 5;
+  if (width >= 992) return 4;
+  if (width >= 768) return 4;
+  if (width >= 576) return 3;
+  if (width >= 480) return 2;
+  return 1;
 };
 
-const Swiper: React.FC<EmblaCarouselProps> = ({
-  count = 5,
-  width = 100,
-  height = 425,
-  options,
-}) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    containScroll: 'trimSnaps',
+const Swiper: React.FC<SwiperProps> = ({
+  count = 12,
+  width = 1920,
+  height = 1080,
+  contentStyle,
+  containerClassname,
+  containerStyle,
+  options = {
     loop: true,
-    align: 'center' as const,
-  });
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  const [slidesPerView, setSlidesPerView] = useState(getSlidesPerView(window.innerWidth));
+    autoplay: true,
+    autoplayDelay: 1500,
+    transitionDuration: 500,
+    slidesPerView: 1,
+    spacing: 10,
+    showDots: true,
+    showArrows: true,
+    pauseOnHover: true,
+    responsive: {},
+  },
+}: SwiperProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [slidesPerView, setSlidesPerView] = useState<number>(1);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const slides = Array.from(
     { length: count },
     (_, i) => `https://picsum.photos/id/${i + 10}/${width}/${height}`,
   );
 
-  const scrollTo = useCallback(
-    (index: number) => {
-      emblaApi?.scrollTo(index);
-    },
-    [emblaApi],
-  );
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  const handleResize = useCallback(() => {
-    setSlidesPerView(getSlidesPerView(window.innerWidth));
-  }, []);
+  const maxIndex = Math.max(0, slides.length - slidesPerView);
 
   useEffect(() => {
-    if (!emblaApi) return;
-    setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on('select', onSelect);
-    onSelect();
-  }, [emblaApi, onSelect]);
+    const handleResize = () => {
+      setSlidesPerView(getSlidesPerView(window.innerWidth));
+    };
 
-  useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [handleResize]);
+  }, []);
+
+  useEffect(() => {
+    if (options.autoplay && !isHovered) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) =>
+          options.loop ? (prevIndex + 1) % slides.length : Math.min(prevIndex + 1, maxIndex),
+        );
+      }, options.autoplayDelay);
+
+      return () => clearInterval(interval);
+    }
+  }, [options.autoplay, isHovered, maxIndex, slides.length, options.loop, options.autoplayDelay]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) =>
+      options.loop ? (prev - 1 + slides.length) % slides.length : Math.max(prev - 1, 0),
+    );
+  }, [options.loop, slides.length]);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) =>
+      options.loop ? (prev + 1) % slides.length : Math.min(prev + 1, maxIndex),
+    );
+  }, [options.loop, maxIndex, slides.length]);
+
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
   return (
-    <div className={styles.embla}>
-      <div className={styles.viewport} ref={emblaRef}>
-        <div className={styles.container}>
+    <div
+      className={styles.swiperWrapper}
+      onMouseEnter={() => options.pauseOnHover && setIsHovered(true)}
+      onMouseLeave={() => options.pauseOnHover && setIsHovered(false)}
+    >
+      <div className={styles.controlBox}>
+        <button onClick={handlePrev} disabled={currentIndex === 0 && !options.loop}>
+          <ChevronLeft {...iconStyles} />
+        </button>
+        <button onClick={handleNext} disabled={currentIndex === maxIndex && !options.loop}>
+          <ChevronRight {...iconStyles} />
+        </button>
+      </div>
+
+      <div className={styles.viewport}>
+        <div
+          className={clsx(styles.container, containerClassname)}
+          ref={containerRef}
+          style={{
+            width: `${(slides.length * 100) / slidesPerView}%`,
+            transform: `translateX(-${(100 / slides.length) * currentIndex}%)`,
+            transition: `transform ${options.transitionDuration}ms ease`,
+            ...containerStyle,
+          }}
+        >
           {slides.map((src, index) => (
             <Link
-              href={'yourmom'}
-              className={styles.slide}
+              href='/blogs/test'
               key={index}
-              style={{ flex: `0 0 ${100 / slidesPerView}%` }}
+              className={clsx(styles.slide)}
+              style={{ width: `${100 / slides.length}%` }}
             >
               <div className={styles.slideImgWrapper}>
                 <div className={styles.slideOverlay}></div>
                 <Image
                   src={src}
                   alt={`Slide ${index + 1}`}
-                  fill={true}
-                  objectFit={'cover'}
-                  objectPosition={'center'}
-                  loading={'lazy'}
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
                   className={styles.slideImg}
-                  quality={100}
+                  quality={90}
                 />
                 <div className={styles.blogTitle}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, ad!
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 </div>
               </div>
             </Link>
           ))}
         </div>
       </div>
-
-      <div className={styles.dotsContainer}>
-        {scrollSnaps.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollTo(index)}
-            className={`${styles.dot} ${index === selectedIndex ? styles.dotActive : ''}`}
-          />
-        ))}
-      </div>
+      {true && (
+        <div className={styles.dotsBox}>
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={clsx(styles.dot, {
+                [styles.active]: index === currentIndex,
+              })}
+            ></button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

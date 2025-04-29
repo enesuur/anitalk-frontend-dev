@@ -1,21 +1,62 @@
-.embla {
+.swiperWrapper {
   position: relative;
-  height: 475px;
+  padding: 0 5vw;
   overflow: hidden;
-  user-select: none;
 }
 
 .container {
   display: flex;
   align-items: center;
-  gap: 64px;
+  gap: 48px;
+  margin: 0 -5vw;
+  padding: var(--spacing-md);
+}
+
+.swiperWrapper::before,
+.swiperWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: var(--opacity);
+}
+
+.swiperWrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background-color), transparent);
+}
+
+.swiperWrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background-color), transparent);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.container a {
+  border-radius: var(--border-radius);
+}
+
+.swiperWrapper a:hover {
+  box-shadow: rgba(255, 165, 0, 1) 0px 10px 20px -4.8px;
+  transform: translateY(-8px);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-8px);
+  transition: all 0.3s ease-in-out;
 }
 
 .slide {
   position: relative;
   flex: 0 0 auto;
   width: 100%;
-  height: 375px;
+  height: 400px;
   min-height: 100%;
 }
 
@@ -23,6 +64,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
 }
 
 .slideOverlay {
@@ -56,8 +99,14 @@
   left: 16px;
 }
 
-/* --- Carousel Dots ---- */
-.dotsContainer {
+/* 
+Swiper Child component styles.
+*/
+
+/* --- Slider Dots ---- */
+.dotsBox {
+  top: 100%;
+  left: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +123,49 @@
   transition: background-color 0.3s ease-in;
 }
 
-.dotActive {
-  background-color: var(--white);
+.dot.active {
+  background-color: var(--orange);
+}
+
+.controlBox {
+  display: flex;
+  align-items: center;
+}
+
+.controlBox {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  justify-content: space-between;
+  padding: 0 var(--spacing-md);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.controlBox button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--faded-white);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  pointer-events: auto;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.controlBox button:hover {
+  background-color: var(--orange);
+  cursor: pointer;
+}
+
+.controlBox button:hover svg {
+  color: var(--white);
+}
+
+.swiperWrapper:hover .controlBox {
+  display: flex;
 }
