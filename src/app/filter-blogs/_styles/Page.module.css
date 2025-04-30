@@ -59,3 +59,7 @@
 .seasonBox {
   margin: var(--spacing-xl) 0;
 }
+
+.highlightText {
+  color: var(--orange);
+}

@@ -12,6 +12,7 @@ import getBlurDataURL from '@/lib/base64ph';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
 import { H1, H2, H3 } from '@/shared/ui/headings';
+import CommentCount from '@/shared/ui/comment-count/CommentCount';
 import LatestBlogCard from '@/shared/ui/cards/latest-blog/LatestBlogCard';
 import styles from './Page.module.css';
 
@@ -205,19 +206,24 @@ const Page: React.FC = async () => {
       <Divider text={'Comments'} className={'container'} style={{ margin: '0 auto' }} />
       {/* --- Comment Section --- */}
       <section>
-        <div className={`${styles.commentContainer} container`}>
-          {mockComments.map((item, index) => (
-            <Comment
-              key={index}
-              _id={item._id}
-              text={item.text}
-              date={item.date}
-              username={item.username}
-              avatar_url={item.avatar_url}
-              upVote={item.upvote}
-              downVote={item.downvote}
-            />
-          ))}
+        <div className='container'>
+          <div className={styles.commentsHeaderBox}>
+            <CommentCount count={32} />
+          </div>
+          <div className={styles.commentContainer}>
+            {mockComments.map((item, index) => (
+              <Comment
+                key={index}
+                _id={item._id}
+                text={item.text}
+                date={item.date}
+                username={item.username}
+                avatar_url={item.avatar_url}
+                upVote={item.upvote}
+                downVote={item.downvote}
+              />
+            ))}
+          </div>
         </div>
       </section>
       <ScrollToTop />

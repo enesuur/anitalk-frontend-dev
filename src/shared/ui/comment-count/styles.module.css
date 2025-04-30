@@ -1,0 +1,19 @@
+.commentBox {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  font-weight: 500;
+  font-size: var(--font-size-md);
+}
+
+.commentBox span {
+  color: var(--orange);
+  margin-right: var(--spacing-sm);
+}
+
+.commentBox svg {
+  width: 28px;
+  height: 28px;
+  color: var(--white);
+  margin-right: var(--spacing-sm);
+}

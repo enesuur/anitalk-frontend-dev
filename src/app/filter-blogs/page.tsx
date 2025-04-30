@@ -25,10 +25,11 @@ const Page = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [categorySearchTerm, setCategorySearchTerm] = useState<string>('');
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedSeason, setSelectedSeason] = useState<string>('');
+  const [readTime, setReadTime] = useState<number>(1);
+
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const debouncedCategorySearchTerm = useDebounce(categorySearchTerm, 500);
-  const [selectedSeason, setSelectedSeason] = useState<string>('');
-  const [readTime, setReadTime] = useState<number>(30);
 
   const handleSeasonChange = (season: string) => {
     setSelectedSeason(season);
@@ -59,13 +60,14 @@ const Page = () => {
   }, []);
 
   const filteredBlogs = fakeBlogs.filter((blog) => {
-    const matchesSearchTerm = blog.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-    const matchesCategorySearchTerm =
-      categorySearchTerm === '' ||
-      blog?.category.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase());
+    const matchesSearchTerm =
+      blog.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+      blog.snippet.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+
     const matchesCategory =
       selectedCategories.length === 0 || selectedCategories.includes(blog.categoryId);
-    return matchesSearchTerm && matchesCategorySearchTerm && matchesCategory;
+
+    return matchesSearchTerm && matchesCategory;
   });
 
   const blogsPerPage = 10;
@@ -74,14 +76,24 @@ const Page = () => {
     currentPage * blogsPerPage,
   );
 
+  const filteredCategories = CATEGORIES.filter((category) =>
+    category.label?.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase()),
+  );
+
   return (
     <React.Fragment>
+      {/* --- Hero Section --- */}
       <section>
         <div className='container'>
+          <H1>
+            <span className={styles.highlightText}>Latest </span>
+            blogs
+          </H1>
           <Swiper />
         </div>
       </section>
 
+      {/* --- Main Section of filtering --- */}
       <section>
         <div className='container'>
           <H1>Filter Blogs</H1>
@@ -101,15 +113,22 @@ const Page = () => {
                   onChange={handleCategoryQueryChange}
                 />
               </div>
+
               <div className={styles.checkboxContainer}>
-                {CATEGORIES.map((category) => (
-                  <Checkbox
-                    key={category.id}
-                    label={category.label}
-                    checked={selectedCategories.includes(category.id)}
-                    onChange={() => handleCategoryChange(category.id)}
-                  />
-                ))}
+                {filteredCategories.length > 0 ? (
+                  filteredCategories.map((category) => (
+                    <Checkbox
+                      key={category.id}
+                      label={category.label}
+                      checked={selectedCategories.includes(category.id)}
+                      onChange={() => handleCategoryChange(category.id)}
+                    />
+                  ))
+                ) : (
+                  <p style={{ color: '#999', fontSize: '0.875rem' }}>
+                    No matching categories found.
+                  </p>
+                )}
               </div>
 
               <div className={styles.seasonBox}>
@@ -137,12 +156,24 @@ const Page = () => {
                 icon={<Timer width={16} height={16} opacity={1} color={'#FFFFFF'} />}
                 onChange={(val) => setReadTime(val)}
               />
-              <Button text='Reset filters' icon={<FunnelX {...iconStyles} />} />
+
+              <Button
+                text='Reset filters'
+                icon={<FunnelX {...iconStyles} />}
+                onClick={() => {
+                  setSearchTerm('');
+                  setCategorySearchTerm('');
+                  setSelectedCategories([]);
+                  setSelectedSeason('');
+                  setReadTime(1);
+                  setCurrentPage(1);
+                }}
+              />
             </aside>
 
             <div className={styles.verticalBox}>
               <InpSearch
-                placeholder='Search blogs by title...'
+                placeholder='Search blogs by title or snippet...'
                 value={searchTerm}
                 onChange={handleQueryChange}
                 containerClassName={styles.searchBlogBox}
@@ -154,6 +185,7 @@ const Page = () => {
                   <NotFoundComponent text={'Blogs'} />
                 )}
               </div>
+
               {paginatedBlogs.length > 0 && (
                 <Pagination
                   totalPages={Math.ceil(filteredBlogs.length / blogsPerPage)}
