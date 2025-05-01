@@ -1,13 +1,10 @@
 import React from 'react';
 import { H1, H2 } from '@/shared/ui/headings';
-import { GetStaticProps } from 'next';
 
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-    revalidate: 86400,
-  };
-};
+/*
+24 Hours caching.
+*/
+export const revalidate = 86400;
 
 const Page = async () => {
   return (
