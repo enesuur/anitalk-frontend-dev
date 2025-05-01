@@ -13,7 +13,7 @@ const Page = async () => {
         <div className='container'>
           <H1>Privacy Policy for Anitalks</H1>
           <p>
-            <strong>Effective Date:</strong> [Insert Date]
+            <strong>Effective Date:</strong> 01.05.2025(dd/mm/yyyy)
           </p>
 
           <p>
@@ -107,7 +107,7 @@ const Page = async () => {
               for direct marketing purposes.
             </li>
           </ul>
-          <p>To exercise these rights, please contact us at [Insert Contact Email].</p>
+          <p>To exercise these rights, please contact us at support@anitalks.com </p>
 
           <H2>6. Third-Party Links</H2>
           <p>
@@ -141,7 +141,7 @@ const Page = async () => {
               <strong>Email:</strong> support@anitalks.com
             </li>
             <li>
-              <strong>Address:</strong> Man island, UNITED KINGDOM(UK)
+              <strong>Address:</strong> Man Island, United Kingdom(UK)
             </li>
             <li>
               <strong>Phone:</strong>(+1) 284 224 231
