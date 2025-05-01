@@ -4,7 +4,8 @@
   gap: var(--spacing-4xl);
   color: var(--white);
   font-size: var(--font-size-base);
-  border: 1px solid var(--faded-white);
+  border-top: 1px solid var(--faded-white);
+  border-bottom: 1px solid var(--faded-white);
   transition: background-color 0.1s ease-in-out;
 }
 
@@ -83,4 +84,15 @@
 
 .readmoreBox:hover svg {
   transform: translateX(8px);
+}
+
+.labelBox {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  width: max-content;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  column-gap: var(--spacing-sm);
+  font-weight: 500;
 }

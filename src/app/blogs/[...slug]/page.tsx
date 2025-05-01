@@ -1,7 +1,7 @@
 'use server';
 import React from 'react';
 import { generateMockBlogs, generateMockComments } from '@/data/index';
-import { IBlog } from '../_types';
+import { IBlog } from '@/types/global';
 import RecommendCard from '../_components/card/RecommendCard';
 import Link from 'next/link';
 import Divider from '@/shared/ui/hr/Divider';
@@ -14,6 +14,7 @@ import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
 import { H1, H2, H3 } from '@/shared/ui/headings';
 import CommentCount from '@/shared/ui/comment-count/CommentCount';
 import LatestBlogCard from '@/shared/ui/cards/latest-blog/LatestBlogCard';
+import Sort from '@/components/sort/Sort';
 import styles from './Page.module.css';
 
 const mockBlogs = generateMockBlogs(5);
@@ -25,8 +26,9 @@ const mockComments = generateMockComments(5);
 
 const Page: React.FC = async () => {
   const blurUrl = await getBlurDataURL('https://picsum.photos/1920/1080');
+
   return (
-    <>
+    <React.Fragment>
       <ReadProgressBar />
       <section>
         <div className='container'>
@@ -198,6 +200,10 @@ const Page: React.FC = async () => {
               img_url={item.img_url ?? ''}
               author={item.author ?? ''}
               slug={item.slug ?? ''}
+              label={{
+                title: item.label?.title ?? '',
+                color: item.label?.color ?? '',
+              }}
             />
           ))}
         </div>
@@ -205,10 +211,13 @@ const Page: React.FC = async () => {
 
       <Divider text={'Comments'} className={'container'} style={{ margin: '0 auto' }} />
       {/* --- Comment Section --- */}
+
+      {/* TODO: Functionality. */}
       <section>
         <div className='container'>
           <div className={styles.commentsHeaderBox}>
             <CommentCount count={32} />
+            <Sort />
           </div>
           <div className={styles.commentContainer}>
             {mockComments.map((item, index) => (
@@ -227,7 +236,7 @@ const Page: React.FC = async () => {
         </div>
       </section>
       <ScrollToTop />
-    </>
+    </React.Fragment>
   );
 };
 

@@ -7,14 +7,21 @@ interface IconStyles {
   color: string;
 }
 
+interface IBlogLabel {
+  title: string;
+  color: string;
+}
+
 interface IBlog {
   _id: string;
   title: string;
   snippet: string;
   date: Date;
-  img_url: string;
+  img_url?: string;
   author: string;
   slug: string;
+  read_time?: number;
+  label: IBlogLabel;
 }
 
 interface ITalk {
@@ -92,4 +99,6 @@ export {
   Category,
   Season,
   SwiperOptions,
+  IBlogLabel,
+  IBlog,
 };

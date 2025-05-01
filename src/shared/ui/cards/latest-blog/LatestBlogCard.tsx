@@ -1,26 +1,16 @@
 'use client';
 import React from 'react';
-import { IBlog } from '@/types/global';
-import { H2, H3 } from '@/shared/ui/headings/index';
+import { H2 } from '@/shared/ui/headings/index';
 import Image from 'next/image';
-import { PLACE_HOLDERS } from '@/helpers/constants';
 import Link from 'next/link';
+import { PLACE_HOLDERS } from '@/helpers/constants';
 import { truncateWithTrail } from '@/helpers';
 import { Date as DateIcon, Profile } from '@/assets/icons';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Diamond } from 'lucide-react';
+import { IBlog } from '@/types/global';
 import styles from './styles.module.css';
 
-interface ILatestBlogCard {
-  _id: string;
-  title: string;
-  snippet: string;
-  date: Date;
-  img_url: string;
-  author: string;
-  slug: string;
-}
-
-const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug }: ILatestBlogCard) => {
+const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug, label }: IBlog) => {
   return (
     <Link href={'#'}>
       {/* LEFT BOX */}
@@ -40,6 +30,16 @@ const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug }: IL
         {/* Right Box */}
         <div className={styles.contentBox}>
           <H2 className={styles.title}>{title}</H2>
+          <div className={styles.labelBox}>
+            <Diamond
+              style={{
+                fill: label?.color || PLACE_HOLDERS.blog_label_color,
+                width: '14px',
+                height: '14px',
+              }}
+            />
+            <span>{label.title}</span>
+          </div>
           <p className={styles.snippet}>{truncateWithTrail(snippet, 200)}</p>
           <div className={styles.cardFooter}>
             <p className={styles.readmoreBox}>

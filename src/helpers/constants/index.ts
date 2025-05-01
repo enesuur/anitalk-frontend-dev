@@ -1,17 +1,26 @@
-import type { Category, Season } from '@/types/global';
+import type { Category } from '@/types/global';
 /**
- * Placeholder URLs for avatar and background cover images.
- * These are used when user images are not available.
+ * Placeholder URLs for avatar, background cover images, and blog details.
+ * These are used when user images or specific blog data are not available.
  *
  * @readonly
- * @type {Readonly<{ avatar_url: string, background_cover_url: string }>}
+ * @type {Readonly<{
+ *   avatar_url: string;
+ *   background_cover_url: string;
+ *   blog_title: string;
+ *   blog_label_color: string;
+ * }>}
  */
 const PLACE_HOLDERS: Readonly<{
   avatar_url: string;
   background_cover_url: string;
+  blog_title: string;
+  blog_label_color: string;
 }> = {
   avatar_url: '/img/avatar.webp',
   background_cover_url: '/img/bg-cover.webp',
+  blog_title: 'Awesome Blog',
+  blog_label_color: 'orange',
 };
 
 /**
