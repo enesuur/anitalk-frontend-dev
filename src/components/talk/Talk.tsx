@@ -15,7 +15,7 @@ const Talk: React.FC<ITalkProps> = ({
   upvote = 32,
   downvote = 14,
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
     setIsMounted(true);

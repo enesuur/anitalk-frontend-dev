@@ -57,6 +57,12 @@
   min-height: 256px;
 }
 
+.headerBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .contentWrapper {
   margin-top: 108px;
   margin-bottom: 108px;

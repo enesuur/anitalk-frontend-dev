@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './Sonner.module.css';
 import { truncateWithTrail } from '@/helpers/index';
 
+/* Sonner mobile Bug */
+
 interface ISonnerProps {
   isOpen: boolean;
   message: string;

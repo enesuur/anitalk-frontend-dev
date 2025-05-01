@@ -45,7 +45,7 @@ const Cookie = () => {
         </p>
         <div className={styles.btnGroup}>
           <Button text='Accept' onClick={handleAccept} />
-          <Button text='Deny' variant='warn' onClick={handleReject} />
+          <Button text='Deny' variant='danger' onClick={handleReject} />
         </div>
       </div>
     </div>

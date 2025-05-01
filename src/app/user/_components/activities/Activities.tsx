@@ -8,6 +8,8 @@ import { NotFound } from '@/assets/icons';
 import { iconStyles } from '@/helpers/index';
 import Pagination from '@/components/pagination/Pagination';
 import styles from './Activities.module.css';
+import CommentCount from '@/shared/ui/comment-count/CommentCount';
+import Sort from '@/components/sort/Sort';
 
 interface IActivityProps {
   talks: ITalk[];
@@ -66,6 +68,10 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
         </ul>
       </nav>
 
+      <div className={styles.headerBox}>
+        <CommentCount count={null} />
+        <Sort />
+      </div>
       <div className={styles.contentWrapper}>
         <div className={styles.tabContent}>
           {!tabState ? (
@@ -125,15 +131,16 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
                     />
                   )}
 
-                  {paginatedComments.map((comment) => (
+                  {paginatedComments.map((comment, index: number) => (
                     <Comment
-                      key={comment._id}
+                      _id={comment._id}
+                      key={index}
                       text={comment.text}
                       date={new Date(comment.date)}
                       username={comment.username}
                       avatar_url={comment.avatar_url}
-                      upVote={comment.upvote}
-                      downVote={comment.downvote}
+                      upvote={comment.upvote}
+                      downvote={comment.downvote}
                     />
                   ))}
                   {/* Pagination Bottom */}

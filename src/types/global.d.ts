@@ -34,7 +34,7 @@ interface ITalk {
   content: string | null;
 }
 
-interface IComment {
+interface IComment<TArgs = void, TReturn = void> {
   _id: string;
   text: string;
   date: Date;
@@ -42,6 +42,7 @@ interface IComment {
   avatar_url: string | null;
   upvote: number;
   downvote: number;
+  callback?: (args: TArgs) => TReturn;
 }
 
 interface IBadge {

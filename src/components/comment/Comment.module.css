@@ -23,6 +23,7 @@
   overflow: hidden;
   border: 2px solid var(--faded-white);
   transition: border-color 0.3s ease-in-out;
+  user-select: none;
 }
 
 .commentHeader figure:hover {
@@ -32,18 +33,51 @@
 .commentHeader figure img {
   width: 100%;
   height: auto;
-  border-radius: 50%;
   object-fit: cover;
   object-position: center;
+  border-radius: 50%;
 }
 
-.commentBox a,
-.commentHeader figure {
+.commentBox {
+  width: 100%;
+}
+
+.commentBox a {
   user-select: none;
+}
+
+.linkBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.actionBox {
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.actionBox svg:first-child {
+  margin-right: var(--spacing-md);
+}
+
+.actionBox svg:hover {
+  color: var(--orange);
+  cursor: pointer;
 }
 
 .commentText {
   opacity: var(--opacity);
+}
+
+.readMore {
+  cursor: pointer;
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 0.1px;
 }
 
 .commentFooter {
@@ -69,14 +103,7 @@
   transition: color 0.3s ease-in-out;
 }
 
-.voteBox:hover {
-  color: var(--orange);
-}
-
-.voteBox svg {
-  transition: color 0.3s ease-in-out;
-}
-
+.voteBox:hover,
 .voteBox:hover svg {
   color: var(--orange);
 }
@@ -89,10 +116,146 @@
   opacity: var(--opacity);
 }
 
-.readMore {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.shareWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.shareBox {
+  position: absolute;
+  top: calc(100% + 25px);
+  right: 0;
+  z-index: 99999;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--spacing-base);
+  background: var(--soft-dark);
+  border: 2px dashed var(--faded-white);
+  border-radius: var(--border-radius);
+  user-select: none;
+}
+
+.shareBox button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-base);
+  font-size: var(--font-size-sm);
+  color: var(--white);
+  background: none;
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+
+.shareBox button:hover {
+  background-color: var(--dark);
   color: var(--orange);
-  text-decoration-thickness: 0.1px;
   cursor: pointer;
+}
+
+.shareBox button:hover svg {
+  color: var(--orange);
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .commentHeader {
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--spacing-base);
+  }
+  .commentHeader .imgWrapper {
+    width: 108px;
+    height: 108px;
+  }
+  .commentHeader figure {
+    width: 100%;
+    height: 100%;
+  }
+
+  .linkBox {
+    flex-direction: column;
+    row-gap: var(--spacing-base);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .commentBox {
+    padding: var(--spacing-sm);
+  }
+
+  .commentText {
+    font-size: var(--font-size-sm);
+  }
+
+  .commentFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: var(--spacing-sm);
+  }
+
+  .voteContainer {
+    justify-content: space-between;
+    width: 100%;
+    margin: var(--spacing-md) 0;
+  }
+
+  .dateContainer {
+    margin: var(--spacing-md) 0;
+    margin-left: auto;
+    font-size: var(--font-size-sm);
+  }
+
+  .dateContainer svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .shareWrapper {
+    margin-top: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .commentHeader {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+  .commentHeader .imgWrapper {
+    width: 108px;
+    height: 108px;
+  }
+  .commentHeader figure {
+    width: 100%;
+    height: 100%;
+  }
+
+  .linkBox {
+    flex-direction: column;
+    row-gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .commentFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: var(--spacing-md);
+  }
+
+  .voteContainer {
+    justify-content: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .dateContainer {
+    margin-left: auto;
+    font-size: var(--font-size-sm);
+  }
+
+  .shareWrapper {
+    margin-top: var(--spacing-md);
+  }
 }
