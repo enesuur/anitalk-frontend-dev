@@ -1,6 +1,5 @@
 import React from 'react';
 import Sidebar from './_components/sidebar/Sidebar';
-import Home from './_styles/Home.module.css';
 import Topbar from './_components/topbar/Topbar';
 import styles from './_styles/Home.module.css';
 import Composer from './_components/composer/Composer';

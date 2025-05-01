@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import styles from './InpMail.module.css';
 import { AlertCircle } from 'lucide-react';
 import { Mail } from '@/assets/icons';
+import styles from './InpMail.module.css';
 
 interface IMailInputProps {
   label: string;
@@ -44,7 +44,7 @@ const MailInput: React.FC<IMailInputProps> = ({
           onChange={(e) => onChange?.(e.target.value)}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
         />
-        <Mail width={20} height={20} className={styles.mailBox} />
+        <Mail className={styles.mailBox} />
       </div>
     </div>
   );

@@ -1,0 +1,92 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  color: var(--white);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  background-color: var(--background-color);
+  padding: 24px 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 576px;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform: scale(0.95);
+  animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoBox {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  opacity: var(--opacity);
+  margin: var(--spacing-base) 0;
+}
+
+.infoBox code {
+  background: var(--orange);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+}
+
+.infoBox.danger {
+  color: var(--red);
+}
+
+.btnClose {
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  width: 24px;
+  height: 24px;
+}
+
+.btnClose:hover {
+  opacity: 1;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+}
+
+.btnContainer button {
+  flex: 1;
+}
+
+.horizontalBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+}

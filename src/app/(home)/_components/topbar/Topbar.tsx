@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styles from './Topbar.module.css';
 import { Circle } from 'lucide-react';
 import { H1 } from '@/shared/ui/headings/index';
+import NewsLetter from '@/components/modals/news-letter/NewsLetter';
 
 interface ITopbarProps {
   changeFeed?: () => void;
@@ -17,6 +18,7 @@ interface Tab {
 
 const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
   const [tabState, setTabState] = useState<number>(-1);
+  const [newsLetterState, setNewsLetterState] = useState<boolean>(false);
 
   const tabs: Tab[] = [
     { id: 0, path: '/anime', label: 'Anime', color: 'blue' },
@@ -77,6 +79,7 @@ const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
           </ul>
         </nav>
       </div>
+      <NewsLetter isOpen={true} onClose={() => setNewsLetterState(false)} />
     </section>
   );
 };
