@@ -154,7 +154,7 @@ const BiographySection: React.FC<IBiographySectionProps> = ({ biography }) => {
 interface IAboutSectionProps {
   country_code: string;
   generation: number;
-  join_date: Date;
+  join_date: Date | null;
 }
 
 const AboutSection: React.FC<IAboutSectionProps> = ({
@@ -339,9 +339,7 @@ const Page = () => {
 
           {tabState === 0 && <BiographySection biography={null} />}
 
-          {tabState === 1 && (
-            <AboutSection generation={1} country_code={'FR'} join_date={new Date()} />
-          )}
+          {tabState === 1 && <AboutSection generation={1} country_code={'FR'} join_date={null} />}
 
           {tabState === 2 && (
             <FavoriteSection favorite_anime={'Attack on Titan'} favorite_manga={'One Punch Man'} />

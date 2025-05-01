@@ -1,5 +1,4 @@
-'use client';
-import React, { useCallback } from 'react';
+import React from 'react';
 import styles from './Pagination.module.css';
 import SelectInput from '@/shared/ui/input/select/Select';
 import Button from '@/shared/ui/button/Button';
@@ -18,32 +17,32 @@ const Pagination: React.FC<IPaginationProps> = ({
   onPageChange,
   containerClassName,
 }: IPaginationProps) => {
-  const handlePageChange = useCallback(
-    (action: 'first' | 'prev' | 'next' | 'last' | 'select', value?: number) => {
-      switch (action) {
-        case 'first':
-          onPageChange(1);
-          break;
-        case 'prev':
-          onPageChange(Math.max(currentPage - 1, 1));
-          break;
-        case 'next':
-          onPageChange(Math.min(currentPage + 1, totalPages));
-          break;
-        case 'last':
-          onPageChange(totalPages);
-          break;
-        case 'select':
-          if (value) {
-            onPageChange(value);
-          }
-          break;
-        default:
-          break;
-      }
-    },
-    [currentPage, totalPages, onPageChange],
-  );
+  const handlePageChange = (
+    action: 'first' | 'prev' | 'next' | 'last' | 'select',
+    value?: number,
+  ) => {
+    switch (action) {
+      case 'first':
+        onPageChange(1);
+        break;
+      case 'prev':
+        onPageChange(Math.max(currentPage - 1, 1));
+        break;
+      case 'next':
+        onPageChange(Math.min(currentPage + 1, totalPages));
+        break;
+      case 'last':
+        onPageChange(totalPages);
+        break;
+      case 'select':
+        if (value) {
+          onPageChange(value);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 

@@ -1,0 +1,47 @@
+.cookieWrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--soft-dark);
+  color: var(--white);
+  padding: var(--spacing-xl);
+  z-index: 999;
+  box-shadow: var(--box-shadow);
+}
+
+.cookieWrapper .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-base);
+}
+
+.cookieWrapper p {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.cookieWrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
+.cookieWrapper span {
+  color: var(--orange);
+  font-weight: 500;
+}
+
+.cookieWrapper span a {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1px;
+  text-underline-offset: 4px;
+}
+
+.btnGroup {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  margin-left: auto;
+}

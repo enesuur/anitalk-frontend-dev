@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import { MessageCircleMore, Podcast } from 'lucide-react';
-import styles from './Activities.module.css';
 import { ITalk, IComment } from '@/types/global';
 import Talk from '@/components/talk/Talk';
 import Comment from '@/components/comment/Comment';
 import { NotFound } from '@/assets/icons';
 import { iconStyles } from '@/helpers/index';
 import Pagination from '@/components/pagination/Pagination';
+import styles from './Activities.module.css';
 
 interface IActivityProps {
   talks: ITalk[];
@@ -37,7 +37,7 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
   );
 
   return (
-    <div className={styles.activityWrapper}>
+    <div className={styles.activityWrapper} suppressHydrationWarning={true}>
       <nav className={styles.navBox} aria-label='Activity Tabs'>
         <ul className={styles.tabBox} role='tablist'>
           <div className={styles.tabIndicator} style={{ left: tabState ? '50%' : '0%' }} />
@@ -90,7 +90,7 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
                       key={talk.title}
                       title={talk.title}
                       snippet={talk.snippet}
-                      date={new Date(talk.date)}
+                      date={talk.date}
                       username={talk.username}
                       upvote={talk.upvote}
                       downvote={talk.downvote}
@@ -111,7 +111,7 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
               {comments.length === 0 ? (
                 <p className={styles.emptyBox}>
                   <NotFound {...iconStyles} />
-                  No comments to show :(
+                  No comments to show :/
                 </p>
               ) : (
                 <>

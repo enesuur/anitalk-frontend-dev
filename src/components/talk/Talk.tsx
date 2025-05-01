@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { UpVote, DownVote } from '@/assets/icons';
@@ -15,10 +15,18 @@ const Talk: React.FC<ITalkProps> = ({
   upvote = 32,
   downvote = 14,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const COUNT = useMemo(() => {
     const diff = upvote - downvote;
     return diff > 0 ? `+${diff}` : `${diff}`;
   }, [upvote, downvote]);
+
+  if (!isMounted || !date) return null;
 
   return (
     <article className={styles.entryContainer}>

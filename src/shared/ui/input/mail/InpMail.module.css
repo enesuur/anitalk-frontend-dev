@@ -44,6 +44,11 @@
   animation: errorMessageIn 0.3s ease-in-out forwards;
 }
 
+.errorContainer svg {
+  width: 16px;
+  height: 16px;
+}
+
 .container .errorContainer.hidden {
   opacity: 0;
   transform: translateY(-10px);
@@ -52,7 +57,6 @@
 
 .container .errorContainer svg {
   color: var(--red);
-  opacity: var(--opacity);
 }
 
 .mailBox {

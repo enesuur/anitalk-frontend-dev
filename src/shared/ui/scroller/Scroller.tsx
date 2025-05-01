@@ -1,11 +1,17 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ArrowUpFromDot } from 'lucide-react';
 import styles from './Scroller.module.css';
 
 const scrollDuration = 500;
 
 const ScrollToTop = () => {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const handleScrollToTop = useCallback(() => {
     const startingY = window.scrollY;
     const distance = -startingY;
@@ -24,9 +30,11 @@ const ScrollToTop = () => {
     requestAnimationFrame(scrollStep);
   }, []);
 
+  if (!isMounted) return null;
+
   return (
-    <button className={styles.container} onClick={handleScrollToTop} aria-label={'Scroll to top'}>
-      <ArrowUpFromDot aria-hidden={'true'} />
+    <button className={styles.container} onClick={handleScrollToTop} aria-label='Scroll to top'>
+      <ArrowUpFromDot aria-hidden='true' />
     </button>
   );
 };

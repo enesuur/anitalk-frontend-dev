@@ -2,6 +2,7 @@ import { Poppins } from 'next/font/google';
 import Providers from '@/providers/Providers';
 import '@/styles/globals.css';
 import SlideLoader from '@/shared/ui/loaders/SlideLoading';
+import Cookie from '@/components/cookie/Cookie';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <body>
         <SlideLoader />
         <Providers>{children}</Providers>
+        <Cookie />
       </body>
     </html>
   );

@@ -79,7 +79,7 @@ const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
           </ul>
         </nav>
       </div>
-      <NewsLetter isOpen={true} onClose={() => setNewsLetterState(false)} />
+      <NewsLetter isOpen={newsLetterState} onClose={() => setNewsLetterState(false)} />
     </section>
   );
 };

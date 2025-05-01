@@ -30,7 +30,7 @@ const MailInput: React.FC<IMailInputProps> = ({
       </label>
       {error && (
         <div className={styles.errorContainer}>
-          <AlertCircle width={16} height={16} />
+          <AlertCircle />
           <span>{error}</span>
         </div>
       )}
