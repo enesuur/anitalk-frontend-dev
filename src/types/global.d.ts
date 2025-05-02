@@ -25,6 +25,7 @@ interface IBlog {
 }
 
 interface ITalk {
+  _id: string;
   title: string;
   snippet: string;
   date: Date;
@@ -32,6 +33,7 @@ interface ITalk {
   upvote: number;
   downvote: number;
   content: string | null;
+  callback?: (args: TArgs) => TReturn;
 }
 
 interface IComment<TArgs = void, TReturn = void> {

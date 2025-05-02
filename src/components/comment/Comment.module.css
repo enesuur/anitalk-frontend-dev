@@ -112,8 +112,13 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  font-size: 0.8rem;
+  font-size: var(--font-size-sm);
   opacity: var(--opacity);
+}
+
+.dateContainer svg {
+  width: 16px;
+  height: 16px;
 }
 
 .shareWrapper {
@@ -129,7 +134,7 @@
   width: max-content;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-md);
   padding: var(--spacing-base);
   background: var(--soft-dark);
   border: 2px dashed var(--faded-white);

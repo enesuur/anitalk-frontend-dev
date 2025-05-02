@@ -7,9 +7,9 @@ import Comment from '@/components/comment/Comment';
 import { NotFound } from '@/assets/icons';
 import { iconStyles } from '@/helpers/index';
 import Pagination from '@/components/pagination/Pagination';
-import styles from './Activities.module.css';
 import CommentCount from '@/shared/ui/comment-count/CommentCount';
 import Sort from '@/components/sort/Sort';
+import styles from './Activities.module.css';
 
 interface IActivityProps {
   talks: ITalk[];
@@ -37,6 +37,8 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
     (commentPage - 1) * ITEMS_PER_PAGE,
     commentPage * ITEMS_PER_PAGE,
   );
+
+  console.log('first', paginatedTalks);
 
   return (
     <div className={styles.activityWrapper} suppressHydrationWarning={true}>
@@ -91,9 +93,10 @@ const Activities = ({ talks, comments, callback }: IActivityProps) => {
                     />
                   )}
 
-                  {paginatedTalks.map((talk) => (
+                  {paginatedTalks.map((talk: ITalk, index: number) => (
                     <Talk
-                      key={talk.title}
+                      _id={talk._id}
+                      key={index}
                       title={talk.title}
                       snippet={talk.snippet}
                       date={talk.date}

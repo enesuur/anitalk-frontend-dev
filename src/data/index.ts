@@ -32,6 +32,7 @@ const getPastelColor = () => {
  */
 export const generateMockTalks = (count: number) => {
   return Array.from({ length: count }, () => ({
+    _id: faker.string.uuid(),
     title: faker.lorem.sentence(),
     snippet: faker.lorem.paragraph(),
     date: faker.date.recent(),
