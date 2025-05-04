@@ -10,7 +10,7 @@ const Footer = () => {
       <nav className={`${styles.footerNav} container`}>
         <ul className={styles.siteLinks}>
           <li>
-            <Link href='/about'>About Us</Link>
+            <Link href='/about-us'>About Us</Link>
           </li>
           <li>
             <Link href='/contact'>Contact</Link>

@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import styles from './Navbar.module.css';
 import Logo from '@/assets/icons/Logo';
 import { Search, Compass } from 'lucide-react';
 import SearchModal from '@/components/modals/search/SearchModal';
@@ -12,6 +11,7 @@ import Image from 'next/image';
 import { Plus, Profile, Maintenance, Logout, Bell, Chat } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
+import styles from './Navbar.module.css';
 
 interface NavbarProps {
   className?: string;

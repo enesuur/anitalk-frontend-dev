@@ -1,6 +1,7 @@
 .footer {
   border-top: 1px solid var(--faded-white);
-  color: var(--faded-white);
+  color: var(--white);
+  opacity: var(--opacity);
   flex-direction: column;
   padding: 32px 0;
   display: flex;
