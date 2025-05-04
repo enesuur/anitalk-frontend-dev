@@ -33,3 +33,5 @@ export * from './XVariant';
 export * from './Share';
 export * from './Report';
 export * from './Copy';
+export * from './Instagram';
+export * from './Youtube';
