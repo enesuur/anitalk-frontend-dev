@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import clsx from '@/lib/cn';
 import styles from './Button.module.css';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   style?: React.CSSProperties;
   icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
   variant?: 'primary' | 'danger' | 'warn' | 'proceed';
   containerClassname?: string;
 }
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   isLoading = false,
   isDisabled = false,
   icon,
+  iconPosition = 'left',
   style,
   variant = 'primary',
   containerClassname = '',
@@ -32,8 +34,9 @@ const Button: React.FC<ButtonProps> = ({
         <span className={styles.spinner}></span>
       ) : (
         <>
-          {icon && <span className={styles.icon}>{icon}</span>}
+          {icon && iconPosition === 'left' && <span className={styles.icon}>{icon}</span>}
           {text}
+          {icon && iconPosition === 'right' && <span className={styles.icon}>{icon}</span>}
         </>
       )}
     </button>

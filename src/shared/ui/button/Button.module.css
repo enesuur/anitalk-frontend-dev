@@ -1,5 +1,5 @@
 .container {
-  padding: 8px;
+  padding: var(--spacing-base);
   color: var(--white);
   opacity: var(--opacity);
   border: 1px solid var(--faded-white);
@@ -15,7 +15,7 @@
 }
 
 .container:hover {
-  border-color: var(--white);
+  border-color: var(--orange);
   opacity: 1;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .danger:hover {
-  background-color: #b02a37;
+  background-color: var(--red);
 }
 
 .warn {
@@ -37,15 +37,15 @@
 }
 
 .warn:hover {
-  background-color: #e68900;
+  background-color: var(--orange);
 }
 
 .proceed {
-  background-color: var(--green)
+  background-color: var(--green);
 }
 
 .proceed:hover {
-  background-color: #1e7e34;
+  background-color: var(--green);
 }
 
 .spinner {

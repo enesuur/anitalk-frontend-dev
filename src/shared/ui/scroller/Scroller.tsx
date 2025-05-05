@@ -1,13 +1,14 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ArrowUpFromDot } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import styles from './Scroller.module.css';
 
-const scrollDuration = 500;
+const SCROLL_DURATION = 500;
 
 const ScrollToTop = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
+  // !!! Prevents hydration error because of server-client conflict.
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -19,10 +20,10 @@ const ScrollToTop = () => {
 
     const scrollStep = (currentTime: number) => {
       const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / scrollDuration, 1);
+      const progress = Math.min(timeElapsed / SCROLL_DURATION, 1);
       window.scrollTo(0, startingY + distance * progress);
 
-      if (timeElapsed < scrollDuration) {
+      if (timeElapsed < SCROLL_DURATION) {
         requestAnimationFrame(scrollStep);
       }
     };
@@ -34,9 +35,9 @@ const ScrollToTop = () => {
 
   return (
     <button className={styles.container} onClick={handleScrollToTop} aria-label='Scroll to top'>
-      <ArrowUpFromDot aria-hidden='true' />
+      <ArrowUp aria-hidden='true' />
     </button>
   );
 };
 
-export default ScrollToTop;
+export default React.memo(ScrollToTop);

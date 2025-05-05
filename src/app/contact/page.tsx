@@ -1,15 +1,12 @@
 import React from 'react';
-import { z } from 'zod';
-import InpMail from '@/shared/ui/input/mail/InpMail';
-import TextArea from '@/shared/ui/input/textarea/TextArea';
-import TextInput from '@/shared/ui/input/TextInput';
 import { H1, H2 } from '@/shared/ui/headings';
 import { X, Instagram, Youtube } from '@/assets/icons';
-import { ISocialCardProps } from './_components/SocialCard';
-import SocialCard from './_components/SocialCard';
+import { ISocialCardProps } from './_components/cards/SocialCard';
+import SocialCard from './_components/cards/SocialCard';
+import ContactForm from './_components/forms/ContactForm';
 import styles from './_styles/Page.module.css';
 
-export const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
+const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
   {
     title: 'Twitter',
     url: 'https://x.com',
@@ -30,19 +27,12 @@ export const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
   },
 ];
 
-Object.freeze(SOCIAL_ITEMS);
-
 const Page = () => {
   return (
     <React.Fragment>
       <section>
         <div className='container'>
           <H1>React out us!</H1>
-        </div>
-      </section>
-
-      <section>
-        <div className='container'>
           <div className={styles.socialBox}>
             {SOCIAL_ITEMS.map((item: ISocialCardProps, index: number) => (
               <SocialCard
@@ -54,6 +44,13 @@ const Page = () => {
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div className='container'>
+          <H2>Let us know your thoughts!</H2>
+          <ContactForm />
         </div>
       </section>
     </React.Fragment>

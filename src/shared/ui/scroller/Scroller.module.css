@@ -1,28 +1,28 @@
 .container {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    background-color: var(--soft-dark);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .container svg {
-    width: 24px;
-    height: 24px;
-    color: var(--white);
-    opacity: 0.5;
-    transition: opacity 0.3s ease, color 0.3s ease;
-  }
-  
-  .container:hover {
-    background-color: var(--soft-dark);
-  }
-  
-  .container:hover svg {
-    opacity: 1;
-    color: var(--primary-color);
-  }
-  
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background-color: var(--soft-dark);
+  border: 1px solid var(--faded-white);
+  padding: var(--spacing-md) var(--spacing-md);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.container svg {
+  width: 100%;
+  height: 100%;
+  color: var(--white);
+  opacity: var(--opacity);
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.container:hover {
+  border-color: var(--orange);
+}
+
+.container:hover svg {
+  opacity: 1;
+  color: var(--orange);
+}

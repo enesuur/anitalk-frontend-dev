@@ -19,8 +19,9 @@
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius);
-  border: 2px solid var(--dark);
-  background-color: var(--white);
+  border: 2px solid var(--faded-white);
+  background-color: var(--soft-dark);
+  color: var(--white);
   transition: border-color 0.3s ease-in-out;
   font-size: var(--font-size-sm);
   resize: vertical;
@@ -34,7 +35,7 @@
 
 .container .textarea::placeholder {
   color: var(--font-primary-color);
-  opacity: 0.5;
+  opacity: var(--opacity);
   font-style: italic;
 }
 

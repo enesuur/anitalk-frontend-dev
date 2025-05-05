@@ -35,3 +35,4 @@ export * from './Report';
 export * from './Copy';
 export * from './Instagram';
 export * from './Youtube';
+export * from './Send';

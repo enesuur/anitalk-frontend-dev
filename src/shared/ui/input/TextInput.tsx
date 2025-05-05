@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './TextInput.module.css';
 import { AlertCircle } from 'lucide-react';
-import clsx from 'clsx';
+import clsx from '@/lib/cn';
 
 interface TextInputProps {
   label?: string;
