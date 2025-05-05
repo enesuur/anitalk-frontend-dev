@@ -1,48 +1,31 @@
-.textHeader {
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  letter-spacing: -0.01px;
-  color: var(--white);
-  user-select: none;
-  margin-top: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-}
-
-.topbarContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-xl);
+.tabbarBox {
+  margin: var(--spacing-sm) 0;
   user-select: none;
 }
 
 .topbarList {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  column-gap: var(--spacing-xl);
+  color: var(--white);
 }
 
 .tabItem {
+  font-size: var(--font-size-sm);
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: var(--spacing-md);
-  padding: 8px;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  color: var(--white);
-  font-size: var(--font-size-base);
-  width: max-content;
-  border: 1px solid var(--background-color);
-  transition: border-color 0.3s, transform 0.2s;
+  column-gap: var(--spacing-base);
+  padding: var(--spacing-base);
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 .tabItem:hover {
-  transform: scale(1.05);
-  border-color: var(--faded-white);
+  cursor: pointer;
+  border-color: var(--orange);
 }
 
 .active {
-  border-bottom: 3px solid #333;
+  border-color: var(--orange);
 }

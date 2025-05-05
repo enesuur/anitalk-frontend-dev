@@ -3,6 +3,7 @@ import Sidebar from './_components/sidebar/Sidebar';
 import Topbar from './_components/topbar/Topbar';
 import styles from './_styles/Home.module.css';
 import Composer from './_components/composer/Composer';
+import Swiper from '@/shared/ui/swiper/Swiper';
 
 /* NOTE: Tabstate indicates the following sections 
 -1. Feed Section
@@ -10,11 +11,21 @@ import Composer from './_components/composer/Composer';
 1. New Section (24 hours)
 */
 
-const HomePage: React.FC = () => {
+export const revalidate = 60;
+
+const HomePage: React.FC = async () => {
   return (
-    <>
+    <React.Fragment>
+      <section style={{ margin: '0' }}>
+        <div className='container'>
+          <Topbar />
+        </div>
+      </section>
+
       <section>
-        <Topbar />
+        <div className={'container'}>
+          <Swiper />
+        </div>
       </section>
 
       <section>
@@ -23,7 +34,7 @@ const HomePage: React.FC = () => {
           <Composer />
         </article>
       </section>
-    </>
+    </React.Fragment>
   );
 };
 
