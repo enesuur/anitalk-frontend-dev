@@ -4,9 +4,8 @@
   bottom: 24px;
   background-color: var(--soft-dark);
   border: 1px solid var(--faded-white);
-  padding: var(--spacing-md) var(--spacing-md);
+  padding: var(--spacing-md);
   border-radius: 50%;
-  cursor: pointer;
   transition: border-color 0.3s ease-in-out;
 }
 
@@ -20,6 +19,7 @@
 
 .container:hover {
   border-color: var(--orange);
+  cursor: pointer;
 }
 
 .container:hover svg {
