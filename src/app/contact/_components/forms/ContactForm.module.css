@@ -1,6 +1,33 @@
+.mainBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4rem;
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--box-shadow);
+  background: radial-gradient(circle at bottom right, rgb(30, 30, 30, 0.1), #1e1e1e 60%);
+}
+
 .formBox {
-  max-width: 768px;
+  flex: 1 1 500px;
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-xl);
+  gap: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, rgb(30, 30, 30, 0.1), rgba(30, 30, 30, 0.92));
+}
+
+.rightBox {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  color: var(--white);
+  border-radius: var(--border-radius);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  max-width: 512px;
 }

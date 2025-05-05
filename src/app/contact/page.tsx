@@ -1,9 +1,10 @@
 import React from 'react';
-import { H1, H2 } from '@/shared/ui/headings';
+import { H1 } from '@/shared/ui/headings';
 import { X, Instagram, Youtube } from '@/assets/icons';
 import { ISocialCardProps } from './_components/cards/SocialCard';
 import SocialCard from './_components/cards/SocialCard';
 import ContactForm from './_components/forms/ContactForm';
+import BreadCrumb from '@/shared/ui/breadcrumb/BreadCrumb';
 import styles from './_styles/Page.module.css';
 
 const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
@@ -33,6 +34,7 @@ const Page = () => {
       <section>
         <div className='container'>
           <H1>React out us!</H1>
+          <BreadCrumb containerStyle={{ margin: '24px 0' }} />
           <div className={styles.socialBox}>
             {SOCIAL_ITEMS.map((item: ISocialCardProps, index: number) => (
               <SocialCard
@@ -47,9 +49,8 @@ const Page = () => {
         </div>
       </section>
 
-      <section>
+      <section style={{ margin: '144px 0' }}>
         <div className='container'>
-          <H2>Let us know your thoughts!</H2>
           <ContactForm />
         </div>
       </section>

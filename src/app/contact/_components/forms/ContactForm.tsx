@@ -13,6 +13,7 @@ import clsx from '@/lib/cn';
 import Sonner from '@/shared/ui/sonner/Sonner';
 import styles from './ContactForm.module.css';
 import { iconStyles } from '@/helpers';
+import { H2, H3 } from '@/shared/ui/headings';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -21,6 +22,8 @@ const contactSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
+
+//  Revalidate later.
 
 const ContactForm = () => {
   const [toast, setToast] = useState({
@@ -48,6 +51,7 @@ const ContactForm = () => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       // const res = await remoteInstance.post('/contact', data);
+      // trim + sec check
       console.log(data);
       reset();
       setToast({
@@ -63,40 +67,55 @@ const ContactForm = () => {
         message: 'Something went wrong. Please try again later.',
         type: 'danger',
       });
+      console.error('Error:', error);
     }
   };
 
   return (
     <React.Fragment>
-      <form onSubmit={handleSubmit(onSubmit)} className={clsx(styles.formBox)}>
-        <Controller
-          name='name'
-          control={control}
-          render={({ field }) => <TextInput label='Name' {...field} error={errors.name?.message} />}
-        />
+      <div className={styles.mainBox}>
+        <form onSubmit={handleSubmit(onSubmit)} className={clsx(styles.formBox)}>
+          <H2>Let us know your thoughts!</H2>
+          <Controller
+            name='name'
+            control={control}
+            render={({ field }) => (
+              <TextInput label='Name' {...field} error={errors.name?.message} />
+            )}
+          />
 
-        <Controller
-          name='email'
-          control={control}
-          render={({ field }) => <InpMail label='Email' {...field} error={errors.email?.message} />}
-        />
+          <Controller
+            name='email'
+            control={control}
+            render={({ field }) => (
+              <InpMail label='Email' {...field} error={errors.email?.message} />
+            )}
+          />
 
-        <Controller
-          name='message'
-          control={control}
-          render={({ field }) => (
-            <TextArea label='Message' {...field} error={errors.message?.message} />
-          )}
-        />
+          <Controller
+            name='message'
+            control={control}
+            render={({ field }) => (
+              <TextArea label='Message' {...field} error={errors.message?.message} />
+            )}
+          />
 
-        <Button
-          text={isSubmitting ? 'Sending...' : 'Send Message'}
-          disabled={isSubmitting}
-          isLoading={isLoading}
-          iconPosition='right'
-          icon={<Send {...iconStyles} />}
-        />
-      </form>
+          <Button
+            text={isSubmitting ? 'Sending...' : 'Send Message'}
+            disabled={isSubmitting}
+            isLoading={isLoading}
+            iconPosition='right'
+            icon={<Send {...iconStyles} />}
+          />
+        </form>
+        <div className={styles.rightBox}>
+          <H2>Let’s Talk 👋</H2>
+          <p>
+            Have a question, feedback, or just want to say hi? We’d love to hear from you. Fill out
+            the form and we’ll get back to you as soon as possible — usually within a day.
+          </p>
+        </div>
+      </div>
 
       <Sonner
         isOpen={toast.isOpen}
