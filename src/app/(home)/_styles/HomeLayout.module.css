@@ -1,3 +1,4 @@
 .homeLayout {
-    flex: 1;
+  flex: 1;
+  color: var(--white);
 }

@@ -21,7 +21,15 @@ interface IBlog {
   author: string;
   slug: string;
   read_time?: number;
-  label: IBlogLabel;
+  label?: IBlogLabel;
+  comments?: IComment[];
+}
+
+interface IMiniTalk {
+  _id: string;
+  title: string;
+  slug: string;
+  comment_count: number;
 }
 
 interface ITalk {
@@ -104,4 +112,5 @@ export {
   SwiperOptions,
   IBlogLabel,
   IBlog,
+  IMiniTalk,
 };

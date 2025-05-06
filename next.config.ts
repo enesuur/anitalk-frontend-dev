@@ -5,6 +5,7 @@ const nextConfig = {
       'cdn.jsdelivr.net',
       'picsum.photos',
       'avatars.githubusercontent.com',
+      'via.placeholder.com',
     ],
   },
 };

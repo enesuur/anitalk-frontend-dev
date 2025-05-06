@@ -10,6 +10,7 @@ import type { Category } from '@/types/global';
  *   blog_title: string;
  *   blog_label_color: string;
  *   contact_img: string;
+ *   fallback_title:string;
  * }>}
  */
 const PLACE_HOLDERS: Readonly<{
@@ -18,12 +19,14 @@ const PLACE_HOLDERS: Readonly<{
   blog_title: string;
   blog_label_color: string;
   contact_img: string;
+  fallback_title: string;
 }> = {
   avatar_url: '/img/avatar.webp',
   background_cover_url: '/img/bg-cover.webp',
   blog_title: 'Awesome Blog',
   blog_label_color: 'orange',
   contact_img: '/img/contact-form.webp',
+  fallback_title: '/awesome-blog',
 };
 
 /**

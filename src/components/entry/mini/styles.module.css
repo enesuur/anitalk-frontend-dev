@@ -1,0 +1,28 @@
+.miniTalkBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 92px;
+  overflow: hidden;
+  padding: var(--spacing-md);
+  transition: background-color 0.1s ease-in-out;
+  border-radius: var(--border-radius);
+}
+
+.footerBox {
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin-left: auto;
+  column-gap: var(--spacing-sm);
+}
+
+.infoBox svg {
+  width: 16px;
+  height: 16px;
+}
+
+.miniTalkBox:hover {
+  background-color: var(--dark-theme-hover-color);
+}

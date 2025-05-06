@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { IMiniTalk } from '@/types/global';
 
 /**
  * Generates a random pastel color from a predefined set of pastel colors.
@@ -53,19 +54,21 @@ export const generateMockTalks = (count: number) => {
  * - `_id` (string): A unique string ID for the blog.
  * - `title` (string): A random sentence as the blog title.
  * - `snippet` (string): A random paragraph as the blog snippet.
+ * - `read_time` (number): Estimated reading time in minutes (1–10).
  * - `date` (Date): A random date in the past, representing when the blog was published.
  * - `img_url` (string): A URL to a random image, typically used as the blog's cover image.
  * - `author` (string): A random full name of the blog's author.
  * - `slug` (string): A URL-friendly string slug for the blog, typically used in the blog's URL.
  * - `label` (Object): An object containing metadata for the blog, including:
- *   - `title` (string): A random noun or word used as the label title.
- *   - `color` (string): A randomly generated color name, used for styling the label.
+ *   - `title` (string): A capitalized random noun used as the label title.
+ *   - `color` (string): A randomly generated pastel color, used for styling the label.
  */
 export const generateMockBlogs = (count: number) => {
-  return Array.from({ length: count }, (_, i) => ({
+  return Array.from({ length: count }, () => ({
     _id: faker.string.uuid(),
     title: faker.lorem.sentence(),
     snippet: faker.lorem.paragraph(),
+    read_time: faker.number.int({ min: 1, max: 10 }),
     date: faker.date.recent(),
     img_url: faker.image.urlPicsumPhotos({ width: 800, height: 500 }),
     author: faker.person.fullName(),
@@ -100,5 +103,20 @@ export const generateMockComments = (count: number) => {
     avatar_url: faker.image.avatar(),
     upvote: faker.number.int({ min: 0, max: 100 }),
     downvote: faker.number.int({ min: 0, max: 20 }),
+  }));
+};
+
+/**
+ * Generates an array of mock mini talk entries.
+ *
+ * @param {number} count - The number of entries to generate.
+ * @returns {IMiniTalk[]} An array of mock talk data.
+ */
+export const generateMiniTalk = (count: number): IMiniTalk[] => {
+  return Array.from({ length: count }, () => ({
+    _id: faker.string.uuid(),
+    title: faker.lorem.sentence({ min: 3, max: 7 }),
+    slug: faker.helpers.slugify(faker.lorem.words(3).toLowerCase()),
+    comment_count: faker.number.int({ min: 0, max: 300 }),
   }));
 };

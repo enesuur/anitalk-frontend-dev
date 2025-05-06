@@ -22,7 +22,7 @@ const Composer: React.FC<IComposerProps> = () => {
       title: faker.lorem.sentence(),
       snippet: faker.lorem.paragraph(),
       date: faker.date.past(),
-      username: faker.internet.userName(),
+      username: faker.word.noun,
     }));
   };
 

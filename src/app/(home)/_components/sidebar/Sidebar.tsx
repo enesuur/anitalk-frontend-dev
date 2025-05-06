@@ -1,35 +1,47 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import MiniTalk from '@/components/entry/mini/MiniTalk';
+import { IMiniTalk } from '@/types/global';
+import { generateMiniTalk } from '@/data';
+import { H2 } from '@/shared/ui/headings';
+import { TrendingUp } from 'lucide-react';
+import NotFound from '@/shared/ui/not-found/NotFound';
 import styles from './Sidebar.module.css';
-import EntryMini from '@/components/entry/mini/EntryMini';
-import { faker } from '@faker-js/faker';
+
+const MINI_TALKS = generateMiniTalk(25);
 
 const Sidebar = () => {
-  const entries = new Array(50).fill(null).map(() => ({
-    username: faker.internet.userName(),
-    date: faker.date.past().toLocaleDateString(),
-    topicSnippet: faker.lorem.sentence(),
-    link: faker.internet.url(),
-  }));
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <aside className={styles.sidebarContainer}>
-      <h2>Latest talks</h2>
+      <div className={styles.headerBox}>
+        <TrendingUp />
+        <H2>Trending talks</H2>
+      </div>
       <div className={styles.scrollWrapper}>
-        {entries.length > 0 ? (
+        {MINI_TALKS.length > 0 ? (
           <ul className={styles.sidebarList}>
-            {entries.map((entry, index) => (
-              <li key={index} className={styles.sidebarItem}>
-                <EntryMini
-                  username={entry.username}
-                  topicSnippet={entry.topicSnippet}
-                  link={entry.link}
+            {MINI_TALKS.map((talk: IMiniTalk, index: number) => (
+              <li key={talk._id} className={styles.sidebarItem}>
+                <MiniTalk
+                  _id={talk._id}
+                  key={index}
+                  title={talk.title}
+                  slug={talk.slug}
+                  comment_count={talk.comment_count}
                 />
               </li>
             ))}
           </ul>
         ) : (
-          <p className={styles.noEntries}>No entries available</p>
+          <NotFound text='Talks' />
         )}
       </div>
     </aside>

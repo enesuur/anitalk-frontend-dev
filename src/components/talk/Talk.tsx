@@ -45,8 +45,6 @@ const Talk: React.FC<ITalkProps> = ({
     return '';
   }, [_id]);
 
-  console.log('test', shareUrl);
-
   const handleCopyLink = useCallback(() => {
     if (shareUrl) {
       navigator.clipboard
