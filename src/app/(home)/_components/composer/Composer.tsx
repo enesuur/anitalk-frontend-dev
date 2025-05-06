@@ -1,114 +1,86 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Compass, Flame, Shell } from 'lucide-react';
+import React, { useCallback, useState } from 'react';
 import Talk from '@/components/talk/Talk';
-import { faker } from '@faker-js/faker';
-import { generateMockTalks } from '@/data';
-import styles from './Composer.module.css';
+import useIsMounted from '@/hooks/useIsMounted';
 import { ITalk } from '@/types/global';
+import { Compass, Flame, Shell } from 'lucide-react';
+import styles from './Composer.module.css';
+import { motion } from 'framer-motion';
 
 interface IComposerProps {
-  tabState?: number;
+  currentTab: number;
+  hot_talks: ITalk[];
+  feed_talks: ITalk[];
+  user_feed_talks: ITalk[];
 }
 
-const Composer: React.FC<IComposerProps> = () => {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [tabState, setTabState] = useState<number>(0);
+const Composer: React.FC<IComposerProps> = ({
+  currentTab = 0,
+  hot_talks,
+  feed_talks,
+  user_feed_talks,
+}) => {
+  const [tabState, setTabState] = useState<number>(currentTab);
+  const isMounted = useIsMounted();
 
-  const handleTabChange = (newTabState: number) => {
-    setTabState(newTabState);
-  };
-
-  useEffect(() => {
-    setIsMounted(true);
+  const handleTabChange = useCallback((newTab: number) => {
+    setTabState(newTab);
   }, []);
 
-  const tab1Talks = generateMockTalks(12);
-  const tab2Talks = generateMockTalks(7);
-  const tab3Talks = generateMockTalks(23);
   if (!isMounted) return null;
+
   return (
-    <div className={styles.composerContainer}>
-      <ul className={styles.tabControl}>
+    <div className={styles.composerBox}>
+      <ul className={styles.tabBox}>
         <li
-          onClick={() => handleTabChange(0)}
           className={`${styles.tabItem} ${tabState === 0 ? styles.active : ''}`}
+          onClick={() => handleTabChange(0)}
         >
-          <Link href='#'>
-            <Compass />
-            <span>Feed</span>
-          </Link>
+          <Compass />
+          <span>Feed</span>
         </li>
         <li
-          onClick={() => handleTabChange(1)}
           className={`${styles.tabItem} ${tabState === 1 ? styles.active : ''}`}
+          onClick={() => handleTabChange(1)}
         >
-          <Link href='#'>
-            <Flame />
-            <span>Hot Entries</span>
-          </Link>
+          <Flame />
+          <span>Hot</span>
         </li>
         <li
-          onClick={() => handleTabChange(2)}
           className={`${styles.tabItem} ${tabState === 2 ? styles.active : ''}`}
+          onClick={() => handleTabChange(2)}
         >
-          <Link href='#'>
-            <Shell />
-            <span>My Feed</span>
-          </Link>
+          <Shell />
+          <span>My Feed</span>
         </li>
+
+        <motion.div
+          className={styles.animationContainer}
+          animate={{ x: `${100 * tabState}%` }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          style={{ width: `33.33%` }}
+        />
       </ul>
 
-      <div className={styles.tabContent}>
+      <div className={styles.contentWrapper}>
         {tabState === 0 && (
-          <div className={styles.contentWrapper}>
-            {tab1Talks.map((talk: ITalk, index: number) => (
-              <Talk
-                _id={talk._id}
-                key={index}
-                title={talk.title}
-                snippet={talk.snippet}
-                date={talk.date}
-                username={talk.username}
-                content={talk.content}
-                upvote={talk.upvote}
-                downvote={talk.downvote}
-              />
+          <div className={styles.contentBox}>
+            {feed_talks.map((talk, index) => (
+              <Talk {...talk} key={talk._id || index} />
             ))}
           </div>
         )}
         {tabState === 1 && (
-          <div className={styles.contentWrapper}>
-            {tab2Talks.map((talk: ITalk, index: number) => (
-              <Talk
-                _id={talk._id}
-                key={index}
-                title={talk.title}
-                snippet={talk.snippet}
-                date={talk.date}
-                username={talk.username}
-                content={talk.content}
-                upvote={talk.upvote}
-                downvote={talk.downvote}
-              />
+          <div className={styles.contentBox}>
+            {hot_talks.map((talk, index) => (
+              <Talk {...talk} key={talk._id || index} />
             ))}
           </div>
         )}
         {tabState === 2 && (
-          <div className={styles.contentWrapper}>
-            {tab3Talks.map((talk: ITalk, index: number) => (
-              <Talk
-                _id={talk._id}
-                key={index}
-                title={talk.title}
-                snippet={talk.snippet}
-                date={talk.date}
-                username={talk.username}
-                content={talk.content}
-                upvote={talk.upvote}
-                downvote={talk.downvote}
-              />
+          <div className={styles.contentBox}>
+            {user_feed_talks.map((talk, index) => (
+              <Talk {...talk} key={talk._id || index} />
             ))}
           </div>
         )}

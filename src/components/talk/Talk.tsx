@@ -30,7 +30,6 @@ const Talk: React.FC<ITalkProps> = ({
   upvote = 32,
   downvote = 14,
 }) => {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState<boolean>(false);
   const [isShareBoxOpen, setIsShareBoxOpen] = useState<boolean>(false);
   const [toast, setToast] = useState({ open: false, title: '', message: '' });
@@ -141,7 +140,12 @@ const Talk: React.FC<ITalkProps> = ({
     <article className={styles.talkBox} ref={talkRef}>
       <div className={styles.headerBox}>
         <div className={styles.linkBox}>
-          <H2>
+          <H2
+            style={{
+              margin: 0,
+              lineHeight: 1.25,
+            }}
+          >
             <Link href='#'>{title}</Link>
           </H2>
           <div className={styles.shareWrapper}>
@@ -150,7 +154,10 @@ const Talk: React.FC<ITalkProps> = ({
                 <ReportIcon onClick={() => setIsReportModalOpen(true)} />
               </Tooltip>
               <Tooltip text='Share'>
-                <ShareIcon onClick={() => setIsShareBoxOpen((prev) => !prev)} />
+                <ShareIcon
+                  onClick={() => setIsShareBoxOpen((prev) => !prev)}
+                  style={{ marginTop: '8px' }}
+                />
               </Tooltip>
 
               {isShareBoxOpen && (
@@ -192,18 +199,20 @@ const Talk: React.FC<ITalkProps> = ({
           </div>
         </div>
         <div className={styles.boxRight}>
-          <picture>
-            <Image
-              src={dummyAvatar}
-              alt={`${username}'s avatar`}
-              width={36}
-              height={36}
-              className={styles.avatar}
-            />
-          </picture>
-          <Link href={`/user/${username}`} target='_blank' className={styles.username}>
-            {username}
-          </Link>
+          <div className={styles.userBox}>
+            <picture>
+              <Image
+                src={dummyAvatar}
+                alt={`${username}'s avatar`}
+                width={32}
+                height={32}
+                className={styles.avatar}
+              />
+            </picture>
+            <Link href={`/user/${username}`} target='_blank' className={styles.username}>
+              {username}
+            </Link>
+          </div>
           <span className={styles.date}>{dummyDate}</span>
         </div>
       </div>

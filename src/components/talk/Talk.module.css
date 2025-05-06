@@ -8,11 +8,11 @@
 .headerBox {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-4xl);
 }
 
 .headerBox {
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-4xl);
 }
 
 .headerBox p {
@@ -20,10 +20,11 @@
 }
 
 .footerBox {
+  margin-top: 48px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--spacing-md);
+  gap: var(--spacing-base);
   font-size: var(--font-size-sm);
   width: 100%;
   opacity: var(--opacity);
@@ -37,15 +38,21 @@
   opacity: 1;
 }
 
+.userBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+}
+
 .footerBox picture {
   width: 32px;
   height: 32px;
   border-radius: 50%;
 }
 
-.footerBox img {
+.footerBox .avatar {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
@@ -85,8 +92,15 @@
 .linkBox {
   display: flex;
   align-items: center;
+  gap: var(--spacing-md);
   justify-content: space-between;
 }
+
+.linkBox h2:hover {
+  text-underline-offset: 4px;
+  text-decoration: underline;
+}
+
 .linkBox svg {
   width: 20px;
   height: 20px;
@@ -143,4 +157,9 @@
 
 .shareBox button:hover svg {
   color: var(--orange);
+}
+
+.actionBox {
+  display: flex;
+  flex-direction: column;
 }

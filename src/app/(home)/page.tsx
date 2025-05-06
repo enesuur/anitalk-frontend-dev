@@ -4,7 +4,7 @@ import Topbar from './_components/topbar/Topbar';
 import Composer from './_components/composer/Composer';
 import Hero from './_components/hero/Hero';
 import TrendingBlogs from './_components/trending-blogs/TrendingBlogs';
-import { generateMockBlogs } from '@/data';
+import { generateMockBlogs, generateMockTalks } from '@/data';
 import Banner from '@/components/banner/Banner';
 import styles from './_styles/Home.module.css';
 
@@ -16,6 +16,9 @@ import styles from './_styles/Home.module.css';
 
 const mockBlogs = generateMockBlogs(5);
 const trending_blogs = generateMockBlogs(25);
+const hot_talks = generateMockTalks(12);
+const user_feed_talks = generateMockTalks(7);
+const feed_talks = generateMockTalks(23);
 
 const HomePage = () => {
   return (
@@ -36,7 +39,12 @@ const HomePage = () => {
       <section>
         <div className={`${styles.mainBox} container`}>
           <Sidebar />
-          <Composer />
+          <Composer
+            currentTab={0}
+            hot_talks={hot_talks}
+            user_feed_talks={user_feed_talks}
+            feed_talks={feed_talks}
+          />
           <TrendingBlogs trending_blogs={trending_blogs} />
         </div>
       </section>

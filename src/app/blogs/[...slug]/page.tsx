@@ -204,6 +204,7 @@ const Page: React.FC = async () => {
                 title: item.label?.title ?? '',
                 color: item.label?.color ?? '',
               }}
+              comments={item?.comments || []}
             />
           ))}
         </div>
