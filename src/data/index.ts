@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IMiniTalk } from '@/types/global';
+import { IMiniTalk, ITalk } from '@/types/global';
 
 /**
  * Generates a random pastel color from a predefined set of pastel colors.
@@ -46,22 +46,30 @@ export const generateMockTalks = (count: number) => {
 };
 
 /**
- * Generates a list of mock blogs.
+ * Generates a list of mock blog entries with associated comments.
  *
- * @param {number} count - The number of mock blogs to generate.
- * @returns {Array<Object>} An array of mock blog objects.
- * Each blog will have the following properties:
- * - `_id` (string): A unique string ID for the blog.
- * - `title` (string): A random sentence as the blog title.
- * - `snippet` (string): A random paragraph as the blog snippet.
- * - `read_time` (number): Estimated reading time in minutes (1–10).
- * - `date` (Date): A random date in the past, representing when the blog was published.
- * - `img_url` (string): A URL to a random image, typically used as the blog's cover image.
- * - `author` (string): A random full name of the blog's author.
- * - `slug` (string): A URL-friendly string slug for the blog, typically used in the blog's URL.
- * - `label` (Object): An object containing metadata for the blog, including:
- *   - `title` (string): A capitalized random noun used as the label title.
- *   - `color` (string): A randomly generated pastel color, used for styling the label.
+ * @param {number} count - Number of blog objects to generate.
+ * @returns {Array<Object>} An array of mock blog objects, each with:
+ * - `_id` (string): Unique blog ID.
+ * - `title` (string): Blog title.
+ * - `snippet` (string): Short excerpt from the blog content.
+ * - `read_time` (number): Estimated time (in minutes) to read the blog.
+ * - `date` (Date): Random recent publication date.
+ * - `img_url` (string): Blog cover image URL.
+ * - `author` (string): Author's full name.
+ * - `slug` (string): URL-friendly slug for the blog.
+ * - `label` (Object): Blog label info.
+ *    - `title` (string): Capitalized noun used as label name.
+ *    - `color` (string): Random pastel color string.
+ * - `comments` (Array<Object>): List of comments for the blog.
+ *    - Each comment object includes:
+ *      - `_id` (string): Unique comment ID.
+ *      - `text` (string): Comment content (random sentences).
+ *      - `date` (Date): Random date for the comment.
+ *      - `username` (string): Username of the commenter.
+ *      - `avatar_url` (string): URL to the commenter's avatar image.
+ *      - `upvote` (number): Number of upvotes for the comment (0-100).
+ *      - `downvote` (number): Number of downvotes for the comment (0-20).
  */
 export const generateMockBlogs = (count: number) => {
   return Array.from({ length: count }, () => ({
@@ -77,6 +85,7 @@ export const generateMockBlogs = (count: number) => {
       title: faker.word.noun().charAt(0).toUpperCase() + faker.word.noun().slice(1),
       color: getPastelColor(),
     },
+    comments: generateMockComments(faker.number.int({ min: 1, max: 5 })), // Add random comments
   }));
 };
 
@@ -118,5 +127,24 @@ export const generateMiniTalk = (count: number): IMiniTalk[] => {
     title: faker.lorem.sentence({ min: 3, max: 7 }),
     slug: faker.helpers.slugify(faker.lorem.words(3).toLowerCase()),
     comment_count: faker.number.int({ min: 0, max: 300 }),
+  }));
+};
+
+/**
+ * Generates an array of mock talk entries.
+ *
+ * @param {number} count - The number of entries to generate.
+ * @returns {ITalk[]} An array of mock talk data.
+ */
+export const generateTalk = (count: number): ITalk[] => {
+  return Array.from({ length: count }, () => ({
+    _id: faker.string.uuid(),
+    title: faker.lorem.sentence({ min: 3, max: 7 }),
+    snippet: faker.lorem.paragraph(),
+    date: faker.date.past(),
+    username: faker.person.fullName(),
+    upvote: faker.number.int({ min: 0, max: 100 }),
+    downvote: faker.number.int({ min: 0, max: 20 }),
+    content: faker.lorem.paragraphs(),
   }));
 };

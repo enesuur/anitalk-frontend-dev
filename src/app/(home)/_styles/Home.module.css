@@ -1,9 +1,9 @@
-.homeLayout{
-    flex:1
+.homeLayout {
+  flex: 1;
 }
 
-.heroContainer {
-    display: grid;
-    grid-template-columns: 25% 75%;
-    gap: var(--spacing-xxl);
+.mainBox {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  gap: var(--spacing-4xl);
 }

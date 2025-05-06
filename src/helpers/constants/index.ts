@@ -10,7 +10,12 @@ import type { Category } from '@/types/global';
  *   blog_title: string;
  *   blog_label_color: string;
  *   contact_img: string;
- *   fallback_title:string;
+ *   fallback_blog_title:string;
+ *   fallback_blog_slug:string;
+ *   fallback_img_alt: string;
+ *   fallback_slug:string;
+ *   fallback_comment_count:number;
+ *
  * }>}
  */
 const PLACE_HOLDERS: Readonly<{
@@ -19,14 +24,20 @@ const PLACE_HOLDERS: Readonly<{
   blog_title: string;
   blog_label_color: string;
   contact_img: string;
-  fallback_title: string;
+  fallback_blog_title: string;
+  fallback_img_alt: string;
+  fallback_blog_slug: string;
+  fallback_comment_count: number;
 }> = {
   avatar_url: '/img/avatar.webp',
   background_cover_url: '/img/bg-cover.webp',
   blog_title: 'Awesome Blog',
   blog_label_color: 'orange',
   contact_img: '/img/contact-form.webp',
-  fallback_title: '/awesome-blog',
+  fallback_blog_title: 'Awesome Blog!',
+  fallback_blog_slug: '/awesome-characters',
+  fallback_img_alt: 'Awesome image for a blog',
+  fallback_comment_count: 0,
 };
 
 /**

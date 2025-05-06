@@ -22,7 +22,7 @@ interface IBlog {
   slug: string;
   read_time?: number;
   label?: IBlogLabel;
-  comments?: IComment[];
+  comments: IComment[];
 }
 
 interface IMiniTalk {

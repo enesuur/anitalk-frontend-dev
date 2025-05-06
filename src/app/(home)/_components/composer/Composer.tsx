@@ -1,35 +1,33 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import styles from './Composer.module.css';
 import { Compass, Flame, Shell } from 'lucide-react';
 import Talk from '@/components/talk/Talk';
 import { faker } from '@faker-js/faker';
+import { generateMockTalks } from '@/data';
+import styles from './Composer.module.css';
+import { ITalk } from '@/types/global';
 
 interface IComposerProps {
   tabState?: number;
 }
 
 const Composer: React.FC<IComposerProps> = () => {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [tabState, setTabState] = useState<number>(0);
 
   const handleTabChange = (newTabState: number) => {
     setTabState(newTabState);
   };
 
-  const generateRandomTalk = () => {
-    return new Array(10).fill(null).map(() => ({
-      title: faker.lorem.sentence(),
-      snippet: faker.lorem.paragraph(),
-      date: faker.date.past(),
-      username: faker.word.noun,
-    }));
-  };
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  const tab1Entries = generateRandomTalk();
-  const tab2Entries = generateRandomTalk();
-  const tab3Entries = generateRandomTalk();
-
+  const tab1Talks = generateMockTalks(12);
+  const tab2Talks = generateMockTalks(7);
+  const tab3Talks = generateMockTalks(23);
+  if (!isMounted) return null;
   return (
     <div className={styles.composerContainer}>
       <ul className={styles.tabControl}>
@@ -65,48 +63,51 @@ const Composer: React.FC<IComposerProps> = () => {
       <div className={styles.tabContent}>
         {tabState === 0 && (
           <div className={styles.contentWrapper}>
-            {tab1Entries.map((entry, index) => (
+            {tab1Talks.map((talk: ITalk, index: number) => (
               <Talk
+                _id={talk._id}
                 key={index}
-                title={entry.title}
-                snippet={entry.snippet}
-                date={entry.date}
-                username={entry.username}
-                content={'test'}
-                upvote={2}
-                downvote={3}
+                title={talk.title}
+                snippet={talk.snippet}
+                date={talk.date}
+                username={talk.username}
+                content={talk.content}
+                upvote={talk.upvote}
+                downvote={talk.downvote}
               />
             ))}
           </div>
         )}
         {tabState === 1 && (
           <div className={styles.contentWrapper}>
-            {tab2Entries.map((entry, index) => (
+            {tab2Talks.map((talk: ITalk, index: number) => (
               <Talk
+                _id={talk._id}
                 key={index}
-                title={entry.title}
-                snippet={entry.snippet}
-                date={entry.date}
-                username={entry.username}
-                content={'test'}
-                upvote={2}
-                downvote={3}
+                title={talk.title}
+                snippet={talk.snippet}
+                date={talk.date}
+                username={talk.username}
+                content={talk.content}
+                upvote={talk.upvote}
+                downvote={talk.downvote}
               />
             ))}
           </div>
         )}
         {tabState === 2 && (
           <div className={styles.contentWrapper}>
-            {tab3Entries.map((entry, index) => (
+            {tab3Talks.map((talk: ITalk, index: number) => (
               <Talk
+                _id={talk._id}
                 key={index}
-                title={entry.title}
-                snippet={entry.snippet}
-                date={entry.date}
-                username={entry.username}
-                content={'test'}
-                upvote={2}
-                downvote={3}
+                title={talk.title}
+                snippet={talk.snippet}
+                date={talk.date}
+                username={talk.username}
+                content={talk.content}
+                upvote={talk.upvote}
+                downvote={talk.downvote}
               />
             ))}
           </div>

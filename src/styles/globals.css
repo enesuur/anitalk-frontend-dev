@@ -203,13 +203,6 @@ i {
 --- Custom Global CSS Start ---
 */
 
-.setting-text-header {
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  letter-spacing: var(--letter-spacing);
-  margin: var(--spacing-sm) 0;
-}
-
 /*
 --- Custom Global CSS End ---
 */

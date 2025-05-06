@@ -1,0 +1,9 @@
+.bannerBox {
+  height: 72px;
+  width: 100%;
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

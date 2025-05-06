@@ -5,6 +5,7 @@ import Composer from './_components/composer/Composer';
 import Hero from './_components/hero/Hero';
 import TrendingBlogs from './_components/trending-blogs/TrendingBlogs';
 import { generateMockBlogs } from '@/data';
+import Banner from '@/components/banner/Banner';
 import styles from './_styles/Home.module.css';
 
 /* NOTE: Tabstate indicates the following sections 
@@ -29,12 +30,15 @@ const HomePage = () => {
           <Hero latest_blogs={mockBlogs} />
         </div>
       </section>
+      <div className={'container'}>
+        <Banner text='Advertise Section 1920 x 1080' />
+      </div>
       <section>
-        <article className={`${styles.heroContainer} container`}>
+        <div className={`${styles.mainBox} container`}>
           <Sidebar />
-          {/* <Composer /> */}
-          {/* <TrendingBlogs trending_blogs={trending_blogs} /> */}
-        </article>
+          <Composer />
+          <TrendingBlogs trending_blogs={trending_blogs} />
+        </div>
       </section>
     </React.Fragment>
   );

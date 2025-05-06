@@ -1,0 +1,18 @@
+.asideBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+
+.headerBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin-bottom: var(--spacing-xl);
+}
+
+.cardsWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}

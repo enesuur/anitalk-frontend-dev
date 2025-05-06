@@ -6,7 +6,6 @@
   overflow: hidden;
   padding: var(--spacing-md);
   transition: background-color 0.1s ease-in-out;
-  border-radius: var(--border-radius);
 }
 
 .footerBox {
@@ -15,6 +14,7 @@
   align-items: center;
   width: max-content;
   margin-left: auto;
+  margin-top: auto;
   column-gap: var(--spacing-sm);
 }
 

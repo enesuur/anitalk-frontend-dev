@@ -6,11 +6,14 @@ import { generateMiniTalk } from '@/data';
 import { H2 } from '@/shared/ui/headings';
 import { TrendingUp } from 'lucide-react';
 import NotFound from '@/shared/ui/not-found/NotFound';
+import { iconStyles } from '@/helpers';
 import styles from './Sidebar.module.css';
 
 const MINI_TALKS = generateMiniTalk(25);
 
+// TODO: Loading state
 const Sidebar = () => {
+  //  TODO: Custom global hook.
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -20,9 +23,9 @@ const Sidebar = () => {
   if (!isMounted) return null;
 
   return (
-    <aside className={styles.sidebarContainer}>
+    <aside className={styles.sidebarBox}>
       <div className={styles.headerBox}>
-        <TrendingUp />
+        <TrendingUp {...iconStyles} />
         <H2>Trending talks</H2>
       </div>
       <div className={styles.scrollWrapper}>

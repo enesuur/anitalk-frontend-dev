@@ -1,62 +1,23 @@
-.sidebarContainer {
+.sidebarBox {
   display: flex;
   flex-direction: column;
   max-height: 768px;
-  padding: 12px 16px 12px 0px;
-  border-radius: var(--border-radius);
-  background-color:var(--soft-dark);
+  background-color: var(--soft-dark);
 }
 
-.sidebarContainer h2 {
-  font-size: var(--font-size-md);
-  color: var(--white);
-  opacity: 0.9;
-  margin-bottom: var(--spacing-4xl);
-  font-weight: 500;
-  padding-left: 12px;
-}
-
-.username {
-  font-size: 18px;
-  font-weight: bold;
+.headerBox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-md);
 }
 
 .scrollWrapper {
   max-height: 768px;
   overflow-y: auto;
-}
-
-.sidebarList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  overflow-x: hidden;
 }
 
 .sidebarItem {
   margin-bottom: 10px;
-}
-
-.noEntries {
-  text-align: center;
-  color: #888;
-  font-size: 16px;
-}
-
-.scrollWrapper::-webkit-scrollbar {
-  width: 8px;
-  background-color: #333;
-  border-radius: var(--border-radius);
-}
-
-.scrollWrapper::-webkit-scrollbar-track {
-  background-color: var(--background-color);
-}
-
-.scrollWrapper::-webkit-scrollbar-thumb {
-  border-radius: var(--border-radius);
-  background-color: #333;
-}
-
-.scrollWrapper::-webkit-scrollbar-thumb:hover {
-  background-color: #333;
 }
