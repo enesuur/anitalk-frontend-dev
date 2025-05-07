@@ -1,0 +1,41 @@
+.cardBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-md);
+}
+
+.cardBox picture {
+  position: relative;
+  height: 256px;
+}
+
+.cardBox h3 {
+  line-height: 1.25;
+}
+
+.cardBox picture img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.contentBox p {
+  font-size: var(--font-size-sm);
+  opacity: var(--opacity);
+}
+
+.footerBox .readBox {
+  width: max-content;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  opacity: var(--opacity);
+}
+
+.readBox svg {
+  width: 14px;
+  height: 14px;
+}

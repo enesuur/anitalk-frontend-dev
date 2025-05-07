@@ -6,7 +6,11 @@ import Hero from './_components/hero/Hero';
 import TrendingBlogs from './_components/trending-blogs/TrendingBlogs';
 import { generateMockBlogs, generateMockTalks } from '@/data';
 import Banner from '@/components/banner/Banner';
+import BlogCardVariant from './_components/blog-card-variant/BlogCardVariant';
+import clsx from '@/lib/cn';
+import { IBlog } from '@/types/global';
 import styles from './_styles/Home.module.css';
+import { H2 } from '@/shared/ui/headings';
 
 /* NOTE: Tabstate indicates the following sections 
 -1. Feed Section
@@ -15,12 +19,15 @@ import styles from './_styles/Home.module.css';
 */
 
 const mockBlogs = generateMockBlogs(5);
-const trending_blogs = generateMockBlogs(25);
-const hot_talks = generateMockTalks(12);
-const user_feed_talks = generateMockTalks(7);
-const feed_talks = generateMockTalks(23);
+const trending_blogs = generateMockBlogs(10);
+const hot_talks = generateMockTalks(5);
+const user_feed_talks = generateMockTalks(5);
+const feed_talks = generateMockTalks(5);
+const infiniteBlogs = generateMockBlogs(9);
 
-const HomePage = () => {
+export const revalidate = 60;
+
+const HomePage = async () => {
   return (
     <React.Fragment>
       <section style={{ margin: '0' }}>
@@ -46,6 +53,19 @@ const HomePage = () => {
             feed_talks={feed_talks}
           />
           <TrendingBlogs trending_blogs={trending_blogs} />
+        </div>
+      </section>
+
+      <section>
+        <div className='container'>
+          <H2>
+            Dive into <span className='highlight-text'>amazing</span> blogs
+          </H2>
+          <div className={styles.infiniteBlogBox}>
+            {infiniteBlogs.map((item: Partial<IBlog>, idx: number) => (
+              <BlogCardVariant key={idx} blog={item} />
+            ))}
+          </div>
         </div>
       </section>
     </React.Fragment>

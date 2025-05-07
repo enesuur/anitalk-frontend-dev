@@ -15,6 +15,9 @@ import type { Category } from '@/types/global';
  *   fallback_img_alt: string;
  *   fallback_slug:string;
  *   fallback_comment_count:number;
+ *   fallback_avatar_img: string;
+ *   fallback_username:string;
+ *   fallback_readtime:number;
  *
  * }>}
  */
@@ -25,9 +28,11 @@ const PLACE_HOLDERS: Readonly<{
   blog_label_color: string;
   contact_img: string;
   fallback_blog_title: string;
-  fallback_img_alt: string;
   fallback_blog_slug: string;
+  fallback_img_alt: string;
+  fallback_read_time: number;
   fallback_comment_count: number;
+  fallback_username: string;
 }> = {
   avatar_url: '/img/avatar.webp',
   background_cover_url: '/img/bg-cover.webp',
@@ -38,6 +43,8 @@ const PLACE_HOLDERS: Readonly<{
   fallback_blog_slug: '/awesome-characters',
   fallback_img_alt: 'Awesome image for a blog',
   fallback_comment_count: 0,
+  fallback_read_time: 4,
+  fallback_username: 'Bob',
 };
 
 /**

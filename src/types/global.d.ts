@@ -11,7 +11,7 @@ interface IBlogLabel {
   title: string;
   color: string;
 }
-
+//  Author look up object
 interface IBlog {
   _id: string;
   title: string;

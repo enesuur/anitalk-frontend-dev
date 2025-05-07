@@ -49,8 +49,6 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
     };
   }, []);
 
-  console.log(user.user?.avatar_url);
-
   return (
     <header className={`${styles.header} container-fluid ${className}`} style={style}>
       <nav className={`${styles.navbar} container`}>

@@ -203,6 +203,10 @@ i {
 --- Custom Global CSS Start ---
 */
 
+.highlight-text {
+  color: var(--orange);
+}
+
 /*
 --- Custom Global CSS End ---
 */

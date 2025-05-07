@@ -22,7 +22,7 @@ const mockComments = generateMockComments(5);
 
 // TODO: Figcaption
 // Fallback public img cover.
-// .
+// Sadece object olarak prop girecek.
 
 const Page: React.FC = async () => {
   const blurUrl = await getBlurDataURL('https://picsum.photos/1920/1080');

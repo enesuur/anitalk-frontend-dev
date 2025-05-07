@@ -61,7 +61,7 @@
 .countBox {
   display: flex;
   border: 1px solid var(--faded-white);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-base);
   border-radius: var(--border-radius);
 }
 

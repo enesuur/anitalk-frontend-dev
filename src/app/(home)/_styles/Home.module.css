@@ -7,3 +7,9 @@
   grid-template-columns: 25% 50% 25%;
   gap: var(--spacing-4xl);
 }
+
+.infiniteBlogBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4xl);
+}

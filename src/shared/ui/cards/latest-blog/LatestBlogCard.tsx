@@ -38,7 +38,7 @@ const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug, labe
                 height: '14px',
               }}
             />
-            <span>{label.title}</span>
+            <span>{label?.title}</span>
           </div>
           <p className={styles.snippet}>{truncateWithTrail(snippet, 200)}</p>
           <div className={styles.cardFooter}>

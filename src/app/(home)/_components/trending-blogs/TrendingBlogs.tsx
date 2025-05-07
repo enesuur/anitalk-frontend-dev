@@ -1,18 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { IBlog } from '@/types/global';
-import { PLACE_HOLDERS } from '@/helpers/constants';
 import NotFound from '@/shared/ui/not-found/NotFound';
 import { fetchBlogs } from '../../_services/trendingBlogs.service';
 import TrendCard from '../trend-card/TrendCard';
-import { H2, H3 } from '@/shared/ui/headings';
+import { H2 } from '@/shared/ui/headings';
 import { TrendingUp } from 'lucide-react';
-import clsx from '@/lib/cn';
 import styles from './styles.module.css';
 
 const TrendingBlogs = ({ trending_blogs }: { trending_blogs: IBlog[] }) => {
-  console.log(trending_blogs);
-
   return (
     <aside className={styles.asideBox}>
       {trending_blogs.length === 0 ? (
