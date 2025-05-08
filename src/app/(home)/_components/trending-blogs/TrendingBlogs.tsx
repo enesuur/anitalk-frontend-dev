@@ -1,30 +1,43 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { IBlog } from '@/types/global';
 import NotFound from '@/shared/ui/not-found/NotFound';
-import { fetchBlogs } from '../../_services/trendingBlogs.service';
+import { TrendingUp } from 'lucide-react';
 import TrendCard from '../trend-card/TrendCard';
 import { H2 } from '@/shared/ui/headings';
-import { TrendingUp } from 'lucide-react';
+import clsx from '@/lib/cn';
 import styles from './styles.module.css';
 
-const TrendingBlogs = ({ trending_blogs }: { trending_blogs: IBlog[] }) => {
+interface ITrendingBlogsProps {
+  trending_blogs: IBlog[];
+  containerClassname?: string;
+  contentClassname?: string;
+  containerStyle?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
+}
+
+const TrendingBlogs: React.FC<ITrendingBlogsProps> = ({
+  trending_blogs,
+  containerClassname,
+  contentClassname,
+  containerStyle,
+  contentStyle,
+}) => {
   return (
-    <aside className={styles.asideBox}>
+    <aside className={clsx(styles.asideBox, containerClassname)} style={containerStyle}>
       {trending_blogs.length === 0 ? (
-        <NotFound text='Test' />
+        <NotFound text='No trending blogs found' />
       ) : (
-        <div>
+        <div className={clsx(contentClassname)} style={contentStyle}>
           <div className={styles.headerBox}>
             <TrendingUp />
             <H2 style={{ margin: 0 }}>Trending blogs</H2>
           </div>
           <div className={styles.cardsWrapper}>
-            {trending_blogs.map((blog, index: number) => (
+            {trending_blogs.map((blog, index) => (
               <TrendCard key={index} blog={blog} />
             ))}
           </div>
-          {false && <div className={styles.loader}>Loading...</div>}
         </div>
       )}
     </aside>

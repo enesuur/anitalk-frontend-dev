@@ -24,6 +24,7 @@ export const TABS: Tab[] = [
   { id: 3, path: '/lightnovels', label: 'Light Novels', color: 'yellow' },
   { id: 4, path: '/amv', label: 'AMV', color: 'purple' },
   { id: 5, path: '/cosplay', label: 'Cosplay', color: 'brown' },
+  { id: 6, path: '/blogs', label: 'Blogs', color: 'cyan' },
 ];
 
 const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {

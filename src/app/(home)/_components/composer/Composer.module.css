@@ -1,3 +1,8 @@
+/*  TOP BOT PAGINATION*/
+.composerBox {
+  overflow-y: scroll;
+}
+
 .tabBox {
   display: flex;
   align-items: center;

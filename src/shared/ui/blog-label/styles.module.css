@@ -1,0 +1,7 @@
+.badgeBox {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  color: var(--white);
+  display: inline-block;
+}

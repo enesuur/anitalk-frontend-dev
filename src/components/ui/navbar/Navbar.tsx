@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Logo from '@/assets/icons/Logo';
 import { Search, Compass } from 'lucide-react';
@@ -26,17 +26,15 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setIsModalOpen(!isModalOpen);
-  };
+  }, [isModalOpen]);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  // TODO: TEST
-  const imageUrl = 'https://picsum.photos/64/64';
-
+  // TODO: Global hook
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {

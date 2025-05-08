@@ -4,8 +4,8 @@ import Talk from '@/components/talk/Talk';
 import useIsMounted from '@/hooks/useIsMounted';
 import { ITalk } from '@/types/global';
 import { Compass, Flame, Shell } from 'lucide-react';
-import styles from './Composer.module.css';
 import { motion } from 'framer-motion';
+import styles from './Composer.module.css';
 
 interface IComposerProps {
   currentTab: number;

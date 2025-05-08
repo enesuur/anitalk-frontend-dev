@@ -1,7 +1,8 @@
 .sidebarBox {
   display: flex;
   flex-direction: column;
-  max-height: 768px;
+  max-height: 1280px;
+
   background-color: var(--soft-dark);
 }
 
@@ -13,7 +14,6 @@
 }
 
 .scrollWrapper {
-  max-height: 768px;
   overflow-y: auto;
   overflow-x: hidden;
 }

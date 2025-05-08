@@ -9,7 +9,7 @@ interface ISonnerProps {
   message: string;
   title: string;
   onClose: () => void;
-  type?: 'sucess' | 'alert' | 'danger' | 'warn';
+  type?: 'sucess' | 'alert' | 'danger' | 'warn' | 'default';
   position?:
     | 'bottom-center'
     | 'bottom-left'

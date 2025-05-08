@@ -183,11 +183,12 @@ const Page: React.FC = async () => {
         <div className='container'></div>
       </section>
 
+      {/* TODO: no need so much props only blog object.*/}
       {/* --- Blog Recommendation for web --- */}
       <div className='container'>
         <div className={styles.latestBlogContainer}>
           <H2>
-            People also <span className={styles.highlightText}>read </span>
+            People also <span className={'highlight-text'}>read </span>
             related blogs
           </H2>
           {mockBlogs.map((item: Partial<IBlog>, index: number) => (

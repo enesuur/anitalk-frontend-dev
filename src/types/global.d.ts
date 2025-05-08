@@ -20,8 +20,8 @@ interface IBlog {
   img_url?: string;
   author: string;
   slug: string;
-  read_time?: number;
-  label?: IBlogLabel;
+  read_time: number;
+  label: IBlogLabel;
   comments: IComment[];
 }
 
@@ -100,6 +100,13 @@ type SwiperOptions = {
   };
 };
 
+interface ISonnerToast {
+  isOpen: boolean;
+  message: string;
+  title: string;
+  type?: 'success' | 'alert' | 'danger' | 'warn' | 'default';
+}
+
 export {
   IconStyles,
   IBlog,
@@ -113,4 +120,5 @@ export {
   IBlogLabel,
   IBlog,
   IMiniTalk,
+  ISonnerToast,
 };

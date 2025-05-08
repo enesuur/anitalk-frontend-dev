@@ -1,3 +1,4 @@
-.authLayout{
-    flex:1
+.layout {
+  flex: 1;
+  color: var(--white);
 }

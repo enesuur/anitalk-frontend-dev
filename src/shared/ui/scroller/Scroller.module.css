@@ -7,6 +7,8 @@
   padding: var(--spacing-md);
   border-radius: 50%;
   transition: border-color 0.3s ease-in-out;
+  z-index: 9999;
+  pointer-events: auto;
 }
 
 .container svg {
@@ -25,4 +27,3 @@
 .container:hover svg {
   opacity: 1;
   color: var(--orange);
-}

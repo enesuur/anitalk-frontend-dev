@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { IMiniTalk, ITalk } from '@/types/global';
+import { CATEGORY_COLORS } from '@/shared/ui/blog-label/BlogLabel';
 
 /**
  * Generates a random pastel color from a predefined set of pastel colors.
@@ -23,6 +24,18 @@ const getPastelColor = () => {
     '#E6C9D1',
   ];
   return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+};
+
+/**
+ * Returns a random category with its corresponding color from CATEGORY_COLORS.
+ */
+export const getRandomCategory = () => {
+  const titles = Object.keys(CATEGORY_COLORS) as (keyof typeof CATEGORY_COLORS)[];
+  const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+  return {
+    title: randomTitle,
+    color: CATEGORY_COLORS[randomTitle],
+  };
 };
 
 /**

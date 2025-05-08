@@ -9,7 +9,7 @@
   height: 256px;
 }
 
-.cardBox h3 {
+.cardBox h2 {
   line-height: 1.25;
 }
 
@@ -20,19 +20,28 @@
   object-position: center;
 }
 
+.contentBox {
+  min-height: 128px;
+}
+
 .contentBox p {
   font-size: var(--font-size-sm);
   opacity: var(--opacity);
 }
 
+.footerBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: var(--opacity);
+}
+
 .footerBox .readBox {
   width: max-content;
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
   font-size: var(--font-size-sm);
-  opacity: var(--opacity);
 }
 
 .readBox svg {

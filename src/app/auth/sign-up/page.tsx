@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
+import SignupForm from '../forms/Signup';
 
-const page = () => {
-  return (
-    <div>
-      signup
-    </div>
-  )
-}
+export const revalidate = 86400;
 
-export default page
+const Page = () => {
+  return <SignupForm />;
+};
+
+export default Page;

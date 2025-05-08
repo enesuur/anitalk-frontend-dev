@@ -1,0 +1,20 @@
+.fancyBlogBox {
+  display: flex;
+  gap: var(--spacing-4xl);
+}
+
+.trendingBox {
+  flex-basis: 30%;
+}
+
+.infiniteBlogBox {
+  flex-basis: 70%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4xl);
+}
+
+.btnFilter {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-sm);
+}
