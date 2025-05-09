@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '@/types/user';
+import { IUser } from '@/types/global';
 
 // Slice tipi
 interface UserState {
@@ -24,7 +24,7 @@ const mockUser: IUser = {
   blocked_users: [],
   followers: [],
   followings: [],
-  entries: [],
+  talks: [],
   security_pin: null,
 };
 

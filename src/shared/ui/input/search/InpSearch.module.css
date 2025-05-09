@@ -8,6 +8,7 @@
   background-color: var(--soft-dark);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   color: var(--white);
+  min-width: 300px;
 }
 
 .searchWrapper:focus-within {

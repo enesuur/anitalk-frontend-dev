@@ -1,16 +1,21 @@
 'use client';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Logo from '@/assets/icons/Logo';
-import { Search, Compass } from 'lucide-react';
-import SearchModal from '@/components/modals/search/SearchModal';
+import { Compass } from 'lucide-react';
+import InpSearch from '@/shared/ui/input/search/InpSearch';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { logout } from '@/redux/slices/user/userSlice';
-import Image from 'next/image';
-import { Plus, Profile, Maintenance, Logout, Bell, Chat } from '@/assets/icons/';
+import { Plus, Profile, Maintenance, Logout, Bell } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
+import clsx from '@/lib/cn';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
+import useClickOutside from '@/hooks/useClickOutside';
+import useDebounce from '@/hooks/useDebounce';
+import { PLACE_HOLDERS } from '@/helpers/constants';
+import { IUser } from '@/types/global';
 import styles from './Navbar.module.css';
 
 interface NavbarProps {
@@ -18,94 +23,134 @@ interface NavbarProps {
   style?: React.CSSProperties;
 }
 
+interface IMobileMenuProps {
+  user: boolean;
+  handleLogout: () => void;
+}
+
+const MobileMenu = ({ isAuthenticated, handleLogout }: IMobileMenuProps) => {
+  return (
+    <div className={styles.mobileBox}>
+      {!isAuthenticated && <div></div>}
+
+      {isAuthenticated && (
+        <div>
+          <Link href='/' className={styles.actionBox}>
+            <Compass {...iconStyles} />
+            Feed
+          </Link>
+
+          <Link href='/settings' className={styles.actionBox}>
+            <Maintenance {...iconStyles} />
+            Settings
+          </Link>
+
+          <Link href={`/user/${user.user?.username}`} className={styles.actionBox}>
+            <Profile {...iconStyles} />
+            My Profile
+          </Link>
+          <Link href={'/'} onClick={handleLogout} className={styles.actionBox}>
+            <Logout {...iconStyles} />
+            Logout
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<string[]>([]);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
-  const toggleModal = useCallback(() => {
-    setIsModalOpen(!isModalOpen);
-  }, [isModalOpen]);
-
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  // TODO: Global hook
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  useClickOutside(userMenuRef, () => setIsUserMenuOpen(false));
+
+  // TODO: Değişcek
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
-        setIsUserMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+    if (debouncedSearchTerm.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+
+    const mockResults = ['Anime 1', 'Manga 2', '@john_doe', '@jane_smith'].filter((item) =>
+      item.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
+    );
+
+    setSearchResults(mockResults);
+  }, [debouncedSearchTerm]);
+
+  // TODO: Search API, state management
 
   return (
-    <header className={`${styles.header} container-fluid ${className}`} style={style}>
-      <nav className={`${styles.navbar} container`}>
-        <Link href='/' className={styles.logoContainer}>
+    <header className={clsx(styles.headerBox, 'container-fluid', className)} style={style}>
+      <nav className={clsx(styles.navbarBox, 'container')}>
+        <Link href='/' className={styles.logoBox}>
           <Logo width={72} height={72} />
           <span>Anitalk</span>
         </Link>
 
-        <ul className={styles.navItems}>
-          <Tooltip text={'Search on the site'} position={'bottom'}>
-            <li onClick={toggleModal}>
-              <Search />
-            </li>
-          </Tooltip>
+        <ul className={styles.rightBox}>
+          <li className={styles.searchBox}>
+            <InpSearch
+              value={searchTerm}
+              onChange={setSearchTerm}
+              placeholder='Talks,users and blogs...'
+            />
+            {/* TODO: We will fix there. */}
+            {searchResults.length > 0 && (
+              <ul className={styles.searchDropdown}>
+                {searchResults.map((result, index) => (
+                  <li key={index} className={styles.searchResultItem}>
+                    {result}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
           {user.isLoggedIn ? (
-            <>
-              <div className={`${styles.userBox} ${styles.userMenuWrapper}`} ref={userMenuRef}>
+            <React.Fragment>
+              <div className={clsx(styles.userBox, styles.userMenuWrapper)} ref={userMenuRef}>
                 {/* --- Entry Action Button --- */}
                 <div className={styles.actionBox}>
                   <Tooltip text={'Create a Talk'} position={'bottom'}>
-                    <Link href={'/create-talk'} className={`${styles.actionBox} ${styles.btnTalk}`}>
+                    <Link href={'/create-talk'} className={clsx(styles.btnTalk, styles.actionBox)}>
                       <Plus {...iconStyles} />
                       <span>Talk</span>
                     </Link>
                   </Tooltip>
                 </div>
-
-                <div className={styles.actionBox}>
-                  <Tooltip text={'Open chats'} position={'bottom'}>
-                    <Link href={'/chats'} className={`${styles.actionBox} ${styles.btnTalk}`}>
-                      <Chat {...iconStyles} />
-                    </Link>
-                  </Tooltip>
-                </div>
-
                 <div className={styles.actionBox}>
                   <Tooltip text={'Open notifications'} position={'bottom'}>
                     <Link
                       href={'/notifications'}
-                      className={`${styles.actionBox} ${styles.btnTalk}`}
+                      className={clsx(styles.actionBox, styles.btnTalk)}
                     >
                       <Bell {...iconStyles} />
                     </Link>
                   </Tooltip>
                 </div>
+
                 <Tooltip text={'Open profile settings'} position={'bottom'}>
                   <figure
-                    className={styles.avatarContainer}
+                    className={styles.avatarBox}
                     onClick={() => setIsUserMenuOpen((prev) => !prev)}
                   >
                     <picture>
                       <Image
-                        src={user.user?.avatar_url || '/img/avatar.webp'}
-                        alt={'User Avatar'}
+                        src={user.user?.avatar_url || PLACE_HOLDERS.avatar_url}
+                        alt={`${user.user?.username}'s avatar picture`}
                         fill
-                        objectFit='cover'
-                        objectPosition='center'
-                        quality={90}
-                        className={styles.img}
+                        quality={80}
                       />
                     </picture>
                   </figure>
@@ -122,7 +167,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       Feed
                     </Link>
                     <Link
-                      href='/user/botrick'
+                      href={`/user/${user.user?.username}`}
                       className={styles.actionBox}
                       onClick={() => setIsUserMenuOpen(false)}
                     >
@@ -144,26 +189,21 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                   </div>
                 )}
               </div>
-            </>
+            </React.Fragment>
           ) : (
-            <>
-              <li>
+            <React.Fragment>
+              <li className={styles.actionBox}>
                 <Link href='/auth/sign-in'>Sign in</Link>
               </li>
-              <li>
+              <li className={styles.actionBox}>
                 <Link href='/auth/sign-up'>Sign up</Link>
               </li>
-            </>
+            </React.Fragment>
           )}
-
-          {/* <li onClick={toggleThemeChange}>
-            <SunMoon />
-          </li> */}
         </ul>
       </nav>
-      {isModalOpen && <SearchModal isOpen={isModalOpen} onClose={toggleModal} />}
     </header>
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

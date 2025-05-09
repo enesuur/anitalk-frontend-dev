@@ -9,7 +9,8 @@
   width: max-content;
   height: max-content;
   background-color: var(--soft-dark);
-  color: var(--white);
+  border: 1px solid var(--faded-white);
+  font-weight: 600;
   text-align: center;
   border-radius: var(--border-radius);
   padding: var(--spacing-base) var(--spacing-md);

@@ -100,6 +100,26 @@ type SwiperOptions = {
   };
 };
 
+interface IUser {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  display_name: string | null;
+  avatar_url: string;
+  birth_date: Date | null;
+  cover_img_url: string | null;
+  reddit_url: string | null;
+  x_url: string | null;
+  mal_url: string | null;
+  favorite_animes: IFavorite_Anime[] | null;
+  blocked_users: Partial<IUser>[] | null;
+  followers: Partial<IUser>[] | null;
+  followings: Partial<IUser>[] | null;
+  talks: ITalk[] | null;
+  security_pin: number | null;
+}
+
 interface ISonnerToast {
   isOpen: boolean;
   message: string;
@@ -121,4 +141,5 @@ export {
   IBlog,
   IMiniTalk,
   ISonnerToast,
+  IUser,
 };

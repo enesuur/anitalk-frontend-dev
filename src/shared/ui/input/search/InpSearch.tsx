@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import styles from './InpSearch.module.css';
-import clsx from '@/lib/cn';
 import { Search } from 'lucide-react';
 import { iconStyles } from '@/helpers';
+import clsx from '@/lib/cn';
+import styles from './InpSearch.module.css';
 
 interface ISearchComponentProps {
   placeholder?: string;
