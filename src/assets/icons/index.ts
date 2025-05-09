@@ -36,3 +36,4 @@ export * from './Copy';
 export * from './Instagram';
 export * from './Youtube';
 export * from './Send';
+export * from './Facebook';

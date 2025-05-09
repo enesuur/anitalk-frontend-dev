@@ -38,7 +38,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
     <React.Fragment>
       {/* <Navbar /> */}
       <main className={styles.layout}>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   );
 };
