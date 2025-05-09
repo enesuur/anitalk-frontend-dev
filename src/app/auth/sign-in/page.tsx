@@ -8,9 +8,9 @@ import InpPassword from '@/shared/ui/input/InpPassword';
 import Button from '@/shared/ui/button/Button';
 import styles from './Signin.module.css';
 import Divider from '@/shared/ui/hr/Divider';
+import GoogleIcon from '@/assets/icons/Google';
 import { useRouter } from 'next/navigation';
 import { Key, Cat } from 'lucide-react';
-import GoogleIcon from '@/assets/icons/Google';
 
 const schema = z.object({
   username: z
@@ -51,7 +51,7 @@ const Page = () => {
   };
 
   const navigateToSignUp = () => {
-    router.push('/auth/signup');
+    router.push('/auth/sign-up');
   };
 
   return (

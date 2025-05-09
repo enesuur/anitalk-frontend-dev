@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-base);
+  color: var(--white);
+  opacity: var(--opacity);
+  background-color: var(--soft-dark);
+  letter-spacing: var(--letter-spacing);
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-base);
+  width: max-content;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color, opacity 0.3s ease-in-out;
+}
+
+.container:hover {
+  border-color: var(--orange);
+  opacity: 1;
+}

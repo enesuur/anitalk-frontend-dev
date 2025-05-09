@@ -36,9 +36,9 @@ export const revalidate = 86400;
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <React.Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
       <main className={styles.layout}>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </React.Fragment>
   );
 };

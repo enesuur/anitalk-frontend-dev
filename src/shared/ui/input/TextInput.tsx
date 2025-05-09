@@ -1,16 +1,16 @@
 'use client';
 import React from 'react';
-import styles from './TextInput.module.css';
 import { AlertCircle } from 'lucide-react';
 import clsx from '@/lib/cn';
+import styles from './TextInput.module.css';
 
 interface TextInputProps {
   label?: string;
   name: string;
   type?: string;
   placeholder?: string;
-  value: string | null | undefined;
-  onChange?: (value: string) => void;
+  value: string | null | undefined | number;
+  onChange?: (value: string | number) => void;
   error?: string;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   style?: React.CSSProperties;
@@ -21,6 +21,7 @@ interface TextInputProps {
   readOnly?: boolean;
   hideLabel?: boolean;
   showError?: boolean;
+  maxLength?: number;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -36,6 +37,7 @@ const TextInput: React.FC<TextInputProps> = ({
   containerClassName,
   onChange,
   onKeyDown,
+  maxLength,
   disabled = false,
   readOnly = false,
   hideLabel = false,
@@ -64,6 +66,7 @@ const TextInput: React.FC<TextInputProps> = ({
         onKeyDown={onKeyDown}
         disabled={disabled}
         readOnly={readOnly}
+        maxLength={maxLength}
         style={style}
         className={clsx(
           styles.input,

@@ -13,6 +13,10 @@ import ENDPOINTS from '@/http/endpoints';
 import { H1 } from '@/shared/ui/headings';
 import Button from '@/shared/ui/button/Button';
 import clsx from '@/lib/cn';
+import Divider from '@/shared/ui/hr/Divider';
+import GoogleButton from '@/shared/ui/btn-google/GoogleButton';
+import { Rabbit, Key } from 'lucide-react';
+import Link from 'next/link';
 import styles from './styles.module.css';
 
 const signupSchema = z.object({
@@ -21,6 +25,19 @@ const signupSchema = z.object({
     .string()
     .min(8, 'Password must be at least 8 characters long!')
     .nonempty('Password is required!'),
+  confirmPassword: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long!')
+    .nonempty('Confirm password is required!')
+    .superRefine((val, ctx) => {
+      if (val !== ctx.parent.password) {
+        ctx.addIssue({
+          path: ['confirmPassword'],
+          message: 'Passwords do not match',
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    }),
 });
 
 interface ISignupForm {
@@ -54,6 +71,7 @@ const SignupForm: React.FC<ISignupForm> = ({
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
@@ -87,13 +105,14 @@ const SignupForm: React.FC<ISignupForm> = ({
   };
 
   return (
-    <div className={clsx(containerClassname)} style={containerStyle}>
+    <div className={clsx(containerClassname, styles.formContainer)} style={containerStyle}>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={clsx(styles.formBox, contentClassname)}
         style={contentStyle}
       >
-        <H1>Sign up</H1>
+        <H1 className={styles.headerText}>Sign up</H1>
+        <p>Hey, welcome! Join us and have fun!</p>
         <Controller
           name='email'
           control={control}
@@ -103,6 +122,8 @@ const SignupForm: React.FC<ISignupForm> = ({
               label='Email Address'
               placeholder='Enter your email'
               error={errors.email?.message}
+              value={field.value}
+              onChange={field.onChange}
             />
           )}
         />
@@ -114,8 +135,25 @@ const SignupForm: React.FC<ISignupForm> = ({
             <InpPassword
               {...field}
               label='Password'
+              value={field.value}
+              onChange={field.onChange}
               placeholder='Enter your password'
               error={errors.password?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name='confirmPassword'
+          control={control}
+          render={({ field }) => (
+            <InpPassword
+              {...field}
+              label='Confirm Password'
+              placeholder='Re-enter your password'
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.confirmPassword?.message as string | undefined}
             />
           )}
         />
@@ -127,6 +165,19 @@ const SignupForm: React.FC<ISignupForm> = ({
           disabled={isSubmitting || isLoading}
           className={styles.btnSubmit}
         />
+        <Divider text={'or'} containerClassname={styles.dividerBox} />
+        <GoogleButton containerClassname={styles.btnGoogle} onClick={() => console.log('Test')} />
+        <div className={styles.footerBox}>
+          <Link href={'/auth/forgot-password'} className={styles.footerLeft}>
+            <Key />
+            <span>Forgot password?</span>
+          </Link>
+
+          <Link href={'/auth/sign-in'} className={styles.footerRight}>
+            <Rabbit />
+            <span>Sign in</span>
+          </Link>
+        </div>
       </form>
 
       <Sonner

@@ -4,7 +4,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  margin: var(--spacing-sm);
+  margin: var(--spacing-md);
 }
 
 .dividerContainer::before,

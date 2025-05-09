@@ -1,0 +1,74 @@
+.formContainer {
+  background-color: var(--soft-dark);
+  margin: auto;
+  max-width: 768px;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md) var(--spacing-lg);
+  row-gap: var(--spacing-lg);
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  max-width: 576px;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--soft-dark);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.headerText {
+  margin: auto;
+}
+
+.formContainer p {
+  opacity: var(--opacity);
+  letter-spacing: var(--letter-spacing);
+  margin: auto;
+}
+
+.btnGoogle {
+  width: 100% !important;
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
+}
+
+.footerBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+
+.footerLeft,
+.footerRight {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  transition: color 0.1s ease-in-out;
+}
+
+.footerLeft,
+.footerRight {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 0.1px;
+}
+
+.footerLeft svg,
+.footerRight svg {
+  width: 14px;
+  height: 14px;
+}
+
+.footerLeft:hover,
+.footerRight:hover {
+  color: var(--orange);
+}

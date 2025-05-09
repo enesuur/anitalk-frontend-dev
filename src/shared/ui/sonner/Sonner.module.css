@@ -10,21 +10,25 @@
   border-radius: var(--border-radius);
   opacity: 0;
   animation: slideIn 0.3s forwards;
-  z-index: 9999;
+  z-index: 99999;
   max-width: 350px;
   min-width: 280px;
   color: var(--white);
   font-size: var(--font-size-sm);
+  box-shadow: var(--box-shadow);
 }
 
 .title {
   opacity: 1;
-  display: inline-block;
+}
+
+.messageBox {
+  display: flex;
+  flex-direction: column;
 }
 
 .messageText {
   display: inline-block;
-
   opacity: var(--opacity);
 }
 @keyframes slideIn {

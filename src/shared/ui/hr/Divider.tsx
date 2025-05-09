@@ -5,13 +5,13 @@ import styles from './Divider.module.css';
 interface DividerProps {
   text?: string;
   style?: React.CSSProperties;
-  className?: string;
+  containerClassname?: string;
 }
 
-const Divider: React.FC<DividerProps> = ({ text, style, className }) => {
+const Divider: React.FC<DividerProps> = ({ text, style, containerClassname }) => {
   return (
     <div
-      className={clsx(styles.dividerContainer, className, { [styles.noText]: !text })}
+      className={clsx(styles.dividerContainer, containerClassname, { [styles.noText]: !text })}
       style={style}
     >
       {text && <span className={styles.dividerText}>{text}</span>}
