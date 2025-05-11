@@ -12,8 +12,7 @@ import { Plus, Profile, Maintenance, Logout, Bell } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
 import clsx from '@/lib/cn';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import useClickOutside from '@/hooks/useClickOutside';
-import useDebounce from '@/hooks/useDebounce';
+import { useDebounce, useIsMobile, useClickOutside, useIsMounted } from '@/hooks';
 import { PLACE_HOLDERS } from '@/helpers/constants';
 import { IUser } from '@/types/global';
 import styles from './Navbar.module.css';
@@ -24,38 +23,43 @@ interface NavbarProps {
 }
 
 interface IMobileMenuProps {
-  user: boolean;
+  user: Partial<IUser>;
+  isAuthenticated: boolean;
   handleLogout: () => void;
 }
 
-const MobileMenu = ({ isAuthenticated, handleLogout }: IMobileMenuProps) => {
+const MobileMenu = ({ isAuthenticated, user, handleLogout }: IMobileMenuProps) => {
   return (
-    <div className={styles.mobileBox}>
+    <header className={styles.mobileHeaderBox}>
       {!isAuthenticated && <div></div>}
 
       {isAuthenticated && (
-        <div>
-          <Link href='/' className={styles.actionBox}>
-            <Compass {...iconStyles} />
-            Feed
-          </Link>
+        <React.Fragment>
+          <div className={styles.topMenuBox}></div>
+          <nav className={clsx(styles.mobileNavBox, 'container')}>
+            <Link href='/' className={styles.mobileItemBox}>
+              <Compass {...iconStyles} />
+            </Link>
 
-          <Link href='/settings' className={styles.actionBox}>
-            <Maintenance {...iconStyles} />
-            Settings
-          </Link>
+            <Link href={'/notifications'} className={clsx(styles.actionBox, styles.btnTalk)}>
+              <Bell {...iconStyles} />
+            </Link>
 
-          <Link href={`/user/${user.user?.username}`} className={styles.actionBox}>
-            <Profile {...iconStyles} />
-            My Profile
-          </Link>
-          <Link href={'/'} onClick={handleLogout} className={styles.actionBox}>
-            <Logout {...iconStyles} />
-            Logout
-          </Link>
-        </div>
+            <Link href={'/create-talk'} className={clsx(styles.btnTalk, styles.mobileItemBox)}>
+              <Plus {...iconStyles} />
+            </Link>
+
+            <Link href={`/user/${user.username}`} className={styles.mobileItemBox}>
+              <Profile {...iconStyles} />
+            </Link>
+
+            <Link href='/settings' className={styles.mobileItemBox}>
+              <Maintenance {...iconStyles} />
+            </Link>
+          </nav>
+        </React.Fragment>
       )}
-    </div>
+    </header>
   );
 };
 
@@ -65,15 +69,18 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  const user = useSelector((state: RootState) => state.user);
+  /* Hooks */
   const dispatch = useDispatch();
+  const isMounted = useIsMounted();
+  const user = useSelector((state: RootState) => state.user);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  useClickOutside(userMenuRef, () => setIsUserMenuOpen(false));
+  const isMobile = useIsMobile();
 
+  /* Functions */
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  useClickOutside(userMenuRef, () => setIsUserMenuOpen(false));
 
   // TODO: Değişcek
   useEffect(() => {
@@ -81,17 +88,17 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
       setSearchResults([]);
       return;
     }
-
     const mockResults = ['Anime 1', 'Manga 2', '@john_doe', '@jane_smith'].filter((item) =>
       item.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
     );
-
     setSearchResults(mockResults);
   }, [debouncedSearchTerm]);
 
   // TODO: Search API, state management
 
-  return (
+  if (!isMounted) return null;
+
+  return !isMobile ? (
     <header className={clsx(styles.headerBox, 'container-fluid', className)} style={style}>
       <nav className={clsx(styles.navbarBox, 'container')}>
         <Link href='/' className={styles.logoBox}>
@@ -106,7 +113,6 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
               onChange={setSearchTerm}
               placeholder='Talks,users and blogs...'
             />
-            {/* TODO: We will fix there. */}
             {searchResults.length > 0 && (
               <ul className={styles.searchDropdown}>
                 {searchResults.map((result, index) => (
@@ -117,10 +123,9 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
               </ul>
             )}
           </li>
-          {user.isLoggedIn ? (
+          {user?.isLoggedIn ? (
             <React.Fragment>
               <div className={clsx(styles.userBox, styles.userMenuWrapper)} ref={userMenuRef}>
-                {/* --- Entry Action Button --- */}
                 <div className={styles.actionBox}>
                   <Tooltip text={'Create a Talk'} position={'bottom'}>
                     <Link href={'/create-talk'} className={clsx(styles.btnTalk, styles.actionBox)}>
@@ -203,6 +208,12 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
         </ul>
       </nav>
     </header>
+  ) : (
+    <MobileMenu
+      user={user.user}
+      isAuthenticated={user?.isLoggedIn || false}
+      handleLogout={handleLogout}
+    />
   );
 };
 

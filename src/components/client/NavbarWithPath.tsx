@@ -10,9 +10,10 @@ const absoluteNavbarStyle = {
   zIndex: 999,
   backdropFilter: 'none',
   boxShadow: 'none',
+  borderBottom: 0,
 } as React.CSSProperties;
 
-const NavbarWithPath = () => {
+const NavbarWithPath: React.FC = () => {
   const pathname = usePathname();
 
   return <Navbar style={pathname === '/blogs' ? absoluteNavbarStyle : undefined} />;
