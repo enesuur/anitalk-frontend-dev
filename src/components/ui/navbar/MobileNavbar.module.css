@@ -1,0 +1,203 @@
+.topMenuWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  color: var(--white);
+}
+
+.topMenuBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+}
+
+.searchBox {
+  flex: 1;
+  margin-right: var(--spacing-lg);
+}
+
+.searchDropdownBox {
+  position: absolute;
+  top: calc(100%);
+  border-top: 1px solid var(--faded-white);
+  left: 0;
+  background-color: var(--soft-dark);
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  user-select: all;
+  z-index: 1000;
+}
+
+.resultItemBox {
+  padding: var(--spacing-lg) var(--spacing-lg);
+  border-bottom: 1px solid var(--faded-white);
+  cursor: pointer;
+  color: var(--white);
+  overflow-y: scroll;
+}
+
+/* If user does not find its search term. */
+.notFoundBox {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-4xl);
+  opacity: var(--opacity);
+  font-style: italic;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+  transition: background-color 0.1s ease-in;
+}
+
+.resultItemBox:hover {
+  background-color: var(--orange);
+}
+
+/* Bottom Navigation */
+.mobileNavBox {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  background-color: var(--soft-dark);
+  border-top: 1px solid var(--faded-white);
+  z-index: 999;
+  width: 100%;
+}
+
+/* Butonlar */
+.mobileItemBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.btnTalk {
+  background-color: var(--primary);
+  border-radius: 50%;
+  padding: 8px;
+  margin: 0 8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBox {
+  position: relative;
+}
+
+.hamburgerMenu {
+  width: 64px;
+  height: 64px;
+  color: var(--white);
+}
+
+.mobileUnauth {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--dark);
+  border-bottom: 1px solid var(--faded-white);
+}
+
+/* --- Drawer --- */
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.drawerHeaderBox,
+.drawerNavBox a span,
+.mobileUnauthBox {
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.drawerMenu {
+  color: var(--white);
+  width: 80%;
+  height: 100%;
+  max-width: 280px;
+  background: var(--soft-dark);
+  display: flex;
+  flex-direction: column;
+  animation: slideInFromLeft 0.3s ease-in-out forwards;
+}
+
+.drawerHeaderBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawerNavBox {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl);
+  height: 100%;
+}
+
+.drawerNavBox a {
+  width: 100%;
+  padding: var(--spacing-md) 0;
+  transition: background-color 0.1s ease-in;
+}
+
+.drawerNavBox a:hover {
+  background-color: var(--orange);
+}
+
+.btnLogout {
+  margin-top: auto;
+  margin-right: var(--spacing-md);
+  margin-left: var(--spacing-md);
+}
+
+.mobileUnauthBox {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl);
+}
+
+.mobileUnauthBox a {
+  border: 1px solid var(--faded-white);
+  border-radius: var(--border-radius);
+  text-align: center;
+  padding: var(--spacing-base);
+  transition: border-color 0.1s ease-in;
+}
+
+.mobileUnauthBox a:hover {
+  border-color: var(--orange);
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

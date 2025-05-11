@@ -170,36 +170,4 @@
 
 /* Media Queries */
 
-.mobileHeaderBox {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 72px;
-  background-color: var(--soft-dark);
-  border-top: 1px solid var(--faded-white);
-  z-index: 999;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.mobileHeaderBox .mobileNavBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.mobileItemBox {
-  font-size: var(--font-size-sm);
-  display: flex;
-  flex-direction: column;
-  row-gap: var(--spacing-sm);
-  align-items: center;
-  color: var(--white);
-}
-
-.mobileItemBox svg {
-  width: 24px;
-  height: 24px;
-}
+/* Mobile Menu CSS  < 768px */

@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Navbar from '@/components/ui/navbar/Navbar';
 import Footer from '@/components/ui/footer/Footer';
 import styles from './_styles/AuthLayout.module.css';
+import NavbarSwitcher from '@/components/nav-switcher/NavSwitcher';
 
 export const metadata: Metadata = {
   title: 'Anitalk - Sign up',
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
 
 export const revalidate = 86400;
 
-const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <React.Fragment>
-      <Navbar />
+      <NavbarSwitcher />
       <main className={styles.layout}>{children}</main>
       <Footer />
     </React.Fragment>

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/assets/icons/Logo';
-import { Compass } from 'lucide-react';
+import { Compass, Menu } from 'lucide-react';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store/store';
@@ -14,54 +14,12 @@ import clsx from '@/lib/cn';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import { useDebounce, useIsMobile, useClickOutside, useIsMounted } from '@/hooks';
 import { PLACE_HOLDERS } from '@/helpers/constants';
-import { IUser } from '@/types/global';
 import styles from './Navbar.module.css';
 
 interface NavbarProps {
   className?: string;
   style?: React.CSSProperties;
 }
-
-interface IMobileMenuProps {
-  user: Partial<IUser>;
-  isAuthenticated: boolean;
-  handleLogout: () => void;
-}
-
-const MobileMenu = ({ isAuthenticated, user, handleLogout }: IMobileMenuProps) => {
-  return (
-    <header className={styles.mobileHeaderBox}>
-      {!isAuthenticated && <div></div>}
-
-      {isAuthenticated && (
-        <React.Fragment>
-          <div className={styles.topMenuBox}></div>
-          <nav className={clsx(styles.mobileNavBox, 'container')}>
-            <Link href='/' className={styles.mobileItemBox}>
-              <Compass {...iconStyles} />
-            </Link>
-
-            <Link href={'/notifications'} className={clsx(styles.actionBox, styles.btnTalk)}>
-              <Bell {...iconStyles} />
-            </Link>
-
-            <Link href={'/create-talk'} className={clsx(styles.btnTalk, styles.mobileItemBox)}>
-              <Plus {...iconStyles} />
-            </Link>
-
-            <Link href={`/user/${user.username}`} className={styles.mobileItemBox}>
-              <Profile {...iconStyles} />
-            </Link>
-
-            <Link href='/settings' className={styles.mobileItemBox}>
-              <Maintenance {...iconStyles} />
-            </Link>
-          </nav>
-        </React.Fragment>
-      )}
-    </header>
-  );
-};
 
 const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -71,11 +29,9 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
 
   /* Hooks */
   const dispatch = useDispatch();
-  const isMounted = useIsMounted();
   const user = useSelector((state: RootState) => state.user);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   useClickOutside(userMenuRef, () => setIsUserMenuOpen(false));
-  const isMobile = useIsMobile();
 
   /* Functions */
   const handleLogout = () => {
@@ -96,9 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
 
   // TODO: Search API, state management
 
-  if (!isMounted) return null;
-
-  return !isMobile ? (
+  return (
     <header className={clsx(styles.headerBox, 'container-fluid', className)} style={style}>
       <nav className={clsx(styles.navbarBox, 'container')}>
         <Link href='/' className={styles.logoBox}>
@@ -208,12 +162,6 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
         </ul>
       </nav>
     </header>
-  ) : (
-    <MobileMenu
-      user={user.user}
-      isAuthenticated={user?.isLoggedIn || false}
-      handleLogout={handleLogout}
-    />
   );
 };
 
