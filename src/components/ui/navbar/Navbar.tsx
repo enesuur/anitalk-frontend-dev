@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/assets/icons/Logo';
-import { Compass, Menu } from 'lucide-react';
+import { Compass } from 'lucide-react';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store/store';
@@ -12,7 +12,7 @@ import { Plus, Profile, Maintenance, Logout, Bell } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
 import clsx from '@/lib/cn';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import { useDebounce, useIsMobile, useClickOutside, useIsMounted } from '@/hooks';
+import { useDebounce, useClickOutside } from '@/hooks';
 import { PLACE_HOLDERS } from '@/helpers/constants';
 import styles from './Navbar.module.css';
 

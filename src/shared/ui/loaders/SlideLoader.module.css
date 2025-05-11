@@ -1,9 +1,9 @@
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2px;
-    width: 100vw;
-    background-color: var(--orange);
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100vw;
+  background-color: var(--orange);
+  z-index: 999999;
 }

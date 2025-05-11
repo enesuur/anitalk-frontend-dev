@@ -1,37 +1,7 @@
 import React from 'react';
-import type { Metadata } from 'next';
 import Footer from '@/components/ui/footer/Footer';
-import styles from './_styles/AuthLayout.module.css';
 import NavbarSwitcher from '@/components/nav-switcher/NavSwitcher';
-
-export const metadata: Metadata = {
-  title: 'Anitalk - Sign up',
-  description: 'Sign up page anitalk, register anitalk, anitalk form',
-  keywords:
-    'anime, manga, donghua, novels, manhwa, manhua, cartoons, seiyu, actors, studios, reviews, news, events, cosplay, expos, conventions, figures, games, music',
-  openGraph: {
-    title: 'Anitalk - Sign up',
-    description: 'Sign up page anitalk, register anitalk, anitalk form',
-    url: 'https://www.anitalk.com/auth/signup',
-    siteName: 'Anitalk',
-    images: [
-      {
-        url: 'https://www.anitalk.com/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Anitalk Sign Up Page',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Anitalk - Sign up',
-    description: 'Sign up page anitalk, register anitalk, anitalk form',
-    images: ['https://www.anitalk.com/images/og-image.jpg'],
-  },
-};
-
-export const revalidate = 86400;
+import styles from './_styles/Layout.module.css';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (

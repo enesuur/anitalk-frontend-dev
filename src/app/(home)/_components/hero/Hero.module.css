@@ -8,6 +8,7 @@
   flex: 1;
   position: relative;
   overflow: hidden;
+  padding-right: var(--spacing-sm);
 }
 
 .rightBox {
@@ -20,6 +21,7 @@
 .gridItem {
   position: relative;
   overflow: hidden;
+  padding: var(--spacing-sm);
 }
 
 .heroBox picture {

@@ -72,3 +72,12 @@
 .footerRight:hover {
   color: var(--orange);
 }
+
+@media screen and (max-width: 768px) {
+  .formBox {
+    padding: 0;
+  }
+  .formContainer {
+    border-radius: 0;
+  }
+}

@@ -8,7 +8,7 @@ import Image from 'next/image';
 import clsx from '@/lib/cn';
 import styles from './_styles/page.module.css';
 import { iconStyles } from '@/helpers';
-import { Link as ScrollLink } from 'react-scroll'; // react-scroll kullanımı
+import { Link as ScrollLink } from 'react-scroll';
 
 const MARGIN_BOTTOM: string = '192px';
 

@@ -4,13 +4,23 @@ import { useIsMobile, useIsMounted } from '@/hooks';
 import MobileNavbar from '@/components/ui/navbar/MobileNavbar';
 import Navbar from '@/components/ui/navbar/Navbar';
 
-const NavbarSwitcher: React.FC = () => {
+interface INavbarSwitcherProps {
+  containerStyle?: React.CSSProperties;
+}
+
+const NavbarSwitcher: React.FC<INavbarSwitcherProps> = ({
+  containerStyle,
+}: INavbarSwitcherProps) => {
   const isMobile = useIsMobile();
   const isMounted = useIsMounted();
 
   if (!isMounted) return null;
 
-  return isMobile ? <MobileNavbar /> : <Navbar />;
+  return isMobile ? (
+    <MobileNavbar containerStyle={containerStyle} />
+  ) : (
+    <Navbar style={containerStyle} />
+  );
 };
 
-export default NavbarSwitcher;
+export default React.memo(NavbarSwitcher);

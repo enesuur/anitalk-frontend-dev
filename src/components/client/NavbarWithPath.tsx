@@ -1,5 +1,6 @@
 'use client';
 import Navbar from '@/components/ui/navbar/Navbar';
+import NavbarSwitcher from '../nav-switcher/NavSwitcher';
 import { usePathname } from 'next/navigation';
 
 const absoluteNavbarStyle = {

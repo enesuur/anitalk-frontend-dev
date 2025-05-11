@@ -59,7 +59,11 @@ const mockSearch = (term: string) =>
     '@jane_smith',
   ].filter((item) => item.toLowerCase().includes(term.toLowerCase()));
 
-const MobileNavbar: React.FC = () => {
+interface IMobileNavbarProps {
+  containerStyle?: React.CSSProperties;
+}
+
+const MobileNavbar: React.FC<IMobileNavbarProps> = ({ containerStyle }: IMobileNavbarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -83,7 +87,7 @@ const MobileNavbar: React.FC = () => {
   const handleLinkClick = useCallback(() => setIsDrawerOpen(false), []);
 
   return (
-    <header className={clsx(styles.mobileHeaderBox)}>
+    <header className={clsx(styles.mobileHeaderBox, containerStyle)}>
       <div className={styles.topMenuWrapper}>
         <div className={clsx(styles.topMenuBox, 'container')}>
           <div className={styles.searchBox} ref={searchRef}>

@@ -59,7 +59,7 @@ const EmailStep = ({
       className={clsx(styles.formBox, containerClassname)}
       style={containerStyle}
     >
-      <H1>Forgot Password</H1>
+      <H1 style={{ margin: 0 }}>Forgot Password</H1>
       <p>Please enter your email address to reset your password.</p>
       <Controller
         name='email'

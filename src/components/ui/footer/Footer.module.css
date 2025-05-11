@@ -50,4 +50,7 @@
     flex-direction: column;
     row-gap: var(--spacing-4xl);
   }
+  .footer {
+    margin-bottom: 108px;
+  }
 }

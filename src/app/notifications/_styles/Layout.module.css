@@ -1,3 +1,4 @@
-.notificationLayout {
-    flex-grow: 1;
+.layout {
+  flex-grow: 1;
+  color: var(--white);
 }
