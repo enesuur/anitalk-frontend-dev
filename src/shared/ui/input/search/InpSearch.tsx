@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Search, Eraser } from 'lucide-react';
 import { iconStyles } from '@/helpers';
 import clsx from '@/lib/cn';
 import styles from './InpSearch.module.css';
@@ -35,7 +35,7 @@ const InpSearch: React.FC<ISearchComponentProps> = ({
       <Search
         {...iconStyles}
         className={clsx(styles.searchIcon, iconClassName)}
-        style={iconStyle ? iconStyle : {}}
+        style={iconStyle}
       />
       <input
         type='text'
@@ -46,6 +46,15 @@ const InpSearch: React.FC<ISearchComponentProps> = ({
         className={clsx(styles.searchInput, contentClassName)}
         style={contentStyle}
       />
+      {value && (
+        <Eraser
+          {...iconStyles}
+          className={clsx(styles.eraserIcon)}
+          onClick={() => onChange('')}
+          role='button'
+          aria-label='Clear search'
+        />
+      )}
     </div>
   );
 };

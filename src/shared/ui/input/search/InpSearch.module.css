@@ -8,7 +8,8 @@
   background-color: var(--soft-dark);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   color: var(--white);
-  min-width: 300px;
+  min-width: 256px;
+  gap: var(--spacing-base);
 }
 
 .searchWrapper:focus-within {
@@ -36,4 +37,17 @@
   opacity: var(--opacity);
   font-style: italic;
   color: var(--white);
+}
+
+.eraserIcon {
+  color: var(--font-primary-color);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.eraserIcon:hover {
+  opacity: 1;
+  transform: rotate(15deg);
+  color: var(--orange);
 }

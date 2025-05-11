@@ -21,6 +21,17 @@
   margin-right: var(--spacing-lg);
 }
 
+.btnHamburger {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out;
+}
+
+.btnHamburger:hover {
+  color: var(--orange);
+}
+
 .searchDropdownBox {
   position: absolute;
   top: calc(100%);
@@ -101,12 +112,6 @@
   position: relative;
 }
 
-.hamburgerMenu {
-  width: 64px;
-  height: 64px;
-  color: var(--white);
-}
-
 .mobileUnauth {
   display: flex;
   justify-content: space-between;
@@ -170,6 +175,7 @@
 
 .btnLogout {
   margin-top: auto;
+  margin-bottom: var(--spacing-md);
   margin-right: var(--spacing-md);
   margin-left: var(--spacing-md);
 }
