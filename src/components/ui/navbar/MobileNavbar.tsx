@@ -1,11 +1,11 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import clsx from '@/lib/cn';
 import Link from 'next/link';
 import { Compass, Menu, X, Newspaper } from 'lucide-react';
 import { Plus, Profile, Bell, Logout } from '@/assets/icons/';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
 import { iconStyles } from '@/helpers/index';
-import clsx from '@/lib/cn';
 import { useDebounce, useClickOutside } from '@/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '@/redux/slices/user/userSlice';
@@ -14,8 +14,41 @@ import { H2 } from '@/shared/ui/headings';
 import Button from '@/shared/ui/button/Button';
 import styles from './MobileNavbar.module.css';
 
+// TODO: Not for prod!!
 const mockSearch = (term: string) =>
   [
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
+    'Anime 1',
+    'Manga 2',
+    '@john_doe',
+    '@jane_smith',
     'Anime 1',
     'Manga 2',
     '@john_doe',
@@ -30,11 +63,11 @@ const MobileNavbar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.user);
-
   useClickOutside(searchRef, () => setSearchResults([]));
 
   useEffect(() => {
@@ -44,6 +77,10 @@ const MobileNavbar: React.FC = () => {
       setSearchResults([]);
     }
   }, [debouncedSearchTerm]);
+
+  const closeDrawer = useCallback(() => setIsDrawerOpen(false), []);
+  const openDrawer = useCallback(() => setIsDrawerOpen(true), []);
+  const handleLinkClick = useCallback(() => setIsDrawerOpen(false), []);
 
   return (
     <header className={clsx(styles.mobileHeaderBox)}>
@@ -79,7 +116,7 @@ const MobileNavbar: React.FC = () => {
             role='button'
             aria-label='Hamburger Menu'
             className={styles.btnHamburger}
-            onClick={() => setIsDrawerOpen(true)}
+            onClick={openDrawer}
           />
         </div>
       </div>
@@ -103,7 +140,7 @@ const MobileNavbar: React.FC = () => {
       </nav>
 
       {isDrawerOpen && (
-        <div className={styles.drawerOverlay} onClick={() => setIsDrawerOpen(false)}>
+        <div className={styles.drawerOverlay} onClick={closeDrawer}>
           <div className={styles.drawerMenu} onClick={(e) => e.stopPropagation()}>
             <div className={styles.drawerHeaderBox}>
               <H2>Menu</H2>
@@ -111,34 +148,24 @@ const MobileNavbar: React.FC = () => {
                 className={styles.btnClose}
                 aria-label='Close Drawer'
                 icon={<X />}
-                onClick={() => setIsDrawerOpen(false)}
+                onClick={closeDrawer}
               />
             </div>
             <nav className={styles.drawerNavBox}>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Anime</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Manga</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Donghua</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Light Novels</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Amv</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Cosplay</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Blogs</span>
-              </Link>
-              <Link href='/' onClick={() => setIsDrawerOpen(false)}>
-                <span>Newsletter</span>
-              </Link>
+              {[
+                { label: 'Anime', href: '/anime' },
+                { label: 'Manga', href: '/manga' },
+                { label: 'Donghua', href: '/donghua' },
+                { label: 'Light Novels', href: '/light-novels' },
+                { label: 'Amv', href: '/amv' },
+                { label: 'Cosplay', href: '/cosplay' },
+                { label: 'Blogs', href: '/blogs' },
+                { label: 'Newsletter', href: '/newsletter' },
+              ].map(({ label, href }) => (
+                <Link key={label} href={href} onClick={handleLinkClick}>
+                  <span>{label}</span>
+                </Link>
+              ))}
 
               {user ? (
                 <Button
@@ -148,15 +175,15 @@ const MobileNavbar: React.FC = () => {
                   text='Logout'
                   onClick={() => {
                     dispatch(logout());
-                    setIsDrawerOpen(false);
+                    closeDrawer();
                   }}
                 />
               ) : (
                 <div className={styles.mobileUnauthBox}>
-                  <Link href='/auth/sign-in' onClick={() => setIsDrawerOpen(false)}>
+                  <Link href='/auth/sign-in' onClick={handleLinkClick}>
                     Sign in
                   </Link>
-                  <Link href='/auth/sign-up' onClick={() => setIsDrawerOpen(false)}>
+                  <Link href='/auth/sign-up' onClick={handleLinkClick}>
                     Sign up
                   </Link>
                 </div>

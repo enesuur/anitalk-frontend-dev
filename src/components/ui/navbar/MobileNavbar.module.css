@@ -142,7 +142,7 @@
   background: var(--soft-dark);
   display: flex;
   flex-direction: column;
-  animation: slideInFromLeft 0.3s ease-in-out forwards;
+  animation: slideInFromLeft 0.5s ease-in-out forwards;
 }
 
 .drawerHeaderBox {
