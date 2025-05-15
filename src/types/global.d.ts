@@ -1,5 +1,8 @@
 import React from 'react';
 
+/* 
+All shared global types across the application.
+*/
 interface IconStyles {
   width: string | number;
   height: string | number;
@@ -11,7 +14,7 @@ interface IBlogLabel {
   title: string;
   color: string;
 }
-//  Author look up object
+
 interface IBlog {
   _id: string;
   title: string;

@@ -1,3 +1,4 @@
+/* CAUTION: DO NOT USE THAT TYPE. THIS FILE IS DEPRECATED. */
 export interface IFavorite_Anime {
   _id: string;
   english_name: string | null;
