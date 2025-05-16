@@ -22,6 +22,11 @@ export const baseInstance = axios.create({
   },
 });
 
+/* 
+TODO: Network error handler, no connection.
+
+*/
+
 /**
  * Axios retry configuration.
  * Retries on network errors and 5xx server errors.

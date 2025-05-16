@@ -16,6 +16,7 @@ interface ISearchComponentProps {
   iconClassName?: string;
   iconStyle?: React.CSSProperties;
   disabled?: boolean;
+  id?: string;
 }
 
 const InpSearch: React.FC<ISearchComponentProps> = ({
@@ -29,11 +30,13 @@ const InpSearch: React.FC<ISearchComponentProps> = ({
   disabled = false,
   iconClassName,
   iconStyle,
+  id,
 }) => {
   return (
     <div className={clsx(styles.searchWrapper, containerClassName)} style={containerStyle}>
       <Search
         {...iconStyles}
+        id={id}
         className={clsx(styles.searchIcon, iconClassName)}
         style={iconStyle}
       />

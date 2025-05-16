@@ -5,7 +5,7 @@ import { X, Eraser, Search } from 'lucide-react';
 import useDebounce from '@/hooks/useDebounce';
 import UserCard from '@/app/user/_components/cards/UserCard';
 import { PartialUser } from '@/types/user';
-import {NotFound} from '@/assets/icons/index';
+import { NotFound } from '@/assets/icons/index';
 
 interface IFollowModalProps {
   isOpen: boolean;
@@ -30,31 +30,42 @@ const FollowModal: React.FC<IFollowModalProps> = ({
   const filteredList = useMemo(
     () =>
       list.filter((user) =>
-        user.username.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        user.username.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
       ),
-    [list, debouncedSearchTerm]
+    [list, debouncedSearchTerm],
   );
 
   return (
     isOpen && (
       <div className={styles.modalOverlay}>
-        <div className={styles.modalContent}>
+        <div className={styles.modalContent} id='follow-modal'>
           <div className={styles.modalHeader}>
             <h2>{type === 0 ? 'Followers' : 'Following'}</h2>
-            <X size={24} color={'#FFFFFF'} opacity={0.9} onClick={onClose}  className={styles.btnClose} />
+            <X
+              size={24}
+              color={'#FFFFFF'}
+              opacity={0.9}
+              onClick={onClose}
+              className={styles.btnClose}
+            />
           </div>
 
           <div className={styles.searchWrapper}>
             <Search className={styles.searchIcon} size={24} opacity={0.9} />
             <input
-              type="text"
+              type='text'
               placeholder={type === 0 ? 'Search followers...' : 'Search following...'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.searchInput}
             />
             {searchTerm && (
-              <Eraser className={styles.clearIcon} size={24} opacity={0.9} onClick={() => setSearchTerm('')} />
+              <Eraser
+                className={styles.clearIcon}
+                size={24}
+                opacity={0.9}
+                onClick={() => setSearchTerm('')}
+              />
             )}
           </div>
 
@@ -71,8 +82,9 @@ const FollowModal: React.FC<IFollowModalProps> = ({
               ))
             ) : (
               <p className={styles.hintBox}>
-                <NotFound width={24} height={24} color={'#FFFFFF'} opacity={0.9}/>
-                 {type === 0 ? 'Followers' : 'Following'} not found.</p>
+                <NotFound width={24} height={24} color={'#FFFFFF'} opacity={0.9} />
+                {type === 0 ? 'Followers' : 'Following'} not found.
+              </p>
             )}
           </div>
         </div>

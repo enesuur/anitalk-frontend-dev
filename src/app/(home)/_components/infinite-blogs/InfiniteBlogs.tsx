@@ -30,6 +30,7 @@ const InfiniteBlogs: React.FC<InfiniteBlogsProps> = ({ infinite_blogs, trending_
       <Button
         icon={<Filter {...iconStyles} />}
         text='Filter Blogs'
+        id='btn-filter-blogs'
         onClick={handleFilterNavigation}
         containerClassname={styles.btnFilter}
       />

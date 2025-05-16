@@ -7,12 +7,13 @@ import { Trash2, FileCheck, Info } from 'lucide-react';
 import { iconStyles } from '@/helpers';
 
 type ImageInputProps = {
+  errorMessage?: string;
   onImageSelect?: (file: File | null, previewUrl: string | null) => void;
 };
 
-const ImageInput = ({ onImageSelect }: ImageInputProps) => {
+const ImageInput = ({ onImageSelect, errorMessage }: ImageInputProps) => {
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(errorMessage || null);
   const [isDragging, setIsDragging] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -23,6 +24,8 @@ const ImageInput = ({ onImageSelect }: ImageInputProps) => {
     setError(null);
     onImageSelect?.(null, null);
   }, [onImageSelect]);
+
+  console.log('error2323', error);
 
   const validateAndSetFile = useCallback(
     (file: File) => {
@@ -134,4 +137,4 @@ const ImageInput = ({ onImageSelect }: ImageInputProps) => {
   );
 };
 
-export default React.memo(ImageInput);
+export default ImageInput;

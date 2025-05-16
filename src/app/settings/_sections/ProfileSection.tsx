@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm, Controller, useFormState } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,32 +7,69 @@ import Button from '@/shared/ui/button/Button';
 import TextInput from '@/shared/ui/input/TextInput';
 import TextArea from '@/shared/ui/input/textarea/TextArea';
 import ImageInput from '@/shared/ui/input/ImageInput';
-import styles from '../_styles/ProfileSection.module.css';
 import { H2, H3 } from '@/shared/ui/headings';
+import Sonner from '@/shared/ui/sonner/Sonner';
 import { remoteInstance } from '@/http/axios';
-import { Profile as ProfileIcon, Date as DateIcon, Profile, Info } from '@/assets/icons';
-import { Eye, Flag, Baby, PencilLine, AlertCircle } from 'lucide-react';
+import { Profile as ProfileIcon } from '@/assets/icons';
+import { Baby, PencilLine, AlertCircle } from 'lucide-react';
 import { iconStyles } from '@/helpers';
 import ReactFlagsSelect from 'react-flags-select';
 import Image from 'next/image';
+import { ISonnerToast } from '@/types/global';
+import ENDPOINTS from '@/http/endpoints';
+import { useMutation } from '@tanstack/react-query';
+import { filterSwears } from '@/helpers';
+import { AxiosError } from 'axios';
+import styles from '../_styles/ProfileSection.module.css';
+import { PLACE_HOLDERS } from '@/helpers/constants';
 
 interface IUsernameProps {
   username: string;
+  toastHandler: (title: string, message: string) => void;
 }
-const UsernameForm = ({ username }: IUsernameProps) => {
-  const usernameSchema = z.object({
-    username: z.string(),
-  });
 
-  type UsernameSchema = z.infer<typeof usernameSchema>;
+const usernameSchema = z.object({
+  username: z
+    .string()
+    .nonempty('Username is required')
+    .max(15, 'Username must be at most 15 characters')
+    .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers, and underscores are allowed'),
+});
 
-  const { control, handleSubmit, formState } = useForm({
+type UsernameSchema = z.infer<typeof usernameSchema>;
+
+const UsernameForm = ({ username, toastHandler }: IUsernameProps) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<UsernameSchema>({
     resolver: zodResolver(usernameSchema),
     defaultValues: { username },
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['update-username'],
+    mutationFn: async (data: UsernameSchema) => {
+      if (!filterSwears(data.username, 'en')) {
+        const res = await remoteInstance.post(ENDPOINTS.postUsername, {
+          username: data.username,
+        });
+        return res.data;
+      }
+      throw new Error('Have respect dude!');
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Username updated successfully');
+    },
+    onError: (error: AxiosError) => {
+      console.error('Error', error);
+      toastHandler('Error', 'Failed to update username.');
+    },
+  });
+
   const onSubmit = (data: UsernameSchema) => {
-    console.log('Username updated:', data);
+    mutate(data);
   };
 
   return (
@@ -46,27 +83,30 @@ const UsernameForm = ({ username }: IUsernameProps) => {
           <Controller
             name='username'
             control={control}
-            render={() => (
+            render={({ field }) => (
               <TextInput
-                value={username}
-                label={'Username'}
-                name={'username'}
-                disabled
-                readOnly
-                className='cursor-disabled'
+                {...field}
+                label='Username'
                 hideLabel={true}
                 containerClassName={styles.inpText}
               />
             )}
           />
         </div>
-        <Button text='Update' className={styles.rightBox} />
+
+        <Button
+          text='Update'
+          aria-label='Update Form Button'
+          className={styles.rightBox}
+          isLoading={isPending}
+          isDisabled={isSubmitting || isPending}
+        />
       </form>
 
-      {formState.errors?.username && (
+      {errors.username && (
         <div className={styles.errorContainer}>
           <AlertCircle {...iconStyles} />
-          <span>{formState.errors.username?.message}</span>
+          <span>{errors.username.message}</span>
         </div>
       )}
     </div>
@@ -75,34 +115,53 @@ const UsernameForm = ({ username }: IUsernameProps) => {
 
 interface IDisplayForm {
   display_name: string | null;
+  toastHandler: (title: string, message: string) => void;
 }
 
 const displayNameSchema = z.object({
-  display_name: z.string().min(2).max(50).nullable(),
+  display_name: z.string().min(2).max(20).nullable(),
 });
 
 type DisplayNameSchema = z.infer<typeof displayNameSchema>;
 
-const DisplayNameForm = ({ display_name }: IDisplayForm) => {
+const DisplayNameForm = ({ display_name, toastHandler }: IDisplayForm) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors },
   } = useForm<DisplayNameSchema>({
-    mode: 'all',
+    mode: 'onTouched',
     resolver: zodResolver(displayNameSchema),
     defaultValues: {
       display_name: display_name ?? '',
     },
   });
 
-  const onSubmit = async (data: DisplayNameSchema) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 saniye bekle
-      console.log('Display name updated:', data);
-      // const response = await remoteInstance.post('');
-    } catch (err) {
-      console.error('Update failed:', err);
+  const mutation = useMutation({
+    mutationKey: ['update-displayname'],
+    mutationFn: async (data: DisplayNameSchema) => {
+      if (!data?.display_name) return;
+
+      if (filterSwears(data?.display_name, 'en')) {
+        const res = await remoteInstance.post(ENDPOINTS.postDisplayName, {
+          display_name: data.display_name,
+        });
+        return res.data;
+      }
+      throw Error;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Display name updated!');
+    },
+    onError: (error: AxiosError) => {
+      console.error('Update failed:', error);
+      toastHandler('Error', 'Failed to update display name.');
+    },
+  });
+
+  const onSubmit = (data: DisplayNameSchema) => {
+    if (data.display_name) {
+      mutation.mutate({ display_name: data.display_name });
     }
   };
 
@@ -125,7 +184,7 @@ const DisplayNameForm = ({ display_name }: IDisplayForm) => {
                 error={errors.display_name?.message}
                 hideLabel={true}
                 showError={false}
-                placeholder={'Cool nick!'}
+                placeholder='Cool nick!'
                 containerClassName={styles.inpText}
               />
             )}
@@ -136,8 +195,8 @@ const DisplayNameForm = ({ display_name }: IDisplayForm) => {
           type='submit'
           text='Update'
           className={styles.rightBox}
-          disabled={isSubmitting}
-          isLoading={isLoading}
+          disabled={mutation.isPending}
+          isLoading={mutation.isPending}
         />
       </form>
 
@@ -153,33 +212,45 @@ const DisplayNameForm = ({ display_name }: IDisplayForm) => {
 
 interface ICountryCode {
   country: string;
+  toastHandler: (title: string, message: string) => void;
 }
 
-const CountryForm = ({ country }: ICountryCode) => {
-  const countrySchema = z.object({
-    country: z.string().min(1, 'Country is required').nullable(),
-  });
+const countrySchema = z.object({
+  country: z.string().min(1, 'Country is required').nullable(),
+});
 
-  type CountrySchema = z.infer<typeof countrySchema>;
+type CountrySchema = z.infer<typeof countrySchema>;
 
+const CountryForm = ({ country, toastHandler }: ICountryCode) => {
   const {
     control,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isLoading },
   } = useForm<CountrySchema>({
     resolver: zodResolver(countrySchema),
     defaultValues: { country },
   });
 
-  // Use formState for reading the form value
-  const { dirtyFields } = useFormState({
-    control,
+  const mutation = useMutation({
+    mutationFn: async (data: CountrySchema) => {
+      if (!data.country) return;
+      const res = await remoteInstance.post(ENDPOINTS.postUserCountry, {
+        country: data.country,
+      });
+      return res.data;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Country updated successfully!');
+    },
+    onError: (error: AxiosError) => {
+      console.error('Update failed:', error);
+      toastHandler('Error', 'Failed to update country.');
+    },
   });
 
   const onSubmit = (data: CountrySchema) => {
-    console.log('Country updated:', data);
-    // Form gönderildiğinde yapılacak işlemler
+    mutation.mutate(data);
   };
 
   return (
@@ -211,16 +282,17 @@ const CountryForm = ({ country }: ICountryCode) => {
           )}
         />
       </div>
-      <Button text='Update Country' isLoading={isSubmitting} disabled={isSubmitting} />
+      <Button text='Update Country' isLoading={isLoading} disabled={isSubmitting} />
     </form>
   );
 };
 
 interface IBiographyProps {
   biography: string | null;
+  toastHandler: (title: string, message: string) => void;
 }
 
-const BiographyForm = ({ biography }: IBiographyProps) => {
+const BiographyForm = ({ biography, toastHandler }: IBiographyProps) => {
   const biographySchema = z.object({
     biography: z
       .string()
@@ -228,18 +300,40 @@ const BiographyForm = ({ biography }: IBiographyProps) => {
       .max(500, 'Biography cannot exceed 500 characters.')
       .nullable(),
   });
+
   type BiographySchema = z.infer<typeof biographySchema>;
+
   const {
     control,
     handleSubmit,
-    formState: { errors, isLoading, isSubmitting },
-  } = useForm({
+    formState: { errors, isSubmitting, isLoading },
+  } = useForm<BiographySchema>({
     resolver: zodResolver(biographySchema),
     defaultValues: { biography },
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: BiographySchema) => {
+      if (!data.biography) return;
+      if (filterSwears(data.biography, 'en')) {
+        const res = await remoteInstance.post(ENDPOINTS.updateBiography, {
+          biography: data.biography,
+        });
+        return res.data;
+      }
+      throw new Error('Have a respect dude!');
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Biography updated successfully!');
+    },
+    onError: (error: AxiosError) => {
+      console.error('Update failed:', error);
+      toastHandler('Error', 'Failed to update biography.');
+    },
+  });
+
   const onSubmit = (data: BiographySchema) => {
-    console.log('Biography updated:', data);
+    mutation.mutate(data);
   };
 
   return (
@@ -254,23 +348,18 @@ const BiographyForm = ({ biography }: IBiographyProps) => {
             name='biography'
             control={control}
             render={({ field }) => (
-              <Controller
+              <TextArea
                 name='biography'
-                control={control}
-                render={({ field }) => (
-                  <TextArea
-                    name='biography'
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={errors.biography?.message}
-                    placeholder='Who does not like dancing?'
-                    label='People are being curios creatures, let them know you :)'
-                  />
-                )}
+                value={field.value}
+                onChange={field.onChange}
+                error={errors.biography?.message}
+                placeholder='Who does not like dancing?'
+                label='People are curious creatures, let them know you :)'
               />
             )}
           />
         </div>
+
         <Button
           text='Update'
           isLoading={isLoading}
@@ -288,31 +377,63 @@ const BiographyForm = ({ biography }: IBiographyProps) => {
 interface IProfileImageForm {
   profile_img_url: string | null;
   setProfileImage: (url: string | null) => void;
+  toastHandler: (title: string, message: string) => void;
 }
 
 const profileImageSchema = z.object({
-  profile_img_url: z.string().nullable().optional(),
+  profile_img_url: z.string().min(1, 'Profile image URL cannot be empty').nullable(),
 });
+
 type ProfileImageSchema = z.infer<typeof profileImageSchema>;
 
-const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageForm) => {
+const ProfileImageForm = ({
+  profile_img_url,
+  setProfileImage,
+  toastHandler,
+}: IProfileImageForm) => {
   const {
     handleSubmit,
-    formState: { isSubmitting, isLoading },
+    control,
+    formState: { isSubmitting, isLoading, errors },
   } = useForm<ProfileImageSchema>({
     resolver: zodResolver(profileImageSchema),
     defaultValues: {
-      profile_img_url: profile_img_url,
+      profile_img_url: profile_img_url || '',
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (data: ProfileImageSchema) => {
+      if (!data.profile_img_url) {
+        throw new Error('No image selected.');
+      }
+      const formData = new FormData();
+      formData.append('file', data.profile_img_url);
+      const res = await remoteInstance.post(ENDPOINTS.uploadProfileImage, formData);
+      return res.data;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Profile image updated successfully!');
+    },
+    onError: (error: AxiosError) => {
+      console.error('Update failed:', error);
+      toastHandler('Error', 'Failed to update profile image.');
     },
   });
 
   const onSubmit = (data: ProfileImageSchema) => {
-    console.log('Profile image updated:', data);
+    if (!data.profile_img_url) {
+      toastHandler('Error', 'Please select a valid image.');
+      return;
+    }
+    mutation.mutate(data);
   };
 
   const handleImageSelect = (_: File, previewUrl: string) => {
     setProfileImage(previewUrl);
   };
+
+  console.log(errors?.profile_img_url?.message);
 
   return (
     <div>
@@ -322,8 +443,8 @@ const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageFor
           <div className={`${styles.leftBox} ${styles.verticalBox}`}>
             <picture className={styles.avatarPicture}>
               <Image
-                src={profile_img_url || '/img/avatar.webp'}
-                alt='Profile Picture'
+                src={profile_img_url || PLACE_HOLDERS.avatar_url}
+                alt={'Your avatar picture'}
                 className={styles.avatarBox}
                 fill
                 loading='lazy'
@@ -335,7 +456,19 @@ const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageFor
             </span>
           </div>
 
-          <ImageInput onImageSelect={handleImageSelect} />
+          <Controller
+            name='profile_img_url'
+            control={control}
+            render={({ field }) => (
+              <ImageInput
+                errorMessage={errors?.profile_img_url?.message}
+                onImageSelect={(file: File | null, previewUrl: string | null) => {
+                  field.onChange(previewUrl);
+                  handleImageSelect(file, previewUrl);
+                }}
+              />
+            )}
+          />
         </div>
 
         <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
@@ -347,26 +480,51 @@ const ProfileImageForm = ({ profile_img_url, setProfileImage }: IProfileImageFor
 interface ICoverImageProps {
   cover_img_url: string | null;
   setCoverImage: (url: string | null) => void;
+  toastHandler: (title: string, message: string) => void;
 }
 
-const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
-  const coverImageSchema = z.object({
-    cover_img_url: z.string().nullable().optional(),
+const coverImageSchema = z.object({
+  cover_img_url: z.string().min(1, 'Cover image URL cannot be empty'),
+});
+
+type CoverImageSchema = z.infer<typeof coverImageSchema>;
+
+const CoverImageForm = ({ cover_img_url, setCoverImage, toastHandler }: ICoverImageProps) => {
+  const mutation = useMutation({
+    mutationKey: ['update-cover-image'],
+    mutationFn: async (data: CoverImageSchema) => {
+      const { cover_img_url } = data;
+      const response = await remoteInstance.post(ENDPOINTS.postUserCoverImage, { cover_img_url });
+      return response.data;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Cover image updated successfully');
+    },
+    onError: (error: unknown) => {
+      console.error('Error updating cover image:', error);
+      toastHandler('Error', 'Failed to update cover image.');
+    },
   });
 
-  type CoverImageSchema = z.infer<typeof coverImageSchema>;
-  const { handleSubmit } = useForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<CoverImageSchema>({
     resolver: zodResolver(coverImageSchema),
-    defaultValues: { cover_img_url: cover_img_url },
+    defaultValues: {
+      cover_img_url: cover_img_url || '',
+    },
   });
 
   const onSubmit = (data: CoverImageSchema) => {
-    console.log('Cover image updated:', data);
+    mutation.mutate(data);
   };
 
   const handleImageSelect = (_: File | null, previewUrl: string | null) => {
     setCoverImage(previewUrl);
   };
+  console.log('test', errors.cover_img_url?.message);
 
   return (
     <div>
@@ -376,8 +534,8 @@ const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
           <div>
             <picture className={styles.coverPicture}>
               <Image
-                src={cover_img_url || '/img/bg-cover.webp'}
-                alt='Profile Picture'
+                src={cover_img_url || PLACE_HOLDERS.background_cover_url}
+                alt='Your cover image photo'
                 className={styles.coverBox}
                 fill
                 loading='lazy'
@@ -388,9 +546,22 @@ const CoverImageForm = ({ cover_img_url, setCoverImage }: ICoverImageProps) => {
               Must be JPEG, PNG, or GIF and cannot exceed 5MB.
             </p>
           </div>
-          <ImageInput onImageSelect={handleImageSelect} />
+
+          <Controller
+            name='cover_img_url'
+            control={control}
+            render={({ field }) => (
+              <ImageInput
+                errorMessage={errors?.cover_img_url?.message}
+                onImageSelect={(file: File | null, previewUrl: string | null) => {
+                  field.onChange(previewUrl);
+                  handleImageSelect(file, previewUrl);
+                }}
+              />
+            )}
+          />
         </div>
-        <Button text='Update Cover Image' />
+        <Button text='Update Cover Image' isLoading={mutation.isPending} disabled={isSubmitting} />
       </form>
     </div>
   );
@@ -421,6 +592,10 @@ interface IProfileSectionProps {
   country: string;
   biography: string | null;
 }
+
+/* 
+TODO: Wrap toast component in global later on use it once.
+*/
 /*
 TODO: Default props will be removed in production release.
 */
@@ -435,21 +610,45 @@ const ProfileSection = ({
 }: IProfileSectionProps) => {
   const [profileImage, setProfileImage] = useState<string | null>(profile_img_url || null);
   const [coverImage, setCoverImage] = useState<string | null>(cover_img_url || null);
+  const [toast, setToast] = useState<ISonnerToast>({
+    isOpen: false,
+    title: '',
+    message: '',
+  });
+
+  const showToast = useCallback((title: string, message: string) => {
+    setToast({ isOpen: true, title, message });
+  }, []);
 
   return (
     <section>
       <div className={'container'}>
         <H2>Profile Settings</H2>
         <div className={styles.profileBox}>
-          <UsernameForm username={username} />
+          <UsernameForm username={username} toastHandler={showToast} />
           <GenerationSection generation={generation} />
-          <DisplayNameForm display_name={display_name} />
-          <CountryForm country={country} />
-          <BiographyForm biography={biography} />
-          <ProfileImageForm profile_img_url={profileImage} setProfileImage={setProfileImage} />
-          <CoverImageForm cover_img_url={coverImage} setCoverImage={setCoverImage} />
+          <DisplayNameForm display_name={display_name} toastHandler={showToast} />
+          <CountryForm country={country} toastHandler={showToast} />
+          <BiographyForm biography={biography} toastHandler={showToast} />
+          <ProfileImageForm
+            profile_img_url={profileImage}
+            setProfileImage={setProfileImage}
+            toastHandler={showToast}
+          />
+          <CoverImageForm
+            cover_img_url={coverImage}
+            setCoverImage={setCoverImage}
+            toastHandler={showToast}
+          />
         </div>
       </div>
+
+      <Sonner
+        title={toast.title}
+        message={toast.message}
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+      />
     </section>
   );
 };

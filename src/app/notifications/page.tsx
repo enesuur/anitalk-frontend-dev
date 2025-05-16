@@ -1,7 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
-import styles from './_styles/Page.module.css';
-import { BellActive, BellOld, NotFound } from '@/assets/icons/';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import NotificationCard from './_components/NotificationCard';
 import { formatRelativeDate } from '@/lib/dateUtils';
 import { iconStyles } from '@/helpers/index';
@@ -9,18 +7,18 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getNotifications } from './_services/notification.service';
 import { H1 } from '@/shared/ui/headings';
+import { BellActive, BellOld, NotFound } from '@/assets/icons/';
+import clsx from '@/lib/cn';
+import { useIsMobile, useIsMounted } from '@/hooks';
+import { IUser } from '@/types/global';
+import styles from './_styles/Page.module.css';
 
 const PAGE_SIZE = 50;
 
 // TODO : REFACTOR
 
-type User = {
-  username: string;
-  avatar_url: string;
-};
-
 type Notification = {
-  users: User[];
+  users: Partial<IUser>[];
   totalCount: number;
   type: number;
   target: string;
@@ -33,6 +31,11 @@ const Page = () => {
   const [tabState, setTabState] = useState<boolean>(false);
   const parentRef = useRef<HTMLDivElement>(null);
 
+  /* 
+  HOOKS!
+  */
+  const isMobile = useIsMobile();
+  const isMounted = useIsMounted();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['notifications', tabState],
     queryFn: ({ pageParam = 0 }) => getNotifications(PAGE_SIZE, pageParam, tabState),
@@ -45,35 +48,39 @@ const Page = () => {
   const items = data?.pages.flatMap((page) => page.items) || [];
 
   const rowVirtualizer = useVirtualizer({
-    count: hasNextPage ? items.length + 1 : items.length, // Add a placeholder for loading
+    count: hasNextPage ? items.length + 1 : items.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 100, // Estimating the size of each row for virtual rendering
-    overscan: 5, // Preload additional rows for smoother scrolling
+    estimateSize: () => 100,
+    overscan: 30,
   });
 
+  // TODO: It will be global hook!!
   useEffect(() => {
     const virtualItems = rowVirtualizer.getVirtualItems();
     if (!virtualItems.length) return;
 
     const lastItem = virtualItems[virtualItems.length - 1];
-    // If the last item is reached and there's more data, fetch the next page
     if (lastItem.index === items.length && hasNextPage) {
-      fetchNextPage(); // Fetch the next batch of notifications
+      fetchNextPage();
     }
   }, [hasNextPage, items.length, rowVirtualizer, fetchNextPage]);
 
-  // Switch tabs (recent vs old notifications)
-  const handleTabSwitch = (tab: boolean) => {
+  const handleTabSwitch = useCallback((tab: boolean) => {
     setTabState(tab);
-  };
+    return;
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <React.Fragment>
       <section>
-        <div className='container' style={{ maxWidth: '1024px' }}>
-          <H1>Notifications</H1>
-          <nav className={styles.tabContainer}>
+        <div className={clsx(styles.mainBox, 'container')}>
+          <H1 style={{ margin: 0 }}>Notifications</H1>
+          <p>Stay updated on votes, comments, and activities related to the content you follow.</p>
+          <nav className={styles.tabBox}>
             <button
+              aria-label='Recent notifications tab clicker'
               className={`${styles.btnTab} ${!tabState ? styles.active : ''}`}
               onClick={() => handleTabSwitch(false)}
             >
@@ -81,6 +88,7 @@ const Page = () => {
               Recents
             </button>
             <button
+              aria-label='Recent notifications tab clicker'
               className={`${styles.btnTab} ${tabState ? styles.active : ''}`}
               onClick={() => handleTabSwitch(true)}
             >
@@ -91,7 +99,7 @@ const Page = () => {
 
           <div
             ref={parentRef}
-            className={styles.notificationContainer}
+            className={styles.notificationBox}
             style={{ height: '500px', overflow: 'auto' }}
           >
             {items.length === 0 ? (
@@ -109,15 +117,15 @@ const Page = () => {
               >
                 {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                   const isLoaderRow = virtualRow.index === items.length;
+                  const spacing = isMobile ? 16 : 2;
                   const style = {
                     position: 'absolute' as const,
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
+                    height: `${virtualRow.size - spacing}px`,
+                    transform: `translateY(${virtualRow.start + spacing * virtualRow.index}px)`,
                   };
-
                   return (
                     <div key={virtualRow.key} style={style}>
                       {isLoaderRow ? (

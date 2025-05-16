@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
-import styles from './NotificationCard.module.css';
 import Image from 'next/image';
 import { IUser } from '@/types/global';
 import { Bolt } from '@/assets/icons';
 import { iconStyles } from '@/helpers';
 import Link from 'next/link';
+import clsx from '@/lib/cn';
+import { PLACE_HOLDERS } from '@/helpers/constants';
+import styles from './NotificationCard.module.css';
 
 /* 
 NOTIFICATION TYPES DIVIDED INTO 3 PARTS
@@ -19,6 +21,8 @@ interface INotificationCardProps {
   type: (-1 | 0 | 1) | number;
   target: string;
   date: string | null;
+  containerClassname?: string;
+  containerStyle?: React.CSSProperties;
 }
 
 const NotificationCard: React.FC<INotificationCardProps> = ({
@@ -93,14 +97,14 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, 'container')}>
       <div className={styles.avatarBox}>
         <div className={styles.avatarGroup}>
           {visibleUsers.map((user, idx) => (
             <picture key={idx} className={styles.avatarWrapper} style={{ zIndex: 5 - idx }}>
               <Image
-                src={user?.avatar_url || '/img/avatar.webp'}
-                alt={user?.username || 'User Avatar'}
+                src={user?.avatar_url || PLACE_HOLDERS.avatar_url}
+                alt={`${user?.username}'s avatar picture`}
                 width={32}
                 height={32}
                 className={styles.avatar}

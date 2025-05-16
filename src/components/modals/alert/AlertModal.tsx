@@ -36,7 +36,7 @@ const AlertModal: React.FC<IAlertModalProps> = ({ isOpen, onClose, title, text }
 
   return (
     isOpen && (
-      <div className={styles.modalOverlay}>
+      <div className={styles.modalOverlay} id='alert-modal'>
         <div className={styles.modalContent}>
           <div className={styles.modalHeader}>
             <H2>{title}</H2>

@@ -66,6 +66,7 @@ const Topbar: React.FC<ITopbarProps> = ({ changeFeed }) => {
             style={{ width: `${100 / (TABS.length + 1)}%` }}
             className={styles.tabItem}
             onClick={handleSubscribeLetter}
+            data-testid='btn-newsletter'
           >
             <Mail />
             Newsletter

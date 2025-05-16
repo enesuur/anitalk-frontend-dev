@@ -1,8 +1,7 @@
-import { PartialUser } from '@/types/user';
+import { IUser } from '@/types/global';
 import { IconStyles } from '@/types/global';
 import swears from '@/data/swears.json';
 import { Crown, Shield, Megaphone, CheckCircle, User, Sparkles } from 'lucide-react';
-import { IBadge } from '@/types/global';
 
 /**
  * Calculate the age based on the provided birthdate.
@@ -36,15 +35,15 @@ const calculateAge = (birthDate: Date): number => {
 /**
  * Filter a list of users to determine which ones the current user is following.
  *
- * @param {PartialUser[]} my_followers - The list of users that the current user is following.
- * @param {PartialUser[]} other_followers - The list of other users to check against.
- * @returns {(PartialUser & { is_following: boolean })[]} A new array of users with an additional `is_following` property
+ * @param {Partial<IUser>[]} my_followers - The list of users that the current user is following.
+ * @param {Partial<IUser>[]} other_followers - The list of other users to check against.
+ * @returns {(Partial<IUser> & { is_following: boolean })[]} A new array of users with an additional `is_following` property
  * indicating whether the current user is following them.
  */
 const filter_followers = (
-  my_followers: PartialUser[],
-  other_followers: PartialUser[],
-): (PartialUser & { is_following: boolean })[] => {
+  my_followers: Partial<IUser>[],
+  other_followers: Partial<IUser>[],
+): (Partial<IUser> & { is_following: boolean })[] => {
   const my_followers_set = new Set(my_followers.map((follower) => follower._id));
 
   return other_followers.map((user) => ({
@@ -126,6 +125,22 @@ const filterSwears = (text: string, locale: 'tr' | 'en'): boolean => {
 };
 
 /**
+ * Converts the first character of a string to uppercase.
+ *
+ * @param {string} str - The input string to capitalize.
+ * @returns {string} A new string with the first character capitalized.
+ * If the input is an empty string, returns an empty string.
+ *
+ * @example
+ * capitalize('hello'); // 'Hello'
+ * capitalize('world'); // 'World'
+ * capitalize('');      // ''
+ */
+const capitalize = (str: string): string => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+/**
  * Badge map that defines user levels and special roles.
  *
  * @type {Record<number, { title: string;icon?: React.ElementType }>}
@@ -160,4 +175,5 @@ export {
   iconStyles,
   filterSwears,
   BADGE_MAP,
+  capitalize,
 };

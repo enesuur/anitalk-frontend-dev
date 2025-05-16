@@ -1,70 +1,78 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import TextInput from '@/shared/ui/input/TextInput';
 import Button from '@/shared/ui/button/Button';
-import styles from '../_styles/FavoriteSection.module.css';
 import { H2, H3, H4 } from '@/shared/ui/headings';
 import Sonner from '@/shared/ui/sonner/Sonner';
 import { filterSwears } from '@/helpers';
 import { remoteInstance } from '@/http/axios';
+import { useMutation } from '@tanstack/react-query';
+import ENDPOINTS from '@/http/endpoints';
+import { ISonnerToast } from '@/types/global';
+import { AxiosError } from 'axios';
+import styles from '../_styles/FavoriteSection.module.css';
+import clsx from 'clsx';
 
+/* 
+All Forms handled.
+*/
 interface IFavoriteAnimeProps {
   favorite_anime: string | null;
-  isAlertOpen: boolean;
-  setIsAlertOpen: (param: boolean) => void;
+  toastHandler: (title: string, message: string) => void;
 }
+const favoriteAnimeSchema = z.object({
+  favorite_anime: z
+    .string()
+    .min(1, 'Please enter your favorite anime name.')
+    .max(150, 'Favorite anime should be less than 150 characters.')
+    .nullable(),
+});
+type FavoriteAnimeForm = z.infer<typeof favoriteAnimeSchema>;
 
 const FavoriteAnimeForm: React.FC<IFavoriteAnimeProps> = ({
   favorite_anime,
-  isAlertOpen,
-  setIsAlertOpen,
+  toastHandler,
 }: IFavoriteAnimeProps) => {
-  const schema = z.object({
-    favorite_anime: z
-      .string()
-      .min(1, 'Please enter your favorite anime name.')
-      .max(150, 'Favorite anime should be less than 150 characters.')
-      .nullable(),
-  });
-
-  type FormData = z.infer<typeof schema>;
-
-  // Todo: form validasyonuna submit ederken küfür işini
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting, isLoading },
     reset,
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+  } = useForm<FavoriteAnimeForm>({
+    resolver: zodResolver(favoriteAnimeSchema),
     defaultValues: {
       favorite_anime: favorite_anime || '',
     },
   });
 
-  const onSubmit = async (data: FormData) => {
-    if (filterSwears(data.favorite_anime || '', 'tr')) {
-      console.log('test');
-      setIsAlertOpen(true);
-      console.log(isAlertOpen);
+  const mutation = useMutation({
+    mutationKey: ['favorite-anime'],
+    mutationFn: async (data: FormData) => {
+      const response = await remoteInstance.post(ENDPOINTS.postUserFavorite, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Favorite anime updated successfully.');
+      reset();
+    },
+    onError: (error: AxiosError) => {
+      console.log('Error', error);
+      toastHandler('Error', 'Failed to update favorite anime. Please try again.');
+    },
+  });
+
+  const onSubmit = (data: FavoriteAnimeForm) => {
+    if (!data.favorite_anime) return;
+
+    if (filterSwears(data?.favorite_anime, 'en')) {
+      console.warn('User swear attempt!');
+      toastHandler('Warning', 'Please avoid using inappropriate language.');
       return;
     }
-
-    try {
-      await remoteInstance.post('/api/favorite-items', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      reset();
-      console.log('Favorite anime submitted:', data);
-    } catch (error) {
-      console.error('Error submitting favorite anime:', error);
-    }
+    mutation.mutate(data);
   };
 
   return (
@@ -87,76 +95,69 @@ const FavoriteAnimeForm: React.FC<IFavoriteAnimeProps> = ({
         />
         <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
       </form>
-
-      {isAlertOpen && (
-        <Sonner
-          isOpen={true}
-          message='You are not funny, you cannot enter swears buddy!'
-          title='No swears!'
-          onClose={() => setIsAlertOpen(false)}
-        />
-      )}
     </div>
   );
 };
 
 interface IFavoriteMangaProps {
   favorite_manga: string | null;
-  isAlertOpen: boolean;
-  setIsAlertOpen: (param: boolean) => void;
+  toastHandler: (title: string, message: string) => void;
 }
 
-const FavoriteMangaForm = ({
-  favorite_manga,
-  setIsAlertOpen,
-  isAlertOpen,
-}: IFavoriteMangaProps) => {
-  const schema = z.object({
-    favorite_manga: z
-      .string()
-      .min(1, 'Please enter your favorite manga.')
-      .max(150, 'Favorite manga should be less than 150 characters.')
-      .nullable(),
-  });
+const favoriteMangaSchema = z.object({
+  favorite_manga: z
+    .string()
+    .min(1, 'Please enter your favorite manga.')
+    .max(150, 'Favorite manga should be less than 150 characters.')
+    .nullable(),
+});
 
-  type FormData = z.infer<typeof schema>;
+type FavoriteMangaForm = z.infer<typeof favoriteMangaSchema>;
 
+const FavoriteMangaForm = ({ favorite_manga, toastHandler }: IFavoriteMangaProps) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
+    formState: { errors },
     reset,
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+  } = useForm<FavoriteMangaForm>({
+    resolver: zodResolver(favoriteMangaSchema),
     defaultValues: {
       favorite_manga: favorite_manga || '',
     },
   });
 
-  const onSubmit = async (data: FormData) => {
-    if (filterSwears(data.favorite_manga || '', 'tr')) {
-      console.log('test');
-      setIsAlertOpen(true);
-      console.log(isAlertOpen);
+  const mutation = useMutation({
+    mutationKey: ['favorite-manga'],
+    mutationFn: async (data: FavoriteMangaForm) => {
+      const response = await remoteInstance.post(ENDPOINTS.postUserFavorite, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toastHandler('Success', 'Favorite manga updated successfully.');
+      reset();
+    },
+    onError: (error: AxiosError) => {
+      console.error('Error submitting favorite manga:', error);
+      toastHandler('Error', 'Failed to update favorite manga. Please try again.');
+    },
+  });
+
+  const onSubmit = (data: FavoriteMangaForm) => {
+    if (!data.favorite_manga) return;
+
+    if (filterSwears(data?.favorite_manga, 'en')) {
+      console.warn('Swear attempt');
+      toastHandler('Warning', 'You are not funny, you cannot enter swears buddy!');
       return;
     }
 
-    try {
-      await remoteInstance.post('/api/favorite-items', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      reset();
-      console.log('Favorite anime submitted:', data);
-    } catch (error) {
-      console.error('Error submitting favorite anime:', error);
-    }
+    mutation.mutate(data);
   };
 
   return (
-    <div className={styles.sectionWrapper}>
-      <H4>What is your favorite anime?</H4>
+    <div className={styles.formWrapper}>
+      <H4>What is your favorite manga?</H4>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formBox}>
         <Controller
           control={control}
@@ -172,38 +173,43 @@ const FavoriteMangaForm = ({
             />
           )}
         />
-        <Button text='Update' type='submit' disabled={isSubmitting} isLoading={isLoading} />
-      </form>
-      {isAlertOpen && (
-        <Sonner
-          isOpen={true}
-          message='You are not funny, you cannot enter swears buddy!'
-          title='No swears!'
-          onClose={() => setIsAlertOpen(false)}
+        <Button
+          text='Update'
+          type='submit'
+          disabled={mutation.isPending}
+          isLoading={mutation.isPending}
         />
-      )}
+      </form>
     </div>
   );
 };
 
 const FavoriteSection: React.FC = () => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [toast, setToast] = useState<ISonnerToast>({
+    isOpen: false,
+    title: '',
+    message: '',
+  });
+
+  const showToast = useCallback((title: string, message: string) => {
+    setToast({ isOpen: true, title, message });
+  }, []);
+
   return (
-    <section className={styles.favoriteSection}>
-      <div className='container'>
+    <section className={clsx(styles.sectionBox)}>
+      <div>
         <H2>Favorite Settings</H2>
         <H3>Let's, get to know each other better!</H3>
-        <FavoriteAnimeForm
-          isAlertOpen={isAlertOpen}
-          setIsAlertOpen={setIsAlertOpen}
-          favorite_anime={'One Piece'}
-        />
-        <FavoriteMangaForm
-          isAlertOpen={isAlertOpen}
-          setIsAlertOpen={setIsAlertOpen}
-          favorite_manga={'Kel Oğlan'}
-        />
+        <FavoriteAnimeForm toastHandler={showToast} favorite_anime={'One Piece'} />
+        <FavoriteMangaForm toastHandler={showToast} favorite_manga={'Death Note'} />
       </div>
+
+      <Sonner
+        title={toast.title}
+        message={toast.message}
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+      />
     </section>
   );
 };

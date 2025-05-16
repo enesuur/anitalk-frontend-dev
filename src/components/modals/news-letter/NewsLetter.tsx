@@ -59,20 +59,33 @@ const NewsletterModal: React.FC<INewsletterModalProps> = ({ isOpen, onClose }) =
 
   return (
     isOpen && (
-      <div className={styles.modalOverlay} onClick={handleCancel}>
-        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-          <div className={styles.modalHeader}>
-            <H2 className={styles.horizontalBox}>
+      <div
+        className={styles.modalOverlay}
+        onClick={handleCancel}
+        data-testid='newsletter-modal-overlay'
+      >
+        <div
+          className={styles.modalContent}
+          onClick={(e) => e.stopPropagation()}
+          data-testid='newsletter-modal-content'
+        >
+          <div className={styles.modalHeader} data-testid='newsletter-modal-header'>
+            <H2 className={styles.horizontalBox} data-testid='newsletter-modal-title'>
               <Mail {...iconStyles} />
               Stay in the Loop!
             </H2>
-            <X {...iconStyles} onClick={handleCancel} className={styles.btnClose} />
+            <X
+              {...iconStyles}
+              onClick={handleCancel}
+              className={styles.btnClose}
+              data-testid='newsletter-modal-close-btn'
+            />
           </div>
-          <small>
+          <small data-testid='newsletter-modal-description'>
             Get the latest anime news, updates, and exclusive content straight to your inbox. Join
             our newsletter today!
           </small>
-          <div className={styles.modalBody}>
+          <div className={styles.modalBody} data-testid='newsletter-modal-body'>
             <Controller
               name='email'
               control={control}
@@ -85,18 +98,25 @@ const NewsletterModal: React.FC<INewsletterModalProps> = ({ isOpen, onClose }) =
                   value={field.value}
                   onChange={(value) => field.onChange(value)}
                   error={errors.email?.message}
+                  data-testid='newsletter-email-input'
                 />
               )}
             />
 
-            <div className={styles.btnContainer}>
+            <div className={styles.btnContainer} data-testid='newsletter-modal-buttons'>
               <Button
                 text='Subscribe'
                 onClick={handleSubmit(onSubmit)}
                 isLoading={isLoading}
                 disabled={!!errors.email || isSubmitting}
+                data-testid='newsletter-subscribe-btn'
               />
-              <Button text='Cancel' variant='danger' onClick={handleCancel} />
+              <Button
+                text='Cancel'
+                variant='danger'
+                onClick={handleCancel}
+                data-testid='newsletter-cancel-btn'
+              />
             </div>
           </div>
         </div>

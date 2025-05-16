@@ -103,6 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                   <figure
                     className={styles.avatarBox}
                     onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                    data-testid='avatar-button'
                   >
                     <picture>
                       <Image
@@ -121,6 +122,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       href='/'
                       className={styles.actionBox}
                       onClick={() => setIsUserMenuOpen(false)}
+                      data-testid='menu-feed'
                     >
                       <Compass {...iconStyles} />
                       Feed
@@ -129,6 +131,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       href={`/user/${user.user?.username}`}
                       className={styles.actionBox}
                       onClick={() => setIsUserMenuOpen(false)}
+                      data-testid='menu-profile'
                     >
                       <Profile {...iconStyles} />
                       My Profile
@@ -137,11 +140,17 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       href='/settings'
                       className={styles.actionBox}
                       onClick={() => setIsUserMenuOpen(false)}
+                      data-testid='menu-settings'
                     >
                       <Maintenance {...iconStyles} />
                       Settings
                     </Link>
-                    <Link href={'/'} onClick={handleLogout} className={styles.actionBox}>
+                    <Link
+                      href={'/'}
+                      onClick={handleLogout}
+                      className={styles.actionBox}
+                      data-testid='menu-logout'
+                    >
                       <Logout {...iconStyles} />
                       Logout
                     </Link>

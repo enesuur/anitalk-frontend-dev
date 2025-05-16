@@ -11,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconPosition?: 'left' | 'right';
   variant?: 'primary' | 'danger' | 'warn' | 'proceed';
   containerClassname?: string;
+  id?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   variant = 'primary',
   containerClassname = '',
+  id,
   ...props
 }) => {
   const buttonClass = clsx(styles.container, styles[variant], containerClassname, {
@@ -29,7 +31,13 @@ const Button: React.FC<ButtonProps> = ({
   });
 
   return (
-    <button {...props} disabled={isDisabled || isLoading} className={buttonClass} style={style}>
+    <button
+      {...props}
+      disabled={isDisabled || isLoading}
+      className={buttonClass}
+      style={style}
+      id={id}
+    >
       {isLoading ? (
         <span className={styles.spinner}></span>
       ) : (

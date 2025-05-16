@@ -174,11 +174,15 @@ const Page = () => {
             <div className={styles.verticalBox}>
               <InpSearch
                 placeholder='Search blogs by title or snippet...'
+                id='search-blogs'
                 value={searchTerm}
                 onChange={handleQueryChange}
                 containerClassName={styles.searchBlogBox}
               />
-              <div className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}>
+              <div
+                className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}
+                id='blogs-container'
+              >
                 {paginatedBlogs.length > 0 ? (
                   paginatedBlogs.map((item, idx) => <BlogCard key={idx} {...item} />)
                 ) : (

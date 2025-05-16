@@ -1,15 +1,16 @@
-.favoriteSection {
+.sectionBox {
   max-width: 576px;
 }
 
-.sectionWrapper {
+.formWrapper {
   margin-top: var(--spacing-xxl);
 }
+
 .formBox {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-md);
   background-color: var(--soft-dark);
   border-radius: var(--border-radius);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md);
 }

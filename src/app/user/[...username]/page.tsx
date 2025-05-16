@@ -323,7 +323,12 @@ const Page = () => {
                 <span>Following</span>
                 <span>{following.length}</span>
               </div>
-              <div onClick={() => openModal(0)}>
+              <div
+                onClick={() => openModal(0)}
+                role='button'
+                aria-label='Open Followers Modal'
+                id='btn-followers'
+              >
                 <span>Followers</span>
                 <span>{followers.length}</span>
               </div>
