@@ -16,7 +16,9 @@ import clsx from '@/lib/cn';
 import Divider from '@/shared/ui/hr/Divider';
 import GoogleButton from '@/shared/ui/btn-google/GoogleButton';
 import { Rabbit, Key } from 'lucide-react';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 
 const signinSchema = z.object({
@@ -51,6 +53,7 @@ const SigninForm: React.FC<ISigninForm> = ({
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isLoading },
   } = useForm({
     resolver: zodResolver(signinSchema),
@@ -65,20 +68,31 @@ const SigninForm: React.FC<ISigninForm> = ({
     setToast({ isOpen: true, message, title });
   }, []);
 
+  /*Hooks*/
+  const router = useRouter();
+
   const signinMutation = useMutation({
     mutationFn: async (data: IFormData) => {
-      const response = await remoteInstance.post(ENDPOINTS.login, {
+      const response = await remoteInstance.post(ENDPOINTS.postSignin, {
         email: data.email,
         password: data.password,
       });
       return response.data;
     },
-    onSuccess: () => {
-      handleToast('Signin successful!', 'Success');
+    onSuccess: (data) => {
+      Cookies.set('auth_token', data.token, {
+        expires: 30,
+        path: '/',
+        secure: true,
+        sameSite: 'Lax',
+      });
+      handleToast(' You will be redirected to home page.', 'Success');
+      router.push('/');
+      reset();
     },
     onError: (error) => {
       console.error('Error:', error);
-      handleToast('Signin failed, please check your credentials.', 'Error');
+      handleToast(error.message, 'Error');
     },
   });
 
@@ -136,10 +150,7 @@ const SigninForm: React.FC<ISigninForm> = ({
 
         <Divider text='or' containerClassname={styles.dividerBox} />
 
-        <GoogleButton
-          containerClassname={styles.btnGoogle}
-          onClick={() => console.log('Google login')}
-        />
+        <GoogleButton containerClassname={styles.btnGoogle} disabled={true} />
 
         <div className={styles.footerBox}>
           <Link href='/auth/forgot-password' className={styles.footerLeft}>

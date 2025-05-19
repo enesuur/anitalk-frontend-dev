@@ -11,6 +11,7 @@ import { logout } from '@/redux/slices/user/userSlice';
 import { Plus, Profile, Maintenance, Logout, Bell } from '@/assets/icons/';
 import { iconStyles } from '@/helpers/index';
 import clsx from '@/lib/cn';
+import Cookies from 'js-cookie';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import { useDebounce, useClickOutside } from '@/hooks';
 import { PLACE_HOLDERS } from '@/helpers/constants';
@@ -35,10 +36,11 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
 
   /* Functions */
   const handleLogout = () => {
+    Cookies.remove('auth_token', { path: '/' });
     dispatch(logout());
   };
 
-  // TODO: Değişcek
+  // TODO: Will be change
   useEffect(() => {
     if (debouncedSearchTerm.trim() === '') {
       setSearchResults([]);
@@ -49,6 +51,9 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
     );
     setSearchResults(mockResults);
   }, [debouncedSearchTerm]);
+
+  // TODO: For auth case study
+  const token = Cookies.get('auth_token');
 
   // TODO: Search API, state management
 
@@ -77,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
               </ul>
             )}
           </li>
-          {user?.isLoggedIn ? (
+          {token ? (
             <React.Fragment>
               <div className={clsx(styles.userBox, styles.userMenuWrapper)} ref={userMenuRef}>
                 <div className={styles.actionBox}>
@@ -152,7 +157,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       data-testid='menu-logout'
                     >
                       <Logout {...iconStyles} />
-                      Logout
+                      Sign out
                     </Link>
                   </div>
                 )}

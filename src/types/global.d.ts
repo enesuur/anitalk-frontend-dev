@@ -104,7 +104,7 @@ type SwiperOptions = {
 };
 
 interface IUser {
-  _id: string;
+  _id: string | null;
   username: string;
   email: string;
   password: string;

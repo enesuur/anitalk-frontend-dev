@@ -83,12 +83,16 @@ baseInstance.interceptors.response.use(
 
 remoteInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    return response.data;
+    return response.data ?? response;
   },
   (error: AxiosError) => {
+    const resData = error.response?.data;
+
     const errorMessage =
-      typeof error.response?.data === 'string'
-        ? error.response.data
+      typeof resData === 'string'
+        ? resData
+        : typeof resData === 'object' && resData !== null && 'message' in resData
+        ? (resData as { message: string }).message
         : STATUS_CODES[error.response?.status ?? 0] || error.message || 'Unknown error';
 
     throw new Error(errorMessage);

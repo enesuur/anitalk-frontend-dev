@@ -9,17 +9,20 @@ interface IGoogleButton {
   containerStyle?: React.CSSProperties;
   onClick?: () => void;
   ariaLabel?: string;
+  disabled?: boolean;
 }
 
 const GoogleButton: React.FC<IGoogleButton> = ({
   containerClassname,
   containerStyle = {},
   onClick,
-  ariaLabel = 'Google ile giriş yap',
+  ariaLabel = 'Sign in via google',
+  disabled,
 }) => {
   return (
     <button
       type='button'
+      disabled={disabled}
       style={containerStyle}
       className={clsx(styles.container, containerClassname)}
       onClick={onClick}

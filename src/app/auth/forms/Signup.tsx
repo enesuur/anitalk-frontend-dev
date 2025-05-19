@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import Sonner from '@/shared/ui/sonner/Sonner';
+import Cookies from 'js-cookie';
 import InpMail from '@/shared/ui/input/mail/InpMail';
 import InpPassword from '@/shared/ui/input/InpPassword';
 import { z } from 'zod';
@@ -16,29 +17,26 @@ import clsx from '@/lib/cn';
 import Divider from '@/shared/ui/hr/Divider';
 import GoogleButton from '@/shared/ui/btn-google/GoogleButton';
 import { Rabbit, Key } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './styles.module.css';
 
-const signupSchema = z.object({
-  email: z.string().email('Your email is invalid!').nonempty('Email is required!'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters long!')
-    .nonempty('Password is required!'),
-  confirmPassword: z
-    .string()
-    .min(8, 'Password must be at least 8 characters long!')
-    .nonempty('Confirm password is required!')
-    .superRefine((val, ctx) => {
-      if (val !== ctx.parent.password) {
-        ctx.addIssue({
-          path: ['confirmPassword'],
-          message: 'Passwords do not match',
-          code: z.ZodIssueCode.custom,
-        });
-      }
-    }),
-});
+const signupSchema = z
+  .object({
+    email: z.string().email('Your email is invalid!').nonempty('Email is required!'),
+    password: z
+      .string()
+      .min(6, 'Password must be at least 6 characters long!')
+      .nonempty('Password is required!'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Password must be at least 6 characters long!')
+      .nonempty('Confirm password is required!'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords do not match',
+  });
 
 interface ISignupForm {
   containerClassname?: string;
@@ -64,6 +62,7 @@ const SignupForm: React.FC<ISignupForm> = ({
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isLoading },
   } = useForm({
     resolver: zodResolver(signupSchema),
@@ -83,20 +82,30 @@ const SignupForm: React.FC<ISignupForm> = ({
     });
   }, []);
 
+  const router = useRouter();
+
   const signupMutation = useMutation({
     mutationFn: async (data: IFormData) => {
-      const response = await remoteInstance.post(ENDPOINTS.signup, {
+      const response = await remoteInstance.post(ENDPOINTS.postSignup, {
         email: data.email,
         password: data.password,
       });
       return response.data;
     },
-    onSuccess: () => {
-      handleToast('Signup successful!', 'Success');
+    onSuccess: (data) => {
+      Cookies.set('auth_token', data.token, {
+        expires: 30,
+        path: '/',
+        secure: true,
+        sameSite: 'Lax',
+      });
+      handleToast('Signup successful! You will be redirected to home page.', 'Success');
+      router.push('/');
+      reset();
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       console.error('Error:', error);
-      handleToast('Signup failed, please try again!', 'Error');
+      handleToast(error.message, 'Error');
     },
   });
 
@@ -161,12 +170,16 @@ const SignupForm: React.FC<ISignupForm> = ({
         <Button
           type='submit'
           text={isSubmitting ? 'Signing up...' : 'Sign Up'}
-          isLoading={isLoading}
+          isLoading={isSubmitting}
           disabled={isSubmitting || isLoading}
           className={styles.btnSubmit}
         />
         <Divider text={'or'} containerClassname={styles.dividerBox} />
-        <GoogleButton containerClassname={styles.btnGoogle} onClick={() => console.log('Test')} />
+        <GoogleButton
+          containerClassname={styles.btnGoogle}
+          disabled={true}
+          onClick={() => console.log('Not implemented yet!')}
+        />
         <div className={styles.footerBox}>
           <Link href={'/auth/forgot-password'} className={styles.footerLeft}>
             <Key />

@@ -10,9 +10,9 @@
   border-radius: var(--border-radius);
   padding: var(--spacing-base);
   width: max-content;
-  cursor: pointer;
   user-select: none;
   transition: border-color, opacity 0.3s ease-in-out;
+  cursor: disabled;
 }
 
 .container:hover {
