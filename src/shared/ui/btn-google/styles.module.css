@@ -12,7 +12,7 @@
   width: max-content;
   user-select: none;
   transition: border-color, opacity 0.3s ease-in-out;
-  cursor: disabled;
+  cursor: not-allowed;
 }
 
 .container:hover {
