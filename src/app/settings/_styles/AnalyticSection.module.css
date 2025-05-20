@@ -1,23 +1,28 @@
-.analyticContainer {
+.analyticBox {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-xl);
-  color: var(--white);
-  opacity: 0.5;
+  opacity: var(--opacity);
   transition: opacity 0.3s ease-in-out;
   margin: auto;
   align-items: center;
 }
 
-.analyticContainer svg {
-  opacity: 0.5;
+.analyticBox svg {
+  opacity: var(--opacity);
   color: var(--white);
   width: 64px;
   height: 64px;
   transition: opacity 0.3s ease-in-out;
 }
 
-.analyticContainer:hover,
-.analyticContainer svg:hover {
+.analyticBox:hover,
+.analyticBox svg:hover {
   opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .analyticBox {
+    text-align: center;
+  }
 }

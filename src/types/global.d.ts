@@ -121,6 +121,7 @@ interface IUser {
   followings: Partial<IUser>[] | null;
   talks: ITalk[] | null;
   security_pin: number | null;
+  isMailVerified: boolean;
 }
 
 interface ISonnerToast {

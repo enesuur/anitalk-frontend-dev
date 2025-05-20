@@ -25,8 +25,6 @@ const ImageInput = ({ onImageSelect, errorMessage }: ImageInputProps) => {
     onImageSelect?.(null, null);
   }, [onImageSelect]);
 
-  console.log('error2323', error);
-
   const validateAndSetFile = useCallback(
     (file: File) => {
       const sizeInMB = file.size / (1024 * 1024);

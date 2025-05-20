@@ -26,6 +26,7 @@ const mockUser: IUser = {
   followings: [],
   talks: [],
   security_pin: null,
+  isMailVerified: false,
 };
 
 const initialState: UserState = {

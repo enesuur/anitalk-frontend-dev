@@ -1,6 +1,6 @@
 'use client';
 import React, { useCallback, useState } from 'react';
-import { useForm, Controller, useFormState } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@/shared/ui/button/Button';
@@ -86,7 +86,7 @@ const UsernameForm = ({ username, toastHandler }: IUsernameProps) => {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label='Username'
+                label='username'
                 hideLabel={true}
                 containerClassName={styles.inpText}
               />
@@ -170,7 +170,7 @@ const DisplayNameForm = ({ display_name, toastHandler }: IDisplayForm) => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formBox}>
         <div className={styles.leftBox}>
           <div className={styles.labelBox}>
-            <ProfileIcon width={16} height={16} />
+            <ProfileIcon width={20} height={20} />
             <span>Display Name</span>
           </div>
           <Controller
@@ -433,8 +433,6 @@ const ProfileImageForm = ({
     setProfileImage(previewUrl);
   };
 
-  console.log(errors?.profile_img_url?.message);
-
   return (
     <div>
       <H3>Profile Image</H3>
@@ -524,7 +522,6 @@ const CoverImageForm = ({ cover_img_url, setCoverImage, toastHandler }: ICoverIm
   const handleImageSelect = (_: File | null, previewUrl: string | null) => {
     setCoverImage(previewUrl);
   };
-  console.log('test', errors.cover_img_url?.message);
 
   return (
     <div>

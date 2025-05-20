@@ -211,11 +211,11 @@ const SecuritySection: React.FC = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const handleNotificationClose = () => {
-    setIsNotificationOpen(false); // Bildirimi kapat
+    setIsNotificationOpen(false);
   };
 
   const handleShowNotification = () => {
-    setIsNotificationOpen(true); // Bildirimi aç
+    setIsNotificationOpen(true);
   };
   return (
     <React.Fragment>
@@ -241,8 +241,6 @@ const SecuritySection: React.FC = () => {
         message={'You will be redirected to homepage in 3 seconds.'}
         onClose={handleNotificationClose}
       />
-
-      <Button onClick={handleShowNotification} text='Dummy button for soner abi testing' />
     </React.Fragment>
   );
 };

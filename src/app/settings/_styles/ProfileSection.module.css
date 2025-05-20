@@ -226,3 +226,23 @@
   padding: 20px;
   border-radius: var(--border-radius);
 }
+
+@media screen and (max-width: 768px) {
+  .generationBox,
+  .formBox,
+  .formBox .leftBox {
+    flex-direction: column;
+  }
+
+  .generationBox {
+    align-items: flex-start;
+  }
+
+  .generationBox span {
+    text-align: left;
+  }
+  .labelBox,
+  .inpText {
+    width: 100%;
+  }
+}
