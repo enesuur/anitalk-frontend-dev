@@ -99,8 +99,13 @@ const SignupForm: React.FC<ISignupForm> = ({
         secure: true,
         sameSite: 'Lax',
       });
-      handleToast('Signup successful! You will be redirected to home page.', 'Success');
-      router.push('/');
+      handleToast(
+        'Signup successful! You will be redirected to home page in 3 seconds.',
+        'Success',
+      );
+      setTimeout(() => {
+        router.push('/');
+      }, 3000);
       reset();
     },
     onError: (error: Error) => {

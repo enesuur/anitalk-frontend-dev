@@ -86,8 +86,10 @@ const SigninForm: React.FC<ISigninForm> = ({
         secure: true,
         sameSite: 'Lax',
       });
-      handleToast(' You will be redirected to home page.', 'Success');
-      router.push('/');
+      handleToast(' You will be redirected to home page in 3 seconds.', 'Success');
+      setTimeout(() => {
+        router.push('/');
+      }, 3000);
       reset();
     },
     onError: (error) => {

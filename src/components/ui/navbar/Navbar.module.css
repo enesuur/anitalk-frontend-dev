@@ -129,6 +129,12 @@
   padding: var(--spacing-base);
 }
 
+.btnLogout {
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
 /* --- Search Box --- */
 .searchBox {
   position: relative;

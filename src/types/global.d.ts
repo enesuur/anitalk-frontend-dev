@@ -17,6 +17,7 @@ interface IBlogLabel {
 
 interface IBlog {
   _id: string;
+  key?: string;
   title: string;
   snippet: string;
   date: Date;

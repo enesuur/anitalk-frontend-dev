@@ -1,7 +1,8 @@
 'use client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import clsx from '@/lib/cn';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
+import clsx from '@/lib/cn';
 import { Compass, Menu, X, Newspaper } from 'lucide-react';
 import { Plus, Profile, Bell, Logout } from '@/assets/icons/';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
@@ -172,16 +173,22 @@ const MobileNavbar: React.FC<IMobileNavbarProps> = ({ containerStyle }: IMobileN
               ))}
 
               {user ? (
-                <Button
-                  icon={<Logout />}
-                  variant='danger'
-                  containerClassname={styles.btnLogout}
-                  text='Logout'
-                  onClick={() => {
-                    dispatch(logout());
-                    closeDrawer();
-                  }}
-                />
+                <React.Fragment>
+                  <Link href='/settings' onClick={handleLinkClick}>
+                    Settings
+                  </Link>
+                  <Button
+                    icon={<Logout />}
+                    variant='danger'
+                    containerClassname={styles.btnLogout}
+                    text='Logout'
+                    onClick={() => {
+                      dispatch(logout());
+                      closeDrawer();
+                      Cookies.remove('auth_token', { path: '/' });
+                    }}
+                  />
+                </React.Fragment>
               ) : (
                 <div className={styles.mobileUnauthBox}>
                   <Link href='/auth/sign-in' onClick={handleLinkClick}>

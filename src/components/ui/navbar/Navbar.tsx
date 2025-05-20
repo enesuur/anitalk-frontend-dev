@@ -150,15 +150,14 @@ const Navbar: React.FC<NavbarProps> = ({ className = '', style }) => {
                       <Maintenance {...iconStyles} />
                       Settings
                     </Link>
-                    <Link
-                      href={'/'}
+                    <button
                       onClick={handleLogout}
-                      className={styles.actionBox}
+                      className={clsx(styles.actionBox, styles.btnLogout)}
                       data-testid='menu-logout'
                     >
                       <Logout {...iconStyles} />
                       Sign out
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>

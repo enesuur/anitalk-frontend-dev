@@ -1,9 +1,8 @@
 .cardBox {
   display: flex;
-  height: 250px;
+  height: 300px;
+  max-height: max-content;
   gap: var(--spacing-4xl);
-  color: var(--white);
-  font-size: var(--font-size-base);
   border-top: 1px solid var(--faded-white);
   border-bottom: 1px solid var(--faded-white);
   transition: background-color 0.1s ease-in-out;
@@ -63,7 +62,6 @@
 .infoBox svg {
   width: 14px;
   height: 14px;
-  color: var(--white);
   opacity: var(--opacity);
 }
 
@@ -71,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for color and transform */
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .readmoreBox:hover {
@@ -91,8 +89,64 @@
   align-items: center;
   font-size: var(--font-size-sm);
   width: max-content;
-  border-radius: var(--border-radius);
-  color: var(--white);
   column-gap: var(--spacing-sm);
-  font-weight: 500;
+}
+
+.labelBox svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .cardBox {
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    height: auto;
+    overflow: hidden;
+    border-top: 0;
+    border-bottom: 0;
+    padding: var(--spacing-sm);
+    padding: 0;
+  }
+
+  .cardBox:hover {
+    background-color: transparent;
+  }
+
+  .imageBox {
+    width: 100%;
+    height: 256px;
+  }
+
+  .contentBox {
+    gap: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    padding: 0;
+  }
+
+  .contentBox h2 {
+    line-height: 1.25;
+  }
+
+  .infoBox {
+    gap: var(--spacing-lg);
+  }
+
+  .infoBox svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .readmoreBox {
+    font-size: var(--font-size-sm);
+  }
+
+  .readmoreBox svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cardFooter {
+    margin-top: var(--spacing-lg);
+  }
 }

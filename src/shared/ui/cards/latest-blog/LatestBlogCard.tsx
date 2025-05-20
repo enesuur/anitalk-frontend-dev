@@ -12,17 +12,17 @@ import styles from './styles.module.css';
 
 const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug, label }: IBlog) => {
   return (
-    <Link href={'#'}>
-      {/* LEFT BOX */}
+    <Link href={`/blogs/${slug}`} key={_id}>
       <article className={styles.cardBox}>
+        {/* LEFT BOX */}
         <div className={styles.imageBox}>
           <picture>
             <Image
               src={img_url || PLACE_HOLDERS.background_cover_url}
-              alt={title}
+              alt={`${title} ' photo`}
               loading={'lazy'}
               fill={true}
-              objectFit={'cover'}
+              quality={90}
             />
           </picture>
         </div>
@@ -34,8 +34,6 @@ const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug, labe
             <Diamond
               style={{
                 fill: label?.color || PLACE_HOLDERS.blog_label_color,
-                width: '14px',
-                height: '14px',
               }}
             />
             <span>{label?.title}</span>
@@ -49,7 +47,7 @@ const LatestBlogCard = ({ _id, title, snippet, date, img_url, author, slug, labe
             <div className={styles.infoBox}>
               <p className={styles.horizontalBox}>
                 <Profile />
-                <span>{author}</span>
+                <span>{truncateWithTrail(author, 10)}</span>
               </p>
               <p className={styles.horizontalBox}>
                 <DateIcon />

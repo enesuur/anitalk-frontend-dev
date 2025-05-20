@@ -12,10 +12,14 @@ import getBlurDataURL from '@/lib/base64ph';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
 import { H1, H2, H3 } from '@/shared/ui/headings';
+import clsx from '@/lib/cn';
 import CommentCount from '@/shared/ui/comment-count/CommentCount';
 import LatestBlogCard from '@/shared/ui/cards/latest-blog/LatestBlogCard';
 import Sort from '@/components/sort/Sort';
+import { faker, Faker } from '@faker-js/faker';
+import { PLACE_HOLDERS } from '@/helpers/constants';
 import styles from './Page.module.css';
+import { iconStyles } from '@/helpers';
 
 const mockBlogs = generateMockBlogs(5);
 const mockComments = generateMockComments(5);
@@ -27,21 +31,23 @@ const mockComments = generateMockComments(5);
 const Page: React.FC = async () => {
   const blurUrl = await getBlurDataURL('https://picsum.photos/1920/1080');
 
+  const temp =
+    faker.image.urlPicsumPhotos({
+      width: 1920,
+      height: 1080,
+    }) || PLACE_HOLDERS.background_cover_url;
   return (
     <React.Fragment>
       <ReadProgressBar />
-      <section>
-        <div className='container'>
+      <section className={styles.headerSection}>
+        <div className={clsx('container')}>
           <div className={styles.blogBox}>
             <figure>
               <picture>
                 <Image
-                  src={'https://picsum.photos/1920/1080'}
+                  src={temp}
                   alt={'Awesome Blog Image'}
                   fill={true}
-                  objectFit={'cover'}
-                  className={styles.img}
-                  objectPosition={'center'}
                   quality={90}
                   placeholder={'blur'}
                   blurDataURL={blurUrl}
@@ -49,19 +55,19 @@ const Page: React.FC = async () => {
               </picture>
             </figure>
 
-            <H1 className={styles.title}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, esse.
-            </H1>
+            <H1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, esse.</H1>
 
             <div className={styles.infoBox}>
               <Link href={`user/${1}`} className={styles.userBox}>
                 <picture>
                   <Image
-                    src={'https://picsum.photos/128/128'}
+                    src={
+                      faker.image.personPortrait({ sex: 'female', size: 128 }) ||
+                      PLACE_HOLDERS.avatar_url
+                    }
                     alt={'Awesome Blog Image'}
                     fill={true}
                     objectFit={'cover'}
-                    className={styles.img}
                     objectPosition={'center'}
                     quality={90}
                     placeholder={'blur'}
@@ -74,7 +80,7 @@ const Page: React.FC = async () => {
                 <p className={styles.innerBox}>
                   <span>{13} minutes read time</span>
                   <span>
-                    <DateIcon width={20} height={20} color={'#FFFFFF'} opacity={0.8} />
+                    <DateIcon {...iconStyles} />
                     {'22 April 2024'}
                   </span>
                 </p>
@@ -84,8 +90,8 @@ const Page: React.FC = async () => {
         </div>
       </section>
 
-      <section>
-        <div className={`${styles.contentWrapper} container`}>
+      <section className={styles.contentSection}>
+        <div className={clsx(styles.contentWrapper, 'container')}>
           <article className={styles.blogBody}>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius vel eum tenetur iure
@@ -163,8 +169,8 @@ const Page: React.FC = async () => {
             </p>
           </article>
 
-          <div className={styles.recommendContainer}>
-            <H3 style={{ margin: 0 }}>You may interest</H3>
+          <div className={styles.recommendBox}>
+            <H2>You may interest</H2>
             {mockBlogs.map((blog: Partial<IBlog>, index: number) => (
               <RecommendCard
                 key={index}
@@ -188,7 +194,7 @@ const Page: React.FC = async () => {
       <div className='container'>
         <div className={styles.latestBlogContainer}>
           <H2>
-            People also <span className={'highlight-text'}>read </span>
+            People also <span className='highlight-text'>read </span>
             related blogs
           </H2>
           {mockBlogs.map((item: Partial<IBlog>, index: number) => (
@@ -211,7 +217,7 @@ const Page: React.FC = async () => {
         </div>
       </div>
 
-      <Divider text={'Comments'} className={'container'} style={{ margin: '0 auto' }} />
+      <Divider text={'Comments'} containerClassname={'container'} style={{ margin: '0 auto' }} />
       {/* --- Comment Section --- */}
 
       {/* TODO: Functionality. */}

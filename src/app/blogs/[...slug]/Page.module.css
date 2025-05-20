@@ -20,7 +20,6 @@
 .blogBox .title {
   font-size: var(--font-size-lg);
   color: var(--white);
-  line-height: 1.5;
   margin: var(--spacing-xxl) 0;
 }
 
@@ -89,26 +88,18 @@
   flex-direction: column;
 }
 
-.blogBody {
-  color: var(--white);
-}
-
 .contentWrapper {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: var(--spacing-xl);
 }
 
-.recommendContainer {
+.recommendBox {
   display: flex;
   flex-direction: column;
   row-gap: var(--spacing-xxl);
   max-height: max-content;
   overflow: hidden;
-}
-
-.recommendContainer h3 {
-  color: var(--white);
 }
 
 .latestBlogContainer {
@@ -124,12 +115,36 @@
   row-gap: var(--spacing-xl);
 }
 
-.highlightText {
-  color: var(--orange);
-}
-
 .commentsHeaderBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .blogBox figure {
+    height: 500px;
+  }
+
+  .blogBox h1 {
+    font-size: var(--font-size-lg);
+    line-height: 1.5;
+  }
+
+  .infoBox {
+    margin-top: var(--spacing-4xl);
+  }
+
+  .contentWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .recommendBox {
+    margin: var(--spacing-4xl) 0;
+  }
+
+  .contentSection,
+  .headerSection {
+    margin-top: var(---spacing-4xl);
+  }
 }

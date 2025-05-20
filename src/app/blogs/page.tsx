@@ -1,11 +1,11 @@
-import styles from './_styles/Page.module.css';
 import BlogCard from './_components/card/BlogCard';
 import { Blog as BlogIcon } from '@/assets/icons/index';
 import Scroller from '@/shared/ui/scroller/Scroller';
 import PaginationWrapper from '@/components/pagination/PaginationWrapper';
-import { getBlogsByPage } from '@/lib/fakeBlog';
 import Carousel from '@/components/carousel/Carousel';
 import { H1 } from '@/shared/ui/headings';
+import { getBlogsByPage } from '@/lib/fakeBlog';
+import styles from './_styles/Page.module.css';
 
 type Props = {
   searchParams: { page?: string };
