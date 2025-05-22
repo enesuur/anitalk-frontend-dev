@@ -218,7 +218,7 @@ i {
 .container {
   width: 100%;
   max-width: 1400px;
-  padding: 0 var(--spacing-base);
+  padding: 0 var(--spacing-lg);
   margin: 0 auto;
 }
 

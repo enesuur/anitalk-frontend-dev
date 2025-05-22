@@ -28,13 +28,25 @@ const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
   },
 ];
 
-const Page = () => {
+/* 24 HOURS CACHING! */
+export const revalidate = 86400;
+
+const pageStyles = {
+  breadcrumb: {
+    margin: '24px 0',
+  },
+  contactSection: {
+    margin: '144px 0',
+  },
+} as const;
+
+const Page = async () => {
   return (
     <React.Fragment>
       <section>
         <div className='container'>
           <H1>React out us!</H1>
-          <BreadCrumb containerStyle={{ margin: '24px 0' }} />
+          <BreadCrumb containerStyle={pageStyles.breadcrumb} />
           <div className={styles.socialBox}>
             {SOCIAL_ITEMS.map((item: ISocialCardProps, index: number) => (
               <SocialCard
@@ -49,7 +61,7 @@ const Page = () => {
         </div>
       </section>
 
-      <section style={{ margin: '144px 0' }}>
+      <section style={pageStyles.contactSection}>
         <div className='container'>
           <ContactForm />
         </div>

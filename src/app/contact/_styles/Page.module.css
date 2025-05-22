@@ -3,3 +3,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-4xl);
 }
+
+@media (max-width: 1024px) {
+  .socialBox {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .socialBox {
+    grid-template-columns: 1fr;
+  }
+}

@@ -15,6 +15,7 @@ const ENDPOINTS: Readonly<Record<string, string>> = {
   postUserCoverImage: `${BASE_URL}/user/cover-image`,
   deleteUserCoverImage: `${BASE_URL}/user/cover-image`,
   postUserFavorite: `${BASE_URL}/user/favorite`,
+  postContactForm: `${BASE_URL}/forms/report`,
   getNetworkCheck: 'https://www.google.com/generate_204',
 } as const;
 

@@ -6,7 +6,7 @@
   border-radius: var(--border-radius);
   backdrop-filter: blur(10px);
   box-shadow: var(--box-shadow);
-  background: radial-gradient(circle at bottom right, rgb(30, 30, 30, 0.1), #1e1e1e 60%);
+  background: radial-gradient(circle at bottom right, rgba(30, 30, 30, 0.1), #1e1e1e 60%);
 }
 
 .formBox {
@@ -16,7 +16,7 @@
   gap: var(--spacing-xl);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
-  background: linear-gradient(135deg, rgb(30, 30, 30, 0.1), rgba(30, 30, 30, 0.92));
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.1), rgba(30, 30, 30, 0.92));
 }
 
 .rightBox {
@@ -30,4 +30,34 @@
   border-radius: var(--border-radius);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   max-width: 512px;
+}
+
+/* Tablet ve altı cihazlarda (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .mainBox {
+    flex-direction: column;
+  }
+
+  .rightBox {
+    order: -1; /* rightBox yukarı çıkar */
+  }
+
+  .formBox,
+  .rightBox {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .mainBox {
+    gap: 0;
+  }
+}
+
+/* Mobil cihazlar (max-width: 640px) */
+@media (max-width: 640px) {
+  .formBox,
+  .rightBox {
+    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
 }

@@ -31,20 +31,20 @@ const HomePage = () => {
   };
   return (
     <React.Fragment>
-      {/* <section style={{ margin: '0' }}>
+      <section style={{ margin: '0' }}>
         <div className='container'>
           <Topbar />
         </div>
-      </section> */}
+      </section>
       <section>
         <div className={'container'}>
           <Hero latest_blogs={mockBlogs} />
         </div>
       </section>
-      {/* <div className={'container'}>
+      <div className={'container'}>
         <Banner text='Advertise Section 1920 x 1080' />
-      </div> */}
-      {/* <section>
+      </div>
+      <section>
         <div className={`${styles.mainBox} container`}>
           <Sidebar />
           <Composer
@@ -54,13 +54,13 @@ const HomePage = () => {
             feed_talks={feed_talks}
           />
         </div>
-      </section> */}
+      </section>
 
-      {/* <section>
+      <section>
         <div className='container'>
           <InfiniteBlogs trending_blogs={trending_blogs} infinite_blogs={infiniteBlogs} />
         </div>
-      </section> */}
+      </section>
 
       <Scroller />
     </React.Fragment>
