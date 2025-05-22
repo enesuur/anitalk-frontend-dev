@@ -17,7 +17,7 @@ const Sort: React.FC = () => {
 
   return (
     <div className={styles.sortBox}>
-      <div className={styles.filterTitle}>Filter</div>
+      <div className={styles.filterTitle}>Filter comments</div>
       <div className={styles.optionsWrapper}>
         <div
           role='button'

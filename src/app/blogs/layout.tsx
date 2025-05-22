@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
-      <NavSwitcher />
+      <NavSwitcher mobileNavbarContainerStyle={{ backdropFilter: '0px' }} />
       <main className={styles.blogLayout}>{children}</main>
       <Footer />
     </React.Fragment>

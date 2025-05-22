@@ -100,6 +100,13 @@
   row-gap: var(--spacing-xxl);
   max-height: max-content;
   overflow: hidden;
+  position: sticky;
+  top: 100px;
+}
+
+.latestBlogTextHeader {
+  font-size: var(--font-size-lg);
+  margin: var(--spacing-base) 0;
 }
 
 .latestBlogContainer {
@@ -110,15 +117,36 @@
 }
 
 .commentContainer {
+  margin-top: var(--spacing-4xl);
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-xl);
+  row-gap: var(--spacing-4xl);
 }
 
 .commentsHeaderBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.interestTextHeader {
+  margin-top: 0;
+}
+
+.dividerLine {
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+  .contentWrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+  .contentWrapper {
+    grid-template-columns: 7fr 3fr;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -135,16 +163,26 @@
     margin-top: var(--spacing-4xl);
   }
 
-  .contentWrapper {
-    grid-template-columns: 1fr;
-  }
-
   .recommendBox {
     margin: var(--spacing-4xl) 0;
   }
 
-  .contentSection,
   .headerSection {
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .contentSection {
     margin-top: var(---spacing-4xl);
+  }
+
+  .latestBlogContainer h2 {
+    font-size: var(--font-size-md);
+  }
+
+  .commentsHeaderBox {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: var(--spacing-xl) 0;
+    row-gap: var(--spacing-lg);
   }
 }

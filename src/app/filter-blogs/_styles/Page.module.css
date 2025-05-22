@@ -60,6 +60,155 @@
   margin: var(--spacing-xl) 0;
 }
 
-.highlightText {
-  color: var(--orange);
+.sortMobileMenu {
+  display: none;
+}
+
+.breadcrumbContainer {
+  margin-bottom: var(--spacing-md);
+}
+
+.inpCategorySearch {
+  min-width: auto;
+}
+
+.backdropBlur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .pageBox {
+    gap: var(--spacing-lg);
+  }
+  .blogsBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* DO NOT RENDER DRAWER MENU ON WIDER SCREENS */
+@media (max-width: 768px) {
+  .filterBox {
+    display: none;
+  }
+}
+
+/* Tablets and mobile */
+@media screen and (max-width: 768px) {
+  .pageBox {
+    flex-direction: column;
+    row-gap: var(--spacing-4xl);
+  }
+
+  .sortMobileMenu {
+    display: flex;
+    align-items: center;
+    margin: var(--spacing-lg) 0;
+  }
+
+  .btnFilterDrawerMenu {
+    margin-left: 12px;
+  }
+
+  .sortContainer {
+    display: flex;
+    width: max-content;
+    gap: var(--spacing-sm);
+    margin-left: auto;
+  }
+
+  .sortBox {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    margin-left: var(--spacing-md);
+    column-gap: var(--spacing-md);
+  }
+
+  .sortMobileMenu svg {
+    width: 24px;
+    height: 24px;
+    transition: color 0.1s ease-in-out;
+    cursor: pointer;
+  }
+
+  .sortMobileMenu svg:hover {
+    color: var(--orange);
+  }
+
+  .pageBox aside {
+    width: 100%;
+    order: 2;
+    border-right: 1px solid var(--faded-white);
+    max-height: none !important;
+  }
+
+  .blogsBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Drawer default (kapalı) */
+  .filterBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 75%;
+    max-width: 75%;
+    height: 100%;
+    border-radius: 0;
+    background-color: var(--background);
+    border: 0;
+    z-index: 9999;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(-100%);
+  }
+
+  /* Drawer açık hali */
+  .drawerOpen {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  .drawerOpen::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pageBox aside {
+    border: none;
+    border-radius: 0;
+    background-color: var(--soft-dark);
+    padding: var(--spacing-lg);
+    max-height: none;
+  }
+
+  .verticalBox {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .inpCategorySearch {
+    min-width: auto;
+  }
+
+  .btnResetFilters {
+    margin-top: auto;
+    margin-bottom: 50px;
+    width: 100%;
+  }
+
+  .blogsBox {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .sortMobileMenu h2 {
+    font-size: var(--font-size-base);
+  }
 }

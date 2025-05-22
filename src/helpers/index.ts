@@ -167,6 +167,46 @@ const BADGE_MAP = Object.freeze({
 
 export type BadgeMap = typeof BADGE_MAP;
 
+/**
+ * Sorts an array of objects alphabetically by a specified key.
+ *
+ * @template T - The type of the objects in the array.
+ * @template K - The key within the object used for sorting.
+ * @param {T[]} items - The array of objects to be sorted.
+ * @param {K} key - The key to sort by (its value should be a string or convertible to string).
+ * @param {boolean} [isAscending=true] - Whether to sort in ascending (A–Z) order. Default is true.
+ * @returns {T[]} A new array sorted alphabetically by the specified key.
+ */
+function sortAlphabetically<T, K extends keyof T>(
+  items: T[],
+  key: K,
+  isAscending: boolean = true,
+): T[] {
+  return [...items].sort((a, b) => {
+    const aVal = String(a[key]);
+    const bVal = String(b[key]);
+    return isAscending ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+  });
+}
+
+/**
+ * Sorts an array of objects based on a date-like value under a specified key.
+ *
+ * @template T - The type of the objects in the array.
+ * @template K - The key within the object used for sorting (should be a date string or Date object).
+ * @param {T[]} items - The array of objects to be sorted.
+ * @param {K} key - The key to sort by (its value must be parsable by Date).
+ * @param {boolean} [isAscending=true] - Whether to sort in ascending (oldest–newest) order. Default is true.
+ * @returns {T[]} A new array sorted by date based on the specified key.
+ */
+function sortByDate<T, K extends keyof T>(items: T[], key: K, isAscending: boolean = true): T[] {
+  return [...items].sort((a, b) => {
+    const aDate = new Date(a[key] as unknown as string).getTime();
+    const bDate = new Date(b[key] as unknown as string).getTime();
+    return isAscending ? aDate - bDate : bDate - aDate;
+  });
+}
+
 export {
   calculateAge,
   filter_followers,
@@ -176,4 +216,6 @@ export {
   filterSwears,
   BADGE_MAP,
   capitalize,
+  sortAlphabetically,
+  sortByDate,
 };

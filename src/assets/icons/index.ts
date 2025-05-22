@@ -37,3 +37,5 @@ export * from './Instagram';
 export * from './Youtube';
 export * from './Send';
 export * from './Facebook';
+export * from './DescAlphOrder';
+export * from './AscAlphOrder';

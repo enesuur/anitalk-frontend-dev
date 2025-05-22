@@ -78,3 +78,10 @@
   transform: scale(1.05) rotate(1deg) translateY(-2px);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .heroBox {
+    display: none;
+  }
+}

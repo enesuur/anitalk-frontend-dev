@@ -1,17 +1,13 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useIsMounted } from '@/hooks';
 import styles from './Scroller.module.css';
 
 const SCROLL_DURATION = 500;
 
 const ScrollToTop = () => {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-
-  // !!! Prevents hydration error because of server-client conflict.
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useIsMounted();
 
   const handleScrollToTop = useCallback(() => {
     const startingY = window.scrollY;

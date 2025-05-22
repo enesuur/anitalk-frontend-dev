@@ -1,14 +1,21 @@
 'use client';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import BlogCard from '../blogs/_components/card/BlogCard';
 import Button from '@/shared/ui/button/Button';
 import Pagination from '@/components/pagination/Pagination';
 import { generateMockBlogs } from '@/data';
-import styles from './_styles/Page.module.css';
 import InpSearch from '@/shared/ui/input/search/InpSearch';
 import useDebounce from '@/hooks/useDebounce';
-import { H1 } from '@/shared/ui/headings';
-import { Funnel, Timer, FunnelX } from 'lucide-react';
+import { H1, H2 } from '@/shared/ui/headings';
+import {
+  Funnel,
+  Timer,
+  FunnelX,
+  SlidersHorizontal,
+  CalendarArrowDown,
+  CalendarArrowUp,
+} from 'lucide-react';
+import { DescAlphOrder, AscAlphOrder } from '@/assets/icons';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import { CATEGORIES } from '@/helpers/constants';
 import { iconStyles } from '@/helpers';
@@ -16,7 +23,9 @@ import Select from '@/shared/ui/input/select/Select';
 import NotFoundComponent from '@/shared/ui/not-found/NotFound';
 import BreadCrumb from '@/shared/ui/breadcrumb/BreadCrumb';
 import SliderInput from '@/shared/ui/input/slider/InpSlider';
-import Swiper from '@/shared/ui/swiper/Swiper';
+import { useIsMounted } from '@/hooks';
+import useClickOutside from '@/hooks/useClickOutside';
+import styles from './_styles/Page.module.css';
 
 const fakeBlogs = generateMockBlogs(50);
 
@@ -27,9 +36,17 @@ const Page = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedSeason, setSelectedSeason] = useState<string>('');
   const [readTime, setReadTime] = useState<number>(1);
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<'alphabetical' | 'date' | ''>('');
+  const [isAscending, setIsAscending] = useState<boolean | null>(null);
+  const drawerRef = useRef<HTMLElement | null>(null);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const debouncedCategorySearchTerm = useDebounce(categorySearchTerm, 500);
+  const isMounted = useIsMounted();
+  useClickOutside(drawerRef, () => {
+    if (isFilterDrawerOpen) setIsFilterDrawerOpen(false);
+  });
 
   const handleSeasonChange = (season: string) => {
     setSelectedSeason(season);
@@ -80,28 +97,42 @@ const Page = () => {
     category.label?.toLowerCase().includes(debouncedCategorySearchTerm.toLowerCase()),
   );
 
-  return (
-    <React.Fragment>
-      {/* --- Hero Section --- */}
-      <section>
-        <div className='container'>
-          <H1>
-            <span className={styles.highlightText}>Latest </span>
-            blogs
-          </H1>
-          <Swiper />
-        </div>
-      </section>
+  const handleSortAlph = (isAsc: boolean) => {
+    setSortBy('alphabetical');
+    setIsAscending(isAsc);
+  };
 
-      {/* --- Main Section of filtering --- */}
+  const handleSortDate = (isAsc: boolean) => {
+    setSortBy('date');
+    setIsAscending(isAsc);
+  };
+
+  const handleOpenFilterDrawer = useCallback(() => {
+    setIsFilterDrawerOpen(true);
+  }, []);
+
+  if (!isMounted) return null;
+
+  return (
+    <>
       <section>
         <div className='container'>
           <H1>Filter Blogs</H1>
-          <BreadCrumb />
-          <div className={styles.heroBox}></div>
+          <BreadCrumb containerClassname={styles.breadcrumbContainer} />
+          {isFilterDrawerOpen && (
+            <div
+              className={styles.backdropBlur}
+              onClick={() => setIsFilterDrawerOpen(false)}
+              aria-hidden='true'
+            />
+          )}
 
           <div className={styles.pageBox}>
-            <aside className={styles.filterBox}>
+            <aside
+              ref={drawerRef}
+              style={{ display: isFilterDrawerOpen ? 'block' : '' }}
+              className={`${styles.filterBox} ${isFilterDrawerOpen ? styles.drawerOpen : ''}`}
+            >
               <div className={styles.verticalBox}>
                 <div className={styles.titleBox}>
                   <Funnel />
@@ -110,6 +141,7 @@ const Page = () => {
                 <InpSearch
                   placeholder='Search by category...'
                   value={categorySearchTerm}
+                  containerClassName={styles.inpCategorySearch}
                   onChange={handleCategoryQueryChange}
                 />
               </div>
@@ -160,6 +192,7 @@ const Page = () => {
               <Button
                 text='Reset filters'
                 icon={<FunnelX {...iconStyles} />}
+                containerClassname={styles.btnResetFilters}
                 onClick={() => {
                   setSearchTerm('');
                   setCategorySearchTerm('');
@@ -170,7 +203,6 @@ const Page = () => {
                 }}
               />
             </aside>
-
             <div className={styles.verticalBox}>
               <InpSearch
                 placeholder='Search blogs by title or snippet...'
@@ -179,6 +211,53 @@ const Page = () => {
                 onChange={handleQueryChange}
                 containerClassName={styles.searchBlogBox}
               />
+              <div className={styles.sortMobileMenu}>
+                <H2>
+                  Explore <span className='highlight-text'>blogs</span>
+                </H2>
+                <div className={styles.sortContainer}>
+                  <SlidersHorizontal
+                    role='button'
+                    className={styles.btnFilterDrawerMenu}
+                    aria-label='Click for opening sorting drawer'
+                    onClick={handleOpenFilterDrawer}
+                  />
+                  <div className={styles.sortBox}>
+                    <CalendarArrowDown
+                      role='button'
+                      aria-label='Sort blogs ascending by date'
+                      color={sortBy === 'date' && isAscending ? 'var(--orange)' : undefined}
+                      onClick={() => handleSortDate(true)}
+                    />
+                    <CalendarArrowUp
+                      role='button'
+                      aria-label='Sort blogs descending by date'
+                      color={
+                        sortBy === 'date' && isAscending === false ? 'var(--orange)' : undefined
+                      }
+                      onClick={() => handleSortDate(false)}
+                    />
+                  </div>
+                  <div className={styles.sortBox}>
+                    <AscAlphOrder
+                      role='button'
+                      aria-label='Sort blogs alphabetically ascending'
+                      color={sortBy === 'alphabetical' && isAscending ? 'var(--orange)' : undefined}
+                      onClick={() => handleSortAlph(true)}
+                    />
+                    <DescAlphOrder
+                      role='button'
+                      aria-label='Sort blogs alphabetically descending'
+                      color={
+                        sortBy === 'alphabetical' && isAscending === false
+                          ? 'var(--orange)'
+                          : undefined
+                      }
+                      onClick={() => handleSortAlph(false)}
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 className={`${paginatedBlogs.length > 0 ? styles.blogsBox : styles.notfound}`}
                 id='blogs-container'
@@ -201,7 +280,7 @@ const Page = () => {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    </>
   );
 };
 

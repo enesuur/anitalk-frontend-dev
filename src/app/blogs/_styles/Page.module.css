@@ -1,12 +1,40 @@
-
 .heroHeader {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-base);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
 }
 
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 72px;
+}
+
+.btnFilter {
+  display: flex;
+  width: max-content;
+  border-radius: var(--border-radius);
+  align-items: center;
+  gap: var(--spacing-sm);
+  border: 1px solid var(--faded-white);
+  padding: var(--spacing-md);
+  color: var(--white);
+  margin: var(--spacing-xl) 0;
+  transition: border-color 0.1s ease-in-out;
+}
+
+.btnFilter:hover {
+  border-color: var(--orange);
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
 }

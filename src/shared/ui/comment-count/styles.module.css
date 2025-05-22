@@ -1,8 +1,6 @@
 .commentBox {
   display: flex;
   align-items: center;
-  color: var(--white);
-  font-weight: 500;
   font-size: var(--font-size-md);
 }
 

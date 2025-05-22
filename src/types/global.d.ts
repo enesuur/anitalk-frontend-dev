@@ -24,7 +24,7 @@ interface IBlog {
   img_url?: string;
   author: string;
   slug: string;
-  read_time: number;
+  read_time?: number;
   label: IBlogLabel;
   comments: IComment[];
 }

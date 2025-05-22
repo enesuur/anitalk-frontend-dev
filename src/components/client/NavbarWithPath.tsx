@@ -1,23 +1,30 @@
 'use client';
 import Navbar from '@/components/ui/navbar/Navbar';
-import NavbarSwitcher from '../nav-switcher/NavSwitcher';
 import { usePathname } from 'next/navigation';
+import { CSSProperties } from 'react';
 
-const absoluteNavbarStyle = {
-  position: 'absolute',
+const absoluteNavbarStyle: CSSProperties = {
+  position: 'fixed',
   top: 0,
   left: 0,
   width: '100vw',
   zIndex: 999,
-  backdropFilter: 'none',
+  backdropFilter: '0px',
   boxShadow: 'none',
   borderBottom: 0,
-} as React.CSSProperties;
+  background: 'none',
+};
 
-const NavbarWithPath: React.FC = () => {
+interface INavbarWithPath {
+  style?: CSSProperties;
+}
+
+const NavbarWithPath: React.FC<INavbarWithPath> = ({ style }) => {
   const pathname = usePathname();
 
-  return <Navbar style={pathname === '/blogs' ? absoluteNavbarStyle : undefined} />;
+  const mergedStyle = pathname === '/blogs' ? { ...style, ...absoluteNavbarStyle } : style;
+
+  return <Navbar style={mergedStyle} />;
 };
 
 export default NavbarWithPath;

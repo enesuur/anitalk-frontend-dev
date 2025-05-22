@@ -1,9 +1,10 @@
 import React from 'react';
-import styles from './RecommendCard.module.css';
-import { truncateWithTrail } from '@/helpers/index';
 import Link from 'next/link';
 import Image from 'next/image';
+import { truncateWithTrail } from '@/helpers/index';
 import getBlurDataURL from '@/lib/base64ph';
+import { H3 } from '@/shared/ui/headings';
+import styles from './RecommendCard.module.css';
 
 interface IRecommendCardProps {
   _id: string;
@@ -18,15 +19,13 @@ const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCar
 
   const blurUrl = await getBlurDataURL(img_url);
   return (
-    <Link href={`/${slug}`} className={styles.container}>
+    <Link href={`/blogs/${slug}`} className={styles.cardBox}>
       <figure>
         <picture>
           <Image
-            src={img_url || '/img/bg-cover.webp'}
-            alt={title}
+            src={img_url}
+            alt={`${title}'s photo`}
             fill={true}
-            objectFit={'cover'}
-            objectPosition={'center'}
             quality={90}
             placeholder={'blur'}
             blurDataURL={blurUrl}
@@ -35,7 +34,7 @@ const RecommendCard: React.FC<IRecommendCardProps> = async (props: IRecommendCar
       </figure>
 
       <div className={styles.cardContent}>
-        <h3>{truncateWithTrail(title, 50) || 'Awesome Blog Title'}</h3>
+        <H3 style={{ margin: '0' }}>{truncateWithTrail(title, 50) || 'Awesome Blog Title'}</H3>
         <span>{date ? date.toDateString() : new Date().toDateString()}</span>
       </div>
     </Link>

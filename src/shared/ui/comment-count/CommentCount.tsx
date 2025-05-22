@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import styles from './styles.module.css';
 import { H2 } from '../headings';
 import { MessageCircleHeart } from 'lucide-react';
+import styles from './styles.module.css';
 
 interface ICommentCount {
   count: number | null;

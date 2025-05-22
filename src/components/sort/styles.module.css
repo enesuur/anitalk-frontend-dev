@@ -35,3 +35,12 @@
   background-color: var(--orange);
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .sortBox {
+    width: 100%;
+  }
+  .optionsWrapper {
+    margin-left: auto;
+  }
+}

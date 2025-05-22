@@ -11,15 +11,15 @@ import Image from 'next/image';
 import getBlurDataURL from '@/lib/base64ph';
 import Comment from '@/components/comment/Comment';
 import ReadProgressBar from '@/shared/ui/progress/ReadProgress';
-import { H1, H2, H3 } from '@/shared/ui/headings';
+import { H1, H2 } from '@/shared/ui/headings';
 import clsx from '@/lib/cn';
 import CommentCount from '@/shared/ui/comment-count/CommentCount';
 import LatestBlogCard from '@/shared/ui/cards/latest-blog/LatestBlogCard';
 import Sort from '@/components/sort/Sort';
-import { faker, Faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { PLACE_HOLDERS } from '@/helpers/constants';
-import styles from './Page.module.css';
 import { iconStyles } from '@/helpers';
+import styles from './Page.module.css';
 
 const mockBlogs = generateMockBlogs(5);
 const mockComments = generateMockComments(5);
@@ -170,13 +170,15 @@ const Page: React.FC = async () => {
           </article>
 
           <div className={styles.recommendBox}>
-            <H2>You may interest</H2>
+            <H2 className={styles.interestTextHeader}>
+              You may <span className='highlight-text'>interest</span>
+            </H2>
             {mockBlogs.map((blog: Partial<IBlog>, index: number) => (
               <RecommendCard
                 key={index}
                 title={blog.title || 'Default Title'}
                 date={blog.date || new Date()}
-                img_url={blog.img_url || 'default-image-url.jpg'}
+                img_url={blog.img_url || PLACE_HOLDERS.background_cover_url}
                 slug={blog.slug || 'Test'}
                 _id={blog._id || 'Test'}
               />
@@ -185,21 +187,17 @@ const Page: React.FC = async () => {
         </div>
       </section>
 
-      <section>
-        <div className='container'></div>
-      </section>
-
       {/* TODO: no need so much props only blog object.*/}
       {/* --- Blog Recommendation for web --- */}
       <div className='container'>
         <div className={styles.latestBlogContainer}>
-          <H2>
+          <H2 className={styles.latestBlogTextHeader}>
             People also <span className='highlight-text'>read </span>
             related blogs
           </H2>
-          {mockBlogs.map((item: Partial<IBlog>, index: number) => (
+          {mockBlogs.map((item: Partial<IBlog>) => (
             <LatestBlogCard
-              key={item._id || index}
+              key={item._id}
               _id={item._id ?? ''}
               title={item.title ?? ''}
               snippet={item.snippet ?? ''}
@@ -217,12 +215,12 @@ const Page: React.FC = async () => {
         </div>
       </div>
 
-      <Divider text={'Comments'} containerClassname={'container'} style={{ margin: '0 auto' }} />
       {/* --- Comment Section --- */}
 
       {/* TODO: Functionality. */}
       <section>
         <div className='container'>
+          <Divider text={'Comments'} containerClassname={styles.dividerLine} />
           <div className={styles.commentsHeaderBox}>
             <CommentCount count={32} />
             <Sort />
