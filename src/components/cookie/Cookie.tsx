@@ -5,6 +5,8 @@ import Button from '@/shared/ui/button/Button';
 import Link from 'next/link';
 import styles from './styles.module.css';
 
+// TODO: REFACTOR !!!
+
 const COOKIE_KEY = 'cookie_consent_accepted';
 
 const Cookie = () => {

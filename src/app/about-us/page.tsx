@@ -6,11 +6,36 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from '@/lib/cn';
-import styles from './_styles/page.module.css';
 import { iconStyles } from '@/helpers';
 import { Link as ScrollLink } from 'react-scroll';
+import styles from './_styles/page.module.css';
 
+/* CONSTANTS */
 const MARGIN_BOTTOM: string = '192px';
+const ONBOARDING_IMAGE_URLS = {
+  welcome: {
+    src: '/img/onboarding.webp',
+    alt: 'Anitalk Community',
+  },
+  enjoy: {
+    src: '/img/enjoy.webp',
+    alt: 'Anitalk Features',
+  },
+  community: {
+    src: '/img/community.webp',
+    alt: 'Anitalk Community',
+  },
+  tinkering: {
+    src: '/img/tinkering.webp',
+    alt: 'Join Anitalk',
+  },
+} as const;
+
+const MOTION_CONFIG = {
+  initial: { opacity: 1 },
+  whileInView: { opacity: 1 },
+  exit: { opacity: 0 },
+} as const;
 
 const ParallaxSection = ({
   imageSrc,
@@ -28,7 +53,7 @@ const ParallaxSection = ({
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    offset: ['start end', `end -92px`],
   });
 
   const yText = useTransform(scrollYProgress, [0, 1], ['0%', '-10%']);
@@ -40,9 +65,9 @@ const ParallaxSection = ({
       ref={ref}
       id={`section${sectionId}`}
       style={{ marginBottom: MARGIN_BOTTOM }}
-      initial={{ opacity: 1 }}
-      whileInView={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={MOTION_CONFIG.initial}
+      whileInView={MOTION_CONFIG.whileInView}
+      exit={MOTION_CONFIG.exit}
     >
       <div className='container'>
         <div className={clsx(styles.horizontalBox, imageLeft ? styles.leftBox : styles.rightBox)}>
@@ -51,15 +76,13 @@ const ParallaxSection = ({
           </motion.div>
 
           <motion.picture
+            className={styles.sectionImageWrapper}
             style={{
               y: yImage,
               opacity,
-              position: 'relative',
-              width: '50%',
-              height: 'calc(80vh - 32px)',
             }}
           >
-            <Image src={imageSrc} alt={alt} fill />
+            <Image src={imageSrc} alt={alt} fill priority={true} loading={'eager'} quality={90} />
           </motion.picture>
         </div>
       </div>
@@ -69,11 +92,11 @@ const ParallaxSection = ({
 
 const Page = () => {
   return (
-    <>
+    <React.Fragment>
       <ParallaxSection
         sectionId={1}
-        imageSrc='/img/onboarding.webp'
-        alt='Anitalk Community'
+        imageSrc={ONBOARDING_IMAGE_URLS.welcome.src}
+        alt={ONBOARDING_IMAGE_URLS.welcome.alt}
         imageLeft
       >
         <H1>What is anitalk?</H1>
@@ -85,23 +108,22 @@ const Page = () => {
           obsessed with but also to really dive into their work with fellow fans.
         </p>
         <ScrollLink
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--spacing-sm)',
-            cursor: 'pointer',
-            textDecoration: 'none',
-          }}
+          className={styles.scrollLink}
           to='section2'
           smooth={true}
           duration={1000}
+          offset={-92}
         >
-          <span>Next Section</span>
+          <span aria-label='Go to next section'>Next Section</span>
           <ArrowRight />
         </ScrollLink>
       </ParallaxSection>
 
-      <ParallaxSection sectionId={2} imageSrc='/img/enjoy.webp' alt='Anitalk Features'>
+      <ParallaxSection
+        sectionId={2}
+        imageSrc={ONBOARDING_IMAGE_URLS.enjoy.src}
+        alt={ONBOARDING_IMAGE_URLS.enjoy.alt}
+      >
         <H2>Voice of the Fans</H2>
         <div>
           <H3>Creator Reviews</H3>
@@ -125,26 +147,21 @@ const Page = () => {
           </p>
         </div>
         <ScrollLink
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--spacing-sm)',
-            cursor: 'pointer',
-            textDecoration: 'none',
-          }}
+          className={styles.scrollLink}
           to='section3'
           smooth={true}
           duration={1000}
+          offset={-92}
         >
-          <span>Next Section</span>
+          <span aria-label='Go to next section'>Next Section</span>
           <ArrowRight />
         </ScrollLink>
       </ParallaxSection>
 
       <ParallaxSection
         sectionId={3}
-        imageSrc='/img/community.webp'
-        alt='Anitalk Community'
+        imageSrc={ONBOARDING_IMAGE_URLS.community.src}
+        alt={ONBOARDING_IMAGE_URLS.community.alt}
         imageLeft
       >
         <H2>Why Anitalk?</H2>
@@ -153,48 +170,47 @@ const Page = () => {
           space to:
         </p>
         <ul className={styles.listBox}>
-          <li className={styles.rowBox}>
+          <li className={clsx(styles.rowBox, styles.mobileListRow)}>
             <Share {...iconStyles} />
             Share their perspectives.
           </li>
-          <li className={styles.rowBox}>
+          <li className={clsx(styles.rowBox, styles.mobileListRow)}>
             <Compass {...iconStyles} />
             Discover new content.
           </li>
-          <li className={styles.rowBox}>
+          <li className={clsx(styles.rowBox, styles.mobileListRow)}>
             <HeartHandshake {...iconStyles} />
             Engage in discussions.
           </li>
-          <li className={styles.rowBox}>
+          <li className={clsx(styles.rowBox, styles.mobileListRow)}>
             <Earth {...iconStyles} />
             Connect with others.
           </li>
         </ul>
         <ScrollLink
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--spacing-sm)',
-            cursor: 'pointer',
-            textDecoration: 'none',
-          }}
+          className={styles.scrollLink}
           to='section4'
           smooth={true}
           duration={1000}
+          offset={-92}
         >
-          <span>Next Section</span>
+          <span aria-label='Go to next section'>Next Section</span>
           <ArrowRight />
         </ScrollLink>
       </ParallaxSection>
 
-      <ParallaxSection sectionId={4} imageSrc='/img/tinkering.webp' alt='Join Anitalk'>
+      <ParallaxSection
+        sectionId={4}
+        imageSrc={ONBOARDING_IMAGE_URLS.tinkering.src}
+        alt={ONBOARDING_IMAGE_URLS.tinkering.alt}
+      >
         <div className={styles.verticalBox}>
           <H2>Ready to Join?</H2>
           <p>Anitalk is your space to celebrate, critique, and connect.</p>
           <Link href='/auth/sign-up'>Get Started!</Link>
         </div>
       </ParallaxSection>
-    </>
+    </React.Fragment>
   );
 };
 

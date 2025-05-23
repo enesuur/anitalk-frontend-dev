@@ -48,6 +48,8 @@ const ContactForm = () => {
     },
   });
 
+  // TODO: GLOBAL TOAST PROVIDER & ENDPOINTS ENUM CONVERSION USE EAGER WITH IMAGE API!!!
+
   const mutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       const trimmedData = {

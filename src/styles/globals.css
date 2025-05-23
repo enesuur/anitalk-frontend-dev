@@ -237,6 +237,7 @@ i {
 @media (max-width: 768px) {
   .container {
     max-width: 768px;
+    padding: 0 var(--spacing-base);
   }
 }
 

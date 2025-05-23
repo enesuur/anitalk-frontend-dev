@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '@/components/ui/navbar/Navbar';
+import NavSwitcher from '@/components/nav-switcher/NavSwitcher';
 import Footer from '@/components/ui/footer/Footer';
 import styles from './_styles/layout.module.css';
 import type { Metadata } from 'next';
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
-      <Navbar />
+      <NavSwitcher />
       <main className={styles.layout}>{children}</main>
       <Footer />
     </React.Fragment>

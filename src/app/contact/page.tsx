@@ -28,6 +28,8 @@ const SOCIAL_ITEMS: readonly ISocialCardProps[] = [
   },
 ];
 
+// TODO: SLOW IMAGE ISSUES PUBLIC!!
+
 /* 24 HOURS CACHING! */
 export const revalidate = 86400;
 
